@@ -1,0 +1,29 @@
+# GPS Setup Instructions for Arch Linux
+
+1. Install dependencies:
+   sudo pacman -S gpsd python-pip
+   pip install gps3
+
+2. Create fixed GPS device name (optional but recommended):
+   sudo nano /etc/udev/rules.d/99-gps.rules
+   # Add this line (replace XXXX and YYYY with actual ID from `lsusb`)
+   SUBSYSTEM=="tty", ATTRS{idVendor}=="XXXX", ATTRS{idProduct}=="YYYY", SYMLINK+="gps0"
+   sudo udevadm control --reload
+
+3. Configure GPSD to use the correct device:
+   sudo nano /etc/conf.d/gpsd
+   # Add this line:
+   GPSD_ARGS="-n /dev/gps0"
+
+4. Enable GPSD at boot:
+   sudo systemctl disable gpsd.socket
+   sudo systemctl enable gpsd
+   sudo systemctl start gpsd
+
+Now gpsd will autostart and connect to the GPS on boot.
+
+
+# OPTIONAL TEST
+sudo systemctl start gpsd
+cgps
+

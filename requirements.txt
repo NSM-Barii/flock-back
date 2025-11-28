@@ -1,0 +1,7 @@
+rich
+pyfiglet
+requests
+scapy
+bleak
+pathlib
+gps3
