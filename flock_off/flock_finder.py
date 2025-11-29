@@ -20,7 +20,7 @@ from scapy.layers.dot11 import Dot11, Dot11Beacon, Dot11Elt, Dot11Deauth, Dot11P
 
 
 # ETC IMPORTS
-import time, asyncio, threading
+import time, asyncio, threading, subprocess
 
 
 # NSM SAME-MODULE IMPORTS
@@ -192,6 +192,31 @@ class BLE_Sniffer():
 
 
 
+    @classmethod
+    def _reset_ble(cls, duration=2.5, verbose=False):
+        """This will be called upon to fix ble crashing issues"""
+
+
+        if  time.time() - cls.last_flush > duration * 60:
+
+
+            subprocess.run(["sudo", "hciconfig", "hci0", "down"])
+            subprocess.run(["sudo", "hciconfig", "hci0", "up"])
+
+            cls.last_flush = time.time()
+
+            if verbose: console.print("[+] BLE FLushed", style="bold green")
+        
+        #console.print(cls.last_flush)
+
+    
+    @staticmethod
+    async def _pause_ble():
+        """Small delay to stop congestion"""
+
+        await asyncio.sleep(0.1)
+
+
     @staticmethod
     async def _discover(timeout):
         """internal scanner"""
@@ -209,9 +234,12 @@ class BLE_Sniffer():
 
         
         devices = asyncio.run(BLE_Sniffer._discover(timeout=timeout))
+        asyncio.run(BLE_Sniffer._pause_ble())
 
 
         if not devices: return
+
+        BLE_Sniffer._reset_ble()
 
         
 
@@ -270,6 +298,7 @@ class BLE_Sniffer():
         # VARS
         cls.verbose = verbose
         scans = 1
+        cls.last_flush = time.time()
         cls.ble_devices = []
         cls.ai_cameras = []
 
@@ -361,6 +390,10 @@ class WiFi_Sniffer():
                     console.print(f"Attempt #{attempts}")
 
                 sniff(iface=iface, store=0, prn=WiFi_Sniffer._packet_parser)
+            
+
+            except OSError as e:
+                console.print(f"[bold red]OS Error:[bold yellow] {e}")
 
             
             except KeyboardInterrupt as e:
