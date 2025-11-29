@@ -426,25 +426,21 @@ class Utilities():
         """This will be used to get live gps cords"""
 
 
-        gps_socket = gps3.gps3.GPSDSocket()
+        gps_socket = gps3.GPSDSocket()
         data_stream = gps3.DataStream()
         gps_socket.connect()
         gps_socket.watch()
 
 
-        for _ in range(timeout *2):
+        for new_data in gps_socket:
+
             try:
 
-                new_data = next(gps_socket)
                 if new_data:
                     data_stream.unpack(new_data)
-                    lat = data_stream.TPV.get('lat', None)
-                    lon = data_stream.TPV.get('lon', None)            
-                    alt = data_stream.TPV.get('alt', None)
-
-                    if lat is not None and lon is not None:
-                        return round(lat, 6), round(lon, 6), round(alt, 2) if alt else None
-            
+                    print('Altitude = ', data_stream.TPV['alt'])
+                    print('Latitude = ', data_stream.TPV['lat'])
+                        
             except StopIteration:
                 break
 
@@ -453,7 +449,7 @@ class Utilities():
                     console.print(f"[bold red]GPS Exception Error: {e}")
                 time.sleep(0.5)
                 continue
-                
+                    
 
 
         return None, None
@@ -481,8 +477,8 @@ class Utilities():
 
         if help: Utilities._help_menu();  parser.print_help(); exit()
         if iface: Utilities._get_monitor_mode(iface=iface)
-        #lat, lon, alt = Utilities._get_gps_cords()
-        #console.print(lat, lon, alt); exit()
+       # lat, lon, alt = Utilities._get_gps_cords()
+      #  console.print(lat, lon, alt); exit()
 
         return iface, gps
     

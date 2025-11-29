@@ -210,13 +210,18 @@ class BLE_Sniffer():
         
         devices = asyncio.run(BLE_Sniffer._discover(timeout=timeout))
 
+
+        if not devices: return
+
         
-        # PARSE DATA
-        for mac, (device, adv) in devices.items():
 
-            try:
+        try:
 
-                if mac not in cls.ble_devices: 
+            # PARSE DATA
+            for mac, (device, adv) in devices.items():
+
+
+                if mac not in cls.ble_devices and adv:  
 
                     cls.ble_devices.append(mac)
                     
@@ -244,13 +249,17 @@ class BLE_Sniffer():
                     if cls.verbose:
                         console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
                 
-                            
-            except KeyboardInterrupt as e:
-                console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+                        
+        except KeyboardInterrupt as e:
+            console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+        
+        except Exception as e:
+            console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+
+
+ 
             
-            except Exception as e:
-                console.print(f"[bold red]Exception Error:[bold yellow] {e}")
-    
+
         
          
     @classmethod
