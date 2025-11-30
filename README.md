@@ -1,4 +1,8 @@
-# FlockBack — Wireless Scanner for AI-Powered LPR Cameras
+# FlockBack — AI Camera Detection Toolkit (BLE + Wi-Fi)
+<img width="1536" height="1024" alt="a961a9c5-7d97-4373-a757-49fd88c69ace" src="https://github.com/user-attachments/assets/0a58884d-210f-42b4-be74-9c82834f8b40" />
+
+
+
 
 FlockBack is a lightweight Python tool for detecting **AI-powered license plate reader (LPR) cameras** such as Flock Safety, Raven, Penguin, PigVision, and similar vendors.
 
