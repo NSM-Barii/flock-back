@@ -63,7 +63,7 @@ python3 Flockback.py -i wlan1
 - Bluetooth adapter  
 - Wi-Fi adapter with monitor mode (optional)
 - BlueZ (required for BLE scanning)
-- Python libraries: Bleak, Scapy, gps3 (optional for GPS)
+- Python libraries: Bleak, Scapy, gps3 (optional for GPS) & requirements.txt
 
 If BlueZ dependencies are missing, check:
 
