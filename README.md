@@ -24,7 +24,7 @@ The project is **actively in development**, and contributors are welcome — esp
 
 ### Help Menu
 ```bash
-python3 FlockBack.py -h
+python3 Flockback.py -h
 ```
 
 ---
@@ -32,7 +32,7 @@ python3 FlockBack.py -h
 ### BLE-Only Mode (default)
 Run with no arguments:
 ```bash
-python3 FlockBack.py
+python3 Flockback.py
 ```
 This launches BLE scanning only (no Wi-Fi required).
 
@@ -40,7 +40,7 @@ This launches BLE scanning only (no Wi-Fi required).
 
 ### BLE + Wi-Fi Mode
 ```bash
-python3 FlockBack.py -i wlan0
+python3 Flockback.py -i wlan0
 ```
 
 **Flags:**
@@ -52,7 +52,7 @@ python3 FlockBack.py -i wlan0
 
 Example:
 ```bash
-python3 FlockBack.py -i wlan1
+python3 Flockback.py -i wlan1
 ```
 
 ---
