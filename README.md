@@ -63,7 +63,7 @@ python3 Flockback.py -i wlan1
 - Bluetooth adapter  
 - Wi-Fi adapter with monitor mode (optional)
 - BlueZ (required for BLE scanning)
-- Python libraries: Bleak, Scapy, gps3 (optional for GPS) & requirements.txt
+- requirements.txt
 
 If BlueZ dependencies are missing, check:
 
@@ -77,8 +77,8 @@ setup_ble.txt
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/NSM-Barii/FlockBack
-cd FlockBack
+git clone https://github.com/NSM-Barii/Flockback
+cd Flockback
 ```
 
 ### 2. Create and activate a virtual environment
