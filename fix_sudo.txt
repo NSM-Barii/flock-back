@@ -1,7 +1,0 @@
-# HAD A RANDOM ISSUE WHERE MY PASSWD STOP WORKING HERES THE FIX
-
-
-
-# ASSUMING THAT U CAN ACTUALLY SE SUDO AGAIN
-sudo systemctl restart systemd-hostnamed
-sudo systemctl restart dbus
