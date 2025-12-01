@@ -28,7 +28,7 @@ The project is **actively in development**, and contributors are welcome — esp
 
 ### Help Menu
 ```bash
-python3 Flockback.py -h
+python3 flock-back.py -h
 ```
 
 ---
@@ -44,7 +44,7 @@ This launches BLE scanning only (no Wi-Fi required).
 
 ### BLE + Wi-Fi Mode
 ```bash
-python3 Flockback.py -i wlan0
+python3 flock-back.py -i wlan0
 ```
 
 **Flags:**
@@ -56,7 +56,7 @@ python3 Flockback.py -i wlan0
 
 Example:
 ```bash
-python3 Flockback.py -i wlan1
+python3 flock-back.py -i wlan1
 ```
 
 ---
@@ -82,7 +82,7 @@ setup_ble.txt
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/NSM-Barii/Flockback
-cd Flockback
+cd flock-back
 ```
 
 ### 2. Create and activate a virtual environment
