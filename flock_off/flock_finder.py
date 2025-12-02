@@ -286,7 +286,7 @@ class BLE_Sniffer():
                         "manufacturer": manufacturer,
                         "services": services
                     }
-
+                    #Main_Thread.ai_cameras_all["ble"].append(data)
 
                     # ARE YOU FLOCK or AI ??? 
                     with LOCK:
