@@ -490,8 +490,9 @@ class Main_Thread():
             while True: 
                 all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
                 data = {}
-                for k, v in all:
-                    data[k] = v
+                num = 0
+                for node in all:
+                    num += 1; data[num] = node
                 print(data)
                 Recon_Pusher.push_war(save_data=all, CONSOLE=console)
                 time.sleep(5)
