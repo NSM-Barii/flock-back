@@ -290,7 +290,8 @@ class BLE_Sniffer():
 
                     # ARE YOU FLOCK or AI ??? 
                     with LOCK:
-                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=services): return
+                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=services): 
+                            Main_Thread.ai_cameras_all["ble"] = data; return
                             
                     
                     if cls.verbose:
@@ -391,6 +392,7 @@ class WiFi_Sniffer():
                     
                     cls.beacons.append(ssid)
                     cls.macs.append(addr2)
+                    Main_Thread.ai_cameras_all["wifi"] = data
 
                     with LOCK:
                         if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=addr2, ble_name=False, uuid=False): return
@@ -470,7 +472,7 @@ class Main_Thread():
     def main(cls, iface, verbose):
         """Get shit done"""
 
-        cls.BACKGROUND = True
+        cls.BACKGROUND = True; cls.ai_cameras_all = {}
         Recon_Pusher.main()
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
@@ -489,11 +491,8 @@ class Main_Thread():
         try:                           # PUSH UPDATE
             while True: 
                 all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
-                data = {}
-                num = 0
-                for node in all:
-                    num += 1; data[num] = node
-                print(data)
+
+                print(cls.ai_cameras_all)
                 Recon_Pusher.push_war(save_data=all, CONSOLE=console)
                 time.sleep(5)
             
