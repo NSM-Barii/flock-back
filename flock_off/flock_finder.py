@@ -489,7 +489,7 @@ class Main_Thread():
         try:                           # PUSH UPDATE
             while True: 
                 all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
-                Recon_Pusher.push_war(save_data=all)
+                Recon_Pusher.push_war(save_data=all, CONSOLE=console)
                 time.sleep(5)
             
             
