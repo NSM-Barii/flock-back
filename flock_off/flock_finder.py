@@ -291,7 +291,7 @@ class BLE_Sniffer():
                     # ARE YOU FLOCK or AI ??? 
                     with LOCK:
                         if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=services): 
-                            Main_Thread.ai_cameras_all["ble"].add(data); return
+                            Main_Thread.ai_cameras_all["ble"].append(data); return
                             
                     
                     if cls.verbose:
@@ -392,7 +392,7 @@ class WiFi_Sniffer():
                     
                     cls.beacons.append(ssid)
                     cls.macs.append(addr2)
-                    Main_Thread.ai_cameras_all["wifi"].add(data)
+                    Main_Thread.ai_cameras_all["wifi"].append(data)
 
                     with LOCK:
                         if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=addr2, ble_name=False, uuid=False): return
