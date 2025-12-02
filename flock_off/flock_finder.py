@@ -196,12 +196,14 @@ class BLE_Sniffer():
     def _reset_ble(cls, duration=2.5, verbose=False):
         """This will be called upon to fix ble crashing issues"""
 
+        command = "bluetoothctl"
+
 
         if  time.time() - cls.last_flush > duration * 60:
 
 
-            subprocess.run(["sudo", "hciconfig", "hci0", "down"])
-            subprocess.run(["sudo", "hciconfig", "hci0", "up"])
+            subprocess.run(["sudo", f"{command}", "power", "off"])
+            subprocess.run(["sudo", f"{command}", "power", "on"])
 
             cls.last_flush = time.time()
 
@@ -211,10 +213,10 @@ class BLE_Sniffer():
 
     
     @staticmethod
-    async def _pause_ble():
+    async def _pause_ble(duration=1):
         """Small delay to stop congestion"""
 
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(duration)
 
 
     @staticmethod
@@ -239,7 +241,7 @@ class BLE_Sniffer():
 
         if not devices: return
 
-        BLE_Sniffer._reset_ble()
+        #BLE_Sniffer._reset_ble()
 
         
 
@@ -269,7 +271,7 @@ class BLE_Sniffer():
                     }
 
 
-                    # ARE YOU FLOCK or AI ???
+                    # ARE YOU FLOCK or AI ??? 
                     with LOCK:
                         if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=services): return
                             
@@ -282,7 +284,11 @@ class BLE_Sniffer():
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
         
         except Exception as e:
-            console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+            console.print(f"[bold red]Exception Error:[bold yellow] {e}"); return
+
+            
+            BLE_Sniffer._pause_ble(duration=5)
+            BLE_Sniffer._reset_ble()
 
 
  

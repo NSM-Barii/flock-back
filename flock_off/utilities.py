@@ -477,7 +477,7 @@ class Utilities():
 
         if help: Utilities._help_menu();  parser.print_help(); exit()
         if iface: Utilities._get_monitor_mode(iface=iface)
-       # lat, lon, alt = Utilities._get_gps_cords()
+       #  lat, lon, alt = Utilities._get_gps_cords()
       #  console.print(lat, lon, alt); exit()
 
         return iface, gps
