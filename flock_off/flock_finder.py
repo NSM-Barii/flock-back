@@ -472,7 +472,9 @@ class Main_Thread():
     def main(cls, iface, verbose):
         """Get shit done"""
 
-        cls.BACKGROUND = True; cls.ai_cameras_all = {}
+        cls.BACKGROUND = True; cls.ai_cameras_all = {"wifi": {},
+                                                     "ble": {}
+                                                     }
         Recon_Pusher.main()
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
