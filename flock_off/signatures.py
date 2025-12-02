@@ -52,6 +52,7 @@ FLOCK_SIGNATURES = {
         "Penguin",         # Penguin surveillance devices
         "Flock",           # Standard Flock Safety devices
         "Pigvision"        # Pigvision surveillance systems
+        #"Govee"
     ],
 
     

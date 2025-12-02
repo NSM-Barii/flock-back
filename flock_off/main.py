@@ -19,7 +19,7 @@ class Main_UI():
         #Utilities.welcome_ui(iface=iface, text=" FLOCK \nDriving")
 
 
-        iface, gps = Utilities.get_args()
+        iface, gps, verbose = Utilities.get_args()
 
 
         Utilities.clear_screen()
@@ -27,7 +27,7 @@ class Main_UI():
         #iface = Utilities.get_interface(); print('')
 
 
-        Main_Thread.main(iface=iface, verbose=False)
+        Main_Thread.main(iface=iface, verbose=verbose)
 
         print()
 
