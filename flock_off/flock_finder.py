@@ -490,12 +490,12 @@ class Main_Thread():
             time.sleep(0.1); console.print(f"\n[bold red][-] Killing Background Threads.....\n")
             
             console.print('[bold red] =====  Found AI Cameras  ===== \n')
-            total = len(BLE_Sniffer.ai_cameras); total += len(WiFi_Sniffer.ai_cameras)
-            console.print(f"[bold green]Total AI Cameras:[/bold green] {total}\n[bold yellow]BLE:[/bold yellow] {len(BLE_Sniffer.ai_cameras)}\n[bold yellow]WiFi:[/bold yellow] {len(WiFi_Sniffer.ai_cameras)}")
+            total = len(BLE_Sniffer.ai_cameras); total += len(WiFi_Sniffer.ai_cameras); minutes = total / 60
+            console.print(f"[bold yellow]BLE:[/bold yellow] {len(BLE_Sniffer.ai_cameras)}\n[bold yellow]WiFi:[/bold yellow] {len(WiFi_Sniffer.ai_cameras)}\n[bold green]Total AI Cameras:[/bold green] {total}")
             console.print(f"\n[bold yellow]BLE_Sniffer:[/bold yellow] {BLE_Sniffer.ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {WiFi_Sniffer.ai_cameras}")
              
 
-            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds\n[bold green]Timestamp:[bold yellow] {time_stamp}")
+            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
 
 
 
