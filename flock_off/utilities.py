@@ -468,19 +468,21 @@ class Utilities():
         parser.add_argument("-h", action="store_true", help="Display help, usage info, and project banner")
         parser.add_argument("-i", required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
         parser.add_argument("-g", required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)" )      
+        parser.add_argument("-v", required=False, action="store_true",help="Verbose mode, where more information is shown on non AI Cameras the devices in your surround.")
 
 
         args = parser.parse_args()
         iface = args.i or False
         gps =   args.g or False
         help =  args.h or False
+        verbose = args.v or False
 
         if help: Utilities._help_menu();  parser.print_help(); exit()
         if iface: Utilities._get_monitor_mode(iface=iface)
        # lat, lon, alt = Utilities._get_gps_cords()
       #  console.print(lat, lon, alt); exit()
 
-        return iface, gps
+        return iface, gps, verbose
     
 
 

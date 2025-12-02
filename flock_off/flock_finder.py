@@ -21,6 +21,7 @@ from scapy.layers.dot11 import Dot11, Dot11Beacon, Dot11Elt, Dot11Deauth, Dot11P
 
 # ETC IMPORTS
 import time, asyncio, threading, subprocess
+from datetime import datetime
 
 
 # NSM SAME-MODULE IMPORTS
@@ -192,6 +193,19 @@ class BLE_Sniffer():
 
 
 
+    @staticmethod
+    def _clean_manuf(manuf):
+        """clean manuf data"""
+
+        manuf_new = {}
+
+        for cid, payload in manuf.items():
+
+            manuf_new[cid] = payload.hex()
+            console.print(cid, payload)
+
+
+
     @classmethod
     def _reset_ble(cls, duration=2.5, verbose=False):
         """This will be called upon to fix ble crashing issues"""
@@ -238,7 +252,7 @@ class BLE_Sniffer():
 
 
         if not devices: return
-
+ 
         BLE_Sniffer._reset_ble()
 
         
@@ -252,6 +266,9 @@ class BLE_Sniffer():
                 if mac not in cls.ble_devices and adv:  
 
                     cls.ble_devices.append(mac)
+                    
+                    #manuf = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data)
+
                     
 
                     # STORE VARS
@@ -282,11 +299,11 @@ class BLE_Sniffer():
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
         
         except Exception as e:
-            console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+            console.print(f"[bold red]BLE Exception Error:[bold yellow] {e}")
 
+            BLE_Sniffer._reset_ble(duration=5)
 
- 
-            
+            return           
 
         
          
@@ -322,6 +339,14 @@ class WiFi_Sniffer():
     """This class will be responsible for finding wifi devices"""
 
     done = False
+    
+
+    @classmethod
+    def _reset_adapter(cls, iface):
+        """This will be responsible for bringing back up and resetting the adapter"""
+
+
+        Utilities._get_monitor_mode(iface=iface)
 
 
     @classmethod
@@ -366,12 +391,13 @@ class WiFi_Sniffer():
 
                     if cls.verbose:
                         console.print(f"[bold red][-] Non AI Camera (WiFi):[bold yellow] {data}")
+                
+                
         
         
         if  Main_Thread.BACKGROUND: threading.Thread(target=_parser, args=(), daemon=True).start()
         if not cls.done and not Main_Thread.BACKGROUND: cls.done = True; return KeyboardInterrupt
         
-
 
     @classmethod
     def _wifi_scan(cls, iface):
@@ -389,11 +415,15 @@ class WiFi_Sniffer():
                 if cls.verbose:
                     console.print(f"Attempt #{attempts}")
 
-                sniff(iface=iface, store=0, prn=WiFi_Sniffer._packet_parser)
+                sniff(iface=iface, store=0, prn=WiFi_Sniffer._packet_parser, timeout=15); time.sleep(0.5)
             
 
             except OSError as e:
                 console.print(f"[bold red]OS Error:[bold yellow] {e}")
+
+                WiFi_Sniffer._reset_adapter(iface=iface); time.sleep(5)        #BLE_Sniffer._reset_ble()
+                # from main import Main_UI; Main_UI.main_menu()
+                
 
             
             except KeyboardInterrupt as e:
@@ -409,7 +439,7 @@ class WiFi_Sniffer():
     def main(cls, iface, verbose=True):
         """This method will be responsible for running wifi_scan <-- """
 
-        # VARS
+          # VARS
         cls.verbose = verbose
         cls.macs = []
         cls.beacons = []
@@ -436,6 +466,8 @@ class Main_Thread():
         """Get shit done"""
 
         cls.BACKGROUND = True
+        time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
+        console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
 
 
         # WIFI SNIFFER
@@ -454,10 +486,16 @@ class Main_Thread():
         except KeyboardInterrupt as e:
 
             cls.BACKGROUND = False
+            time_duration = time.time() - time_start
             time.sleep(0.1); console.print(f"\n[bold red][-] Killing Background Threads.....\n")
             
             console.print('[bold red] =====  Found AI Cameras  ===== \n')
-            console.print(f"[bold yellow]BLE_Sniffer:[/bold yellow] {BLE_Sniffer.ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {WiFi_Sniffer.ai_cameras}")
+            total = len(BLE_Sniffer.ai_cameras); total += len(WiFi_Sniffer.ai_cameras)
+            console.print(f"[bold green]Total AI Cameras:[/bold green] {total}\n[bold yellow]BLE:[/bold yellow] {len(BLE_Sniffer.ai_cameras)}\n[bold yellow]WiFi:[/bold yellow] {len(WiFi_Sniffer.ai_cameras)}")
+            console.print(f"\n[bold yellow]BLE_Sniffer:[/bold yellow] {BLE_Sniffer.ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {WiFi_Sniffer.ai_cameras}")
+             
+
+            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds\n[bold green]Timestamp:[bold yellow] {time_stamp}")
 
 
 
