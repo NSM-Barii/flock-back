@@ -36,7 +36,7 @@ python3 flock-back.py -h
 ### BLE-Only Mode (default)
 Run with no arguments:
 ```bash
-python3 Flockback.py
+python3 flock-back.py
 ```
 This launches BLE scanning only (no Wi-Fi required).
 
@@ -81,7 +81,7 @@ setup_ble.txt
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/NSM-Barii/Flockback
+git clone https://github.com/NSM-Barii/flock-back
 cd flock-back
 ```
 
