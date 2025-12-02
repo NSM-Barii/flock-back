@@ -26,7 +26,7 @@ from datetime import datetime
 
 # NSM SAME-MODULE IMPORTS
 from signatures import FLOCK_SIGNATURES
-from utilities import Utilities, Background_Threads
+from utilities import Utilities, Background_Threads, Recon_Pusher
 
 
 
@@ -254,13 +254,8 @@ class BLE_Sniffer():
 
 
         if not devices: return
-<<<<<<< HEAD
 
         #BLE_Sniffer._reset_ble()
-=======
- 
-        BLE_Sniffer._reset_ble()
->>>>>>> refs/remotes/origin/main
 
         
 
@@ -306,15 +301,11 @@ class BLE_Sniffer():
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
         
         except Exception as e:
-<<<<<<< HEAD
             console.print(f"[bold red]Exception Error:[bold yellow] {e}"); return
 
             
             BLE_Sniffer._pause_ble(duration=5)
             BLE_Sniffer._reset_ble()
-=======
-            console.print(f"[bold red]BLE Exception Error:[bold yellow] {e}")
->>>>>>> refs/remotes/origin/main
 
             BLE_Sniffer._reset_ble(duration=5)
 
@@ -409,7 +400,6 @@ class WiFi_Sniffer():
                 
                 
         
-        
         if  Main_Thread.BACKGROUND: threading.Thread(target=_parser, args=(), daemon=True).start()
         if not cls.done and not Main_Thread.BACKGROUND: cls.done = True; return KeyboardInterrupt
         
@@ -481,6 +471,7 @@ class Main_Thread():
         """Get shit done"""
 
         cls.BACKGROUND = True
+        Recon_Pusher.main()
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
 
@@ -495,8 +486,13 @@ class Main_Thread():
         
         #time.sleep(.5); console.print(f"[bold green][+] ALL Background Threads Started")
 
-        try:
-            while True: time.sleep(0.1)
+        try:                           # PUSH UPDATE
+            while True: 
+                all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
+                Recon_Pusher.push_war(save_data=all)
+                time.sleep(5)
+            
+            
 
         except KeyboardInterrupt as e:
 
