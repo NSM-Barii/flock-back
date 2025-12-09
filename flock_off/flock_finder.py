@@ -115,7 +115,7 @@ class PDU_Inspector():
 
         services = []
 
-        if len(uuid) > 1:
+        if len(uuid) > 0:
 
 
             for id in uuid:
@@ -134,20 +134,6 @@ class PDU_Inspector():
             return False
         
 
-        else:
-
-            for raven_uuid in cls.raven_service_uuids:
-
-                if raven_uuid == uuid:
-                    
-                    if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
-                
-                    
-                    return True
-            
-            return False
-
-    
 
     @classmethod
     def controller(cls, type, data, ssid=False, mac=False, ble_name=False, uuid=False):
