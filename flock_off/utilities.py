@@ -29,14 +29,17 @@ NAME = "flock-back"
 try:
     USER_HOME = Path(os.getenv("SUDO_USER") and f"/home/{os.getenv('SUDO_USER')}") or Path.home()
     BASE_DIR = USER_HOME / "Documents" / "nsm_tools" / ".data" / f"{NAME}"
+    GUI_DIR = USER_HOME / "Documents" / "nsm_tools" / f"{NAME}" / "gui" / "data"
 except Exception as e:
     console.print(e)
-    
+
     # SWITCH BACK TO PATH
     BASE_DIR = Path.home() / "Documents" / "nsm_tools" / ".data" / f"{NAME}"
+    GUI_DIR = Path.home() / "Documents" / "nsm_tools" / f"{NAME}" / "gui" / "data"
 
 
 BASE_DIR.mkdir(exist_ok=True, parents=True)
+GUI_DIR.mkdir(exist_ok=True, parents=True)
 
 
 class Settings():
@@ -287,19 +290,28 @@ class Recon_Pusher():
     def push_war(cls, save_data, CONSOLE, verbose=False):
         """This method live war results to front end gui"""
 
-        path = BASE_DIR / "war_drives" / "live.json"
+        # Write to data archive
+        path_archive = BASE_DIR / "war_drives" / "live.json"
+
+        # Write to GUI directory for web dashboard
+        path_gui = GUI_DIR / "live.json"
 
 
-        # PUSH
+        # PUSH TO BOTH LOCATIONS
         try:
-            with open(path, "w") as file:
+            # Archive location
+            with open(path_archive, "w") as file:
                 json.dump(save_data, file, indent=4)
 
-                
+            # GUI location
+            with open(path_gui, "w") as file:
+                json.dump(save_data, file, indent=4)
+
+
                 if verbose:
-                    CONSOLE.print(f"[+] War Results Succesfully pushed", style="bold green")
-            
-        
+                    CONSOLE.print(f"[+] War Results Successfully pushed to archive & GUI", style="bold green")
+
+
         # DESTROY ERRORS
         except Exception as e:
             CONSOLE.print(f"[bold red]Exception Error:[bold yellow] {e}")
