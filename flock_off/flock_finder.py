@@ -51,9 +51,9 @@ class PDU_Inspector():
 
     
     # DATA
-    wifi_ssid_patterns = FLOCK_SIGNATURES["wifi_ssid_patterns"]
-    mac_prefixes = FLOCK_SIGNATURES["mac_prefixes"]
-    ble_name_patterns = FLOCK_SIGNATURES["ble_name_patterns"]
+    wifi_ssid_patterns =  FLOCK_SIGNATURES["wifi_ssid_patterns"]
+    mac_prefixes =        FLOCK_SIGNATURES["mac_prefixes"]
+    ble_name_patterns =   FLOCK_SIGNATURES["ble_name_patterns"]
     raven_service_uuids = FLOCK_SIGNATURES["raven_service_uuids"]
 
 
@@ -113,6 +113,7 @@ class PDU_Inspector():
     def _check_uuid(cls, uuid):
         """This metod will be responsible for matching prefixes == uuid(s)"""
 
+        services = []
 
         if len(uuid) > 1:
 
@@ -124,9 +125,11 @@ class PDU_Inspector():
                     if raven_uuid == id:
                         
                         if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
+                        services.append(raven_uuid)
                     
                         
-                        return True
+            
+            if len(services) > 0: return services
                 
             return False
         

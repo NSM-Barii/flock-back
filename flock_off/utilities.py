@@ -681,6 +681,35 @@ class Background_Threads():
     def get_encryption(cls, pkt):
         """Get this encryption"""
 
+        if pkt.haslayer(Dot11Beacon):
+            # Check for encryption in the Capability field
+            cap = pkt.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}")
+
+            # Check RSN (WPA2/WPA3)
+            if pkt.haslayer(Dot11Elt):
+                elt = pkt[Dot11Elt]
+                while isinstance(elt, Dot11Elt):
+                    # RSN Information Element (ID 48)
+                    if elt.ID == 48:
+                        rsn_info = elt.info
+                        # Check for SAE (WPA3) in AKM suite
+                        if b'\x00\x0f\xac\x08' in rsn_info:
+                            return "WPA3"
+                        else:
+                            return "WPA2"
+                    # Vendor Specific (WPA)
+                    elif elt.ID == 221 and len(elt.info) >= 4 and elt.info[:4] == b'\x00\x50\xf2\x01':
+                        return "WPA"
+                    elt = elt.payload
+
+            # Check if privacy bit is set (WEP or encrypted)
+            if "privacy" in cap.lower():
+                return "WEP"
+            else:
+                return "Open"
+
+        return None
+
 
 
 
