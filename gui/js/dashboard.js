@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startLiveUpdates();
 });
 
+
 // Start live data updates
 function startLiveUpdates() {
     fetchData(); // Initial fetch

@@ -24,43 +24,16 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0a0e27;
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
 }
-
-/* Canvas background layers */
-.bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-#bg-matrix {
-    z-index: 1;
-}
-
-#bg-grid {
-    z-index: 2;
-}
-
-#bg-particles {
-    z-index: 3;
-}
-
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
-    position: relative;
-    z-index: 10;
 }
 
 /* Header */
@@ -74,8 +47,19 @@ body {
 }
 
 .header-content {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
 }
 
 .logo {
@@ -99,6 +83,33 @@ body {
     color: var(--text-secondary);
     font-size: 1.1rem;
     letter-spacing: 1px;
+}
+
+.header-github {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(95, 159, 255, 0.1);
+    border: 1px solid rgba(95, 159, 255, 0.3);
+    border-radius: 8px;
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.header-github:hover {
+    background: rgba(95, 159, 255, 0.2);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(95, 159, 255, 0.3);
+}
+
+.header-github svg {
+    width: 18px;
+    height: 18px;
 }
 
 .status-bar {
@@ -451,6 +462,16 @@ body {
 
     .header {
         padding: 20px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .header-left {
+        text-align: center;
     }
 
     .logo {
