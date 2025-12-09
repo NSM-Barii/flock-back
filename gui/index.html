@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlockBack - Live Detection Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-flock">FLOCK</span>
+                    <span class="logo-back">BACK</span>
+                </h1>
+                <p class="tagline">AI Surveillance Detection System</p>
+            </div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-dot active"></span>
+                    <span>Live Scanning</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Last Update:</span>
+                    <span id="lastUpdate">--:--:--</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <section class="stats-grid">
+            <div class="stat-card ble-card">
+                <div class="stat-icon">📡</div>
+                <div class="stat-content">
+                    <h3>BLE Cameras</h3>
+                    <p class="stat-number" id="bleCount">0</p>
+                    <span class="stat-label">Bluetooth Detections</span>
+                </div>
+            </div>
+            <div class="stat-card wifi-card">
+                <div class="stat-icon">📶</div>
+                <div class="stat-content">
+                    <h3>WiFi Cameras</h3>
+                    <p class="stat-number" id="wifiCount">0</p>
+                    <span class="stat-label">Wireless Detections</span>
+                </div>
+            </div>
+            <div class="stat-card total-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-content">
+                    <h3>Total Threats</h3>
+                    <p class="stat-number" id="totalCount">0</p>
+                    <span class="stat-label">All AI Cameras</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detection Tables -->
+        <section class="detections-section">
+            <!-- BLE Detections -->
+            <div class="detection-panel">
+                <div class="panel-header ble-header">
+                    <h2>📡 BLE Detections</h2>
+                    <span class="count-badge" id="bleBadge">0</span>
+                </div>
+                <div class="table-container">
+                    <table class="detection-table">
+                        <thead>
+                            <tr>
+                                <th>MAC Address</th>
+                                <th>Device Name</th>
+                                <th>Signal (dBm)</th>
+                                <th>Services</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bleTableBody">
+                            <tr class="empty-state">
+                                <td colspan="4">
+                                    <div class="empty-message">
+                                        <span class="empty-icon">🔍</span>
+                                        <p>No BLE cameras detected yet...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- WiFi Detections -->
+            <div class="detection-panel">
+                <div class="panel-header wifi-header">
+                    <h2>📶 WiFi Detections</h2>
+                    <span class="count-badge" id="wifiBadge">0</span>
+                </div>
+                <div class="table-container">
+                    <table class="detection-table">
+                        <thead>
+                            <tr>
+                                <th>SSID</th>
+                                <th>Channel</th>
+                                <th>Frequency</th>
+                                <th>Signal (dBm)</th>
+                                <th>Encryption</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wifiTableBody">
+                            <tr class="empty-state">
+                                <td colspan="5">
+                                    <div class="empty-message">
+                                        <span class="empty-icon">🔍</span>
+                                        <p>No WiFi cameras detected yet...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>FlockBack v1.0 | Developed by NSM Barii | <a href="https://github.com/NSM-Barii/flock-back" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

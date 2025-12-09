@@ -152,7 +152,7 @@ class PDU_Inspector():
 
         
         # BOOL CHECK DATA
-        check_ssid = PDU_Inspector._check_ssid(ssid=ssid)            if ssid else False
+        check_ssid = PDU_Inspector._check_ssid(ssid=ssid)                 if ssid else False
         check_mac = PDU_Inspector._check_mac(mac=mac)                     if mac else False
         check_ble_name = PDU_Inspector._check_ble_name(ble_name=ble_name) if ble_name else False
         check_uuid = PDU_Inspector._check_uuid(uuid=uuid)                 if uuid else False
@@ -479,7 +479,8 @@ class Main_Thread():
         Recon_Pusher.main()
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
-
+        
+        
 
         # WIFI SNIFFER
         threading.Thread(target=WiFi_Sniffer.main, args=(iface, verbose), daemon=True).start()
@@ -493,11 +494,12 @@ class Main_Thread():
 
         try:                           # PUSH UPDATE
             while True: 
-                all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
+                #all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
 
-                print(cls.ai_cameras_all)
+                #print(cls.ai_cameras_all)
                 Recon_Pusher.push_war(save_data=cls.ai_cameras_all, CONSOLE=console)
-                time.sleep(5)
+                Recon_Pusher.push_to_gui(save_data=cls.ai_cameras_all, CONSOLE=console)
+                time.sleep(2)
             
             
 

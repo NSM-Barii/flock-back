@@ -285,6 +285,30 @@ class Recon_Pusher():
 
     @classmethod
     def push_war(cls, save_data, CONSOLE, verbose=False):
+        """This method live war results to front end gui"""
+
+        path = BASE_DIR / "war_drives" / "live.json"
+
+
+        # PUSH
+        try:
+            with open(path, "w") as file:
+                json.dump(save_data, file, indent=4)
+
+                
+                if verbose:
+                    CONSOLE.print(f"[+] War Results Succesfully pushed", style="bold green")
+            
+        
+        # DESTROY ERRORS
+        except Exception as e:
+            CONSOLE.print(f"[bold red]Exception Error:[bold yellow] {e}")
+    
+
+    
+    
+    @classmethod
+    def push_to_gui(cls, save_data, CONSOLE, verbose=False):
         """This method will be used to push results from war driving"""
 
         path = cls.path
@@ -304,6 +328,7 @@ class Recon_Pusher():
         except Exception as e:
             CONSOLE.print(f"[bold red]Exception Error:[bold yellow] {e}")
     
+
 
 
     @classmethod

@@ -26,8 +26,12 @@ class Main_UI():
         Utilities.welcome_message(); print('\n\n')
         #iface = Utilities.get_interface(); print('')
 
+        import os, threading
 
-        Main_Thread.main(iface=iface, verbose=verbose)
+
+        threading.Thread(target=Main_Thread.main, args=(iface, verbose), daemon=True).start()
+
+        os.system("python3 -m http.server")
 
         print()
 
