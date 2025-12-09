@@ -92,7 +92,7 @@ function updateBLETable(devices) {
     if (devices.length === 0) {
         tbody.innerHTML = `
             <tr class="empty-state">
-                <td colspan="4">
+                <td colspan="5">
                     <div class="empty-message">
                         <span class="empty-icon">🔍</span>
                         <p>No BLE cameras detected yet...</p>
@@ -107,9 +107,11 @@ function updateBLETable(devices) {
         const mac = device.mac || 'Unknown';
         const name = device.local_name || 'Unnamed Device';
         const rssi = device.rssi || 0;
+        const manufacturer = device.manufacturer || {};
         const services = device.services || [];
 
         const signalClass = getSignalClass(rssi);
+        const manufacturerHTML = formatManufacturer(manufacturer);
         const servicesHTML = formatServices(services);
 
         return `
@@ -117,6 +119,7 @@ function updateBLETable(devices) {
                 <td><code>${escapeHtml(mac)}</code></td>
                 <td><strong>${escapeHtml(name)}</strong></td>
                 <td class="${signalClass}">${rssi} dBm</td>
+                <td>${manufacturerHTML}</td>
                 <td>${servicesHTML}</td>
             </tr>
         `;
@@ -162,23 +165,30 @@ function updateWiFiTable(devices) {
     }).join('');
 }
 
+// Format manufacturer data
+function formatManufacturer(manufacturer) {
+    if (!manufacturer || Object.keys(manufacturer).length === 0) {
+        return '<span style="color: var(--text-secondary);">None</span>';
+    }
+
+    // Display manufacturer data as badges
+    let html = Object.entries(manufacturer).map(([cid, data]) =>
+        `<span class="service-badge" title="Company ID: ${cid}, Data: ${data}">CID ${cid}: ${data.substring(0, 8)}...</span>`
+    ).join(' ');
+
+    return html;
+}
+
 // Format BLE service UUIDs
 function formatServices(services) {
     if (!services || services.length === 0) {
         return '<span style="color: var(--text-secondary);">None</span>';
     }
 
-    // Show first 2 services, then "+" for more
-    const displayServices = services.slice(0, 2);
-    const remaining = services.length - 2;
-
-    let html = displayServices.map(uuid =>
+    // Show all services
+    let html = services.map(uuid =>
         `<span class="service-badge" title="${uuid}">${shortenUUID(uuid)}</span>`
     ).join(' ');
-
-    if (remaining > 0) {
-        html += ` <span class="service-badge" title="Click to see all">+${remaining} more</span>`;
-    }
 
     return html;
 }
