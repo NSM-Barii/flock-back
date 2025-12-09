@@ -115,7 +115,7 @@ class PDU_Inspector():
 
         services = []
 
-        if len(uuid) > 0:
+        if len(uuid) > 1:
 
 
             for id in uuid:
@@ -127,6 +127,24 @@ class PDU_Inspector():
                         if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
                         services.append(raven_uuid)
                     
+                        
+            
+            if len(services) > 0: return True, services
+                
+            return False
+        
+
+        else:
+
+
+
+            for raven_uuid in cls.raven_service_uuids:
+
+                if raven_uuid == id:
+                    
+                    if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
+                    services.append(raven_uuid)
+                
                         
             
             if len(services) > 0: return True, services
@@ -263,7 +281,7 @@ class BLE_Sniffer():
                     local_name = adv.local_name
                     rssi = adv.rssi
                     manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
-                    services = adv.service_uuids
+                    services = PDU_Inspector._check_uuid(uuid=adv.service_uuids)
                     time_stamp = Utilities.get_timestamp()
 
                     data = {
@@ -382,10 +400,11 @@ class WiFi_Sniffer():
                     
                     cls.beacons.append(ssid)
                     cls.macs.append(addr2)
-                    Main_Thread.ai_cameras_all["wifi"].append(data)
 
                     with LOCK:
-                        if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=addr2, ble_name=False, uuid=False): return
+                        if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=addr2, ble_name=False, uuid=False): 
+                            Main_Thread.ai_cameras_all["wifi"].append(data)
+                            return
 
                     if cls.verbose:
                         console.print(f"[bold red][-] Non AI Camera (WiFi):[bold yellow] {data}")
