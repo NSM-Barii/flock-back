@@ -46,43 +46,10 @@ body {
     border: 1px solid var(--border-color);
 }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.header-left {
-    flex: 1;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    font-size: 3rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-}
-
-.logo-flock {
-    color: var(--accent-red);
-    text-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
-}
-
-.logo-back {
-    color: var(--accent-blue);
-    text-shadow: 0 0 20px rgba(95, 159, 255, 0.5);
-}
-
-.tagline {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    letter-spacing: 1px;
+.header-github-corner {
+    position: absolute;
+    top: 30px;
+    right: 40px;
 }
 
 .header-github {
@@ -112,17 +79,47 @@ body {
     height: 18px;
 }
 
+.header-content {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.logo-flock {
+    color: var(--accent-red);
+    text-shadow: 0 0 30px rgba(255, 71, 87, 0.6);
+}
+
+.logo-back {
+    color: var(--accent-blue);
+    text-shadow: 0 0 30px rgba(95, 159, 255, 0.6);
+}
+
+.tagline {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
 .welcome-message {
     text-align: center;
-    padding: 15px 20px;
-    margin: 15px 0;
-    background: rgba(255, 71, 87, 0.1);
-    border: 1px solid rgba(255, 71, 87, 0.3);
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    padding: 20px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(255, 71, 87, 0.05));
+    border: 2px solid var(--accent-red);
+    border-radius: 12px;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: var(--accent-red);
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
 }
 
 .status-bar {
