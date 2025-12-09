@@ -497,8 +497,9 @@ class Main_Thread():
                 #all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
 
                 #print(cls.ai_cameras_all)
-                Recon_Pusher.push_war(save_data=cls.ai_cameras_all, CONSOLE=console)
-                Recon_Pusher.push_to_gui(save_data=cls.ai_cameras_all, CONSOLE=console)
+                console.print(cls.ai_cameras_all); v = True
+                Recon_Pusher.push_war(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
+                Recon_Pusher.push_to_gui(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
                 time.sleep(2)
             
             

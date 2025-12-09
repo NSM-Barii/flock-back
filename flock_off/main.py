@@ -28,10 +28,8 @@ class Main_UI():
 
         import os, threading
 
-
-        threading.Thread(target=Main_Thread.main, args=(iface, verbose), daemon=True).start()
-
-        os.system("python3 -m http.server")
+        Main_Thread.main(iface=iface, verbose=verbose)
+        #threading.Thread(target=Main_Thread.main, args=(iface, verbose), daemon=True).start()
 
         print()
 
