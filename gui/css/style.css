@@ -44,6 +44,7 @@ body {
     margin-bottom: 30px;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-color);
+    position: relative;
 }
 
 .header-github-corner {
