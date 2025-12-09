@@ -52,19 +52,25 @@ body::after {
     width: 100%;
     height: 100%;
     background-image:
-        radial-gradient(circle at 20% 50%, rgba(95, 159, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(255, 71, 87, 0.02) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(95, 159, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 71, 87, 0.1) 0%, transparent 50%);
     z-index: -1;
-    animation: pulse-bg 15s ease-in-out infinite;
+    animation: pulse-bg 8s ease-in-out infinite;
 }
 
 @keyframes pulse-bg {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
 }
 
-/* Scanline effect */
+/* Animated grid lines */
 .container::before {
     content: '';
     position: fixed;
@@ -72,22 +78,42 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1) 0px,
-        transparent 1px,
-        transparent 2px,
-        rgba(0, 0, 0, 0.1) 3px
+    background-image:
+        linear-gradient(rgba(95, 159, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(95, 159, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 999;
+    animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+/* Scanline effect */
+.container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to bottom,
+        transparent,
+        rgba(95, 159, 255, 0.5),
+        transparent
     );
     pointer-events: none;
     z-index: 1000;
-    opacity: 0.03;
-    animation: scanline 8s linear infinite;
+    animation: scanline 3s linear infinite;
+    box-shadow: 0 0 10px rgba(95, 159, 255, 0.5);
 }
 
 @keyframes scanline {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(50px); }
+    0% { transform: translateY(-10px); }
+    100% { transform: translateY(100vh); }
 }
 
 .container {
