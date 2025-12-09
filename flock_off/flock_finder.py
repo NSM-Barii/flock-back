@@ -275,13 +275,15 @@ class BLE_Sniffer():
                     rssi = adv.rssi
                     manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
                     services = adv.service_uuids
+                    time_stamp = Utilities.get_timestamp()
 
                     data = {
                         "mac": mac,
                         "rssi": rssi,
                         "local_name": local_name,
                         "manufacturer": manufacturer,
-                        "services": services
+                        "services": services,
+                        "time_stamp": time_stamp
                     }
                     #Main_Thread.ai_cameras_all["ble"].append(data)
 
@@ -373,13 +375,15 @@ class WiFi_Sniffer():
                 rssi = Background_Threads.get_rssi(pkt=pkt)
                 encryption = Background_Threads.get_encryption(pkt=pkt)
                 freq = Background_Threads.get_freq(freq=pkt[RadioTap].ChannelFrequency)
+                time_stamp = Utilities.get_timestamp()
 
                 data = {
                     "ssid": ssid,
                     "frequency": freq,
                     "encryption": encryption,
                     "channel": channel,
-                    "rssi": rssi
+                    "rssi": rssi,
+                    "time_stamp": time_stamp
                 }
 
                 if not ssid or not channel:

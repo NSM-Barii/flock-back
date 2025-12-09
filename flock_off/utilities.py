@@ -448,7 +448,13 @@ class Utilities():
 
         )
         console.print("        ========================================================================", style="bold blue")
+    
 
+    @staticmethod
+    def get_timestamp():
+        """Simple universal method for returning timestamp"""
+
+        time_stamp = datetime.now().strftime("%H:%M:%S"); return time_stamp
 
     @classmethod
     def get_interface(cls, verbose=False):

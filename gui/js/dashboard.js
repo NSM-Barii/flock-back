@@ -93,7 +93,7 @@ function updateBLETable(devices) {
     if (devices.length === 0) {
         tbody.innerHTML = `
             <tr class="empty-state">
-                <td colspan="5">
+                <td colspan="6">
                     <div class="empty-message">
                         <span class="empty-icon">🔍</span>
                         <p>No BLE cameras detected yet...</p>
@@ -105,6 +105,7 @@ function updateBLETable(devices) {
     }
 
     tbody.innerHTML = devices.map(device => {
+        const time_stamp = device.time_stamp || '--:--:--';
         const mac = device.mac || 'Unknown';
         const name = device.local_name || 'Unnamed Device';
         const rssi = device.rssi || 0;
@@ -117,6 +118,7 @@ function updateBLETable(devices) {
 
         return `
             <tr>
+                <td><strong>${time_stamp}</strong></td>
                 <td><code>${escapeHtml(mac)}</code></td>
                 <td><strong>${escapeHtml(name)}</strong></td>
                 <td class="${signalClass}">${rssi} dBm</td>
@@ -134,7 +136,7 @@ function updateWiFiTable(devices) {
     if (devices.length === 0) {
         tbody.innerHTML = `
             <tr class="empty-state">
-                <td colspan="5">
+                <td colspan="6">
                     <div class="empty-message">
                         <span class="empty-icon">🔍</span>
                         <p>No WiFi cameras detected yet...</p>
@@ -146,6 +148,7 @@ function updateWiFiTable(devices) {
     }
 
     tbody.innerHTML = devices.map(device => {
+        const time_stamp = device.time_stamp || '--:--:--';
         const ssid = device.ssid || 'Hidden Network';
         const channel = device.channel || 'N/A';
         const frequency = device.frequency || 'N/A';
@@ -156,6 +159,7 @@ function updateWiFiTable(devices) {
 
         return `
             <tr>
+                <td><strong>${time_stamp}</strong></td>
                 <td><strong>${escapeHtml(ssid)}</strong></td>
                 <td>${channel}</td>
                 <td>${frequency}</td>
@@ -172,9 +176,9 @@ function formatManufacturer(manufacturer) {
         return '<span style="color: var(--text-secondary);">None</span>';
     }
 
-    // Display manufacturer data as badges
+    // Display manufacturer data as badges (show full data)
     let html = Object.entries(manufacturer).map(([cid, data]) =>
-        `<span class="service-badge" title="Company ID: ${cid}, Data: ${data}">CID ${cid}: ${data.substring(0, 8)}...</span>`
+        `<span class="service-badge" title="Company ID: ${cid}">CID ${cid}: ${data}</span>`
     ).join(' ');
 
     return html;
