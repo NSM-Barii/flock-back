@@ -202,7 +202,8 @@ class BLE_Sniffer():
         for cid, payload in manuf.items():
 
             manuf_new[cid] = payload.hex()
-            console.print(cid, payload)
+
+        return manuf_new
 
 
 
@@ -265,18 +266,14 @@ class BLE_Sniffer():
             for mac, (device, adv) in devices.items():
 
 
-                if mac not in cls.ble_devices and adv:  
+                if mac not in cls.ble_devices and adv:
 
                     cls.ble_devices.append(mac)
-                    
-                    #manuf = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data)
-
-                    
 
                     # STORE VARS
                     local_name = adv.local_name
                     rssi = adv.rssi
-                    manufacturer = adv.manufacturer_data
+                    manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
                     services = adv.service_uuids
 
                     data = {
