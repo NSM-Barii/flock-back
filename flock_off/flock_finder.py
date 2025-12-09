@@ -129,7 +129,7 @@ class PDU_Inspector():
                     
                         
             
-            if len(services) > 0: return services
+            if len(services) > 0: return True, services
                 
             return False
         
@@ -144,7 +144,7 @@ class PDU_Inspector():
         check_ssid = PDU_Inspector._check_ssid(ssid=ssid)                 if ssid else False
         check_mac = PDU_Inspector._check_mac(mac=mac)                     if mac else False
         check_ble_name = PDU_Inspector._check_ble_name(ble_name=ble_name) if ble_name else False
-        check_uuid = PDU_Inspector._check_uuid(uuid=uuid)                 if uuid else False
+        check_uuid, services = PDU_Inspector._check_uuid(uuid=uuid)                 if uuid else False
 
 
 
@@ -166,7 +166,7 @@ class PDU_Inspector():
             if check_ble_name: console.print(f"{space}[bold green][+] Match BLE_name:[bold yellow] {ble_name}") 
             else: console.print(f"{space}[bold red][-] Match BLE_name:[bold yellow] {ble_name if ble_name else False}")
             if check_uuid: console.print(f"{space}[bold green][+] Match UUID(s):[bold yellow] {uuid}") 
-            else: console.print(f"{space}[bold red][-] Match UUID(s):[bold yellow] {uuid if uuid else False    }")
+            else: console.print(f"{space}[bold red][-] Match UUID(s):[bold yellow] {services if check_uuid else False}")
 
             #if vendor: console.print(f"{space}[bold green][+] Extra Info Vendor:[bold yellow] {vendor}") 
             #else: console.print(f"{space}[bold red][-] Match Vendor:[bold yellow] False")
