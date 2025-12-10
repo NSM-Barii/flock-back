@@ -13,14 +13,12 @@ The project is **actively in development**, and contributors are welcome — esp
 ---
 
 ## Features
-- 🚨 Passive BLE scanning using **Bleak** (built on top of BlueZ)
-- 📡 Optional Wi-Fi scanning using **Scapy** in monitor mode
-- 🛰️ Optional GPS support for mapping detections
-- 🔎 Matches BLE names, UUIDs, MAC prefixes, SSIDs, and OUIs
-- ⚙️ Auto-recovering sniffers designed for long-duration wardriving
-- 🎯 BLE-only mode when no arguments are passed
-- 🧩 Modular signature files for easy expansion
-- 🤝 Open to community contributions
+- **Passive BLE scanning** via Bleak (BlueZ)
+- **Wi-Fi monitor mode** scanning via Scapy (optional)
+- **GPS support** for mapping detections (optional)
+- **Signature matching**: BLE names, UUIDs, MAC prefixes, SSIDs, OUIs
+- **Auto-recovering sniffers** for long-duration wardriving
+- **Modular signatures** for easy vendor expansion
 
 ---
 
@@ -109,33 +107,18 @@ python3 flock-back.py -i wlan0
 
 ---
 
-## Project Status
-FlockBack is **in active development**.  
-Expect updates, signature expansions, and new features as the project grows.
-
-Contributions are encouraged — especially:
-- New MAC prefixes  
-- New OUIs  
-- BLE UUID sets  
-- Additional LPR vendor fingerprints  
-- Performance improvements  
-- General code enhancements  
-
-Submit PRs or open issues anytime.
-
----
-
 ## Contributing
-Want to help expand detection accuracy or add new vendor signatures?
+FlockBack is **in active development** and contributions are welcome.
 
-Open a pull request or issue with:
-- BLE UUID dumps  
-- Wi-Fi SSID patterns  
-- MAC prefix observations  
-- Vendor information  
-- Captures from wardriving sessions  
+**What we need:**
+- MAC prefixes & OUIs
+- BLE UUIDs & service dumps
+- Wi-Fi SSID patterns
+- Vendor fingerprints
+- Performance improvements
+- Code enhancements
 
-Every contribution matters.
+Submit PRs or open issues with any wardriving captures, observations, or improvements.
 
 ---
 
