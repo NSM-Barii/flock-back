@@ -9,7 +9,6 @@ from rich.console import Console
 console = Console()
 
 
-
 # BT IMPORTS
 from bleak import BleakScanner
 
@@ -114,43 +113,52 @@ class PDU_Inspector():
         """This metod will be responsible for matching prefixes == uuid(s)"""
 
         services = []
+        uuids = []
+        
+        try:
 
-        if len(uuid) > 1:
+            if not uuid or uuid == None or len(uuid) == 0: return False, False
+
+            if len(uuid) > 1:
 
 
-            for id in uuid:
+                for id in uuid:
+
+                    for raven_uuid in cls.raven_service_uuids:
+
+                        if raven_uuid == id:
+                            
+                            if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
+                            services.append(raven_uuid); uuids.append(uuid) # <-- NOT IN USE (YET)
+                        
+                            
+                
+                if len(services) > 0: return True, services
+                    
+                return False, False
+            
+
+            else:
+
+
 
                 for raven_uuid in cls.raven_service_uuids:
 
-                    if raven_uuid == id:
+                    if raven_uuid == uuid:
                         
                         if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
-                        services.append(raven_uuid)
+                        services.append(raven_uuid); uuids.append(uuid)
                     
-                        
-            
-            if len(services) > 0: return True, services
+                            
                 
-            return False
+                if len(services) > 0: return True, services
+                    
+                return False, False
         
 
-        else:
-
-
-
-            for raven_uuid in cls.raven_service_uuids:
-
-                if raven_uuid == id:
-                    
-                    if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
-                    services.append(raven_uuid)
-                
-                        
+        except Exception as e:
+            console.print(f"[bold red]Exception Error:[bold yellow] {e}")
             
-            if len(services) > 0: return True, services
-                
-            return False
-        
 
 
     @classmethod
@@ -162,8 +170,7 @@ class PDU_Inspector():
         check_ssid = PDU_Inspector._check_ssid(ssid=ssid)                 if ssid else False
         check_mac = PDU_Inspector._check_mac(mac=mac)                     if mac else False
         check_ble_name = PDU_Inspector._check_ble_name(ble_name=ble_name) if ble_name else False
-        check_uuid, services = PDU_Inspector._check_uuid(uuid=uuid)                 if uuid else False
-
+        check_uuid, services = PDU_Inspector._check_uuid(uuid=uuid)    
 
 
         #return check_ssid, check_mac, check_ble_name, check_uuid
@@ -183,8 +190,8 @@ class PDU_Inspector():
             else: console.print(f"{space}[bold red][-] Match MAC:[bold yellow] {mac if mac else False}")
             if check_ble_name: console.print(f"{space}[bold green][+] Match BLE_name:[bold yellow] {ble_name}") 
             else: console.print(f"{space}[bold red][-] Match BLE_name:[bold yellow] {ble_name if ble_name else False}")
-            if check_uuid: console.print(f"{space}[bold green][+] Match UUID(s):[bold yellow] {uuid}") 
-            else: console.print(f"{space}[bold red][-] Match UUID(s):[bold yellow] {services if check_uuid else False}")
+            if check_uuid: console.print(f"{space}[bold green][+] Match UUID(s):[bold yellow] {services}") 
+            else: console.print(f"{space}[bold red][-] Match UUID(s):[bold yellow] {uuid}")
 
             #if vendor: console.print(f"{space}[bold green][+] Extra Info Vendor:[bold yellow] {vendor}") 
             #else: console.print(f"{space}[bold red][-] Match Vendor:[bold yellow] False")
@@ -280,23 +287,25 @@ class BLE_Sniffer():
                     # STORE VARS
                     local_name = adv.local_name
                     rssi = adv.rssi
-                    manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
-                    services = PDU_Inspector._check_uuid(uuid=adv.service_uuids)
-                    time_stamp = Utilities.get_timestamp()
+                    uuid = adv.service_uuids or False
 
+                    manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
+                    a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
+                    time_stamp = Utilities.get_timestamp()
+    
                     data = {
                         "mac": mac,
                         "rssi": rssi,
                         "local_name": local_name,
                         "manufacturer": manufacturer,
-                        "services": services,
+                        "uuids": valid_uuid,
                         "time_stamp": time_stamp
                     }
-                    #Main_Thread.ai_cameras_all["ble"].append(data)
+
 
                     # ARE YOU FLOCK or AI ??? 
                     with LOCK:
-                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=services): 
+                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid): 
                             Main_Thread.ai_cameras_all["ble"].append(data); return
                             
                     
@@ -308,7 +317,7 @@ class BLE_Sniffer():
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
         
         except Exception as e:
-            console.print(f"[bold red]Exception Error:[bold yellow] {e}"); return
+            console.print(f"[bold red]BLE Exception Error:[bold yellow] {e}"); return
 
             
             BLE_Sniffer._pause_ble(duration=5)
@@ -447,7 +456,7 @@ class WiFi_Sniffer():
                 break
             
             except Exception as e:
-                console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+                console.print(f"[bold red]WiFi LastException Error:[bold yellow] {e}")
                 break
     
 
@@ -528,7 +537,12 @@ class Main_Thread():
 
             console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
 
-
+            
+            # CLEAN live.json
+            Recon_Pusher.push_to_gui(save_data = {
+            "wifi": [],
+            "ble": []
+            }, CONSOLE=console, verbose=v)
 
 
 if __name__ == "__main__":
