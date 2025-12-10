@@ -26,25 +26,18 @@ The project is **actively in development**, and contributors are welcome — esp
 
 ## Usage
 
-### Help Menu
 ```bash
-python3 flock-back.py -h
-```
-
----
-
-### BLE-Only Mode (default)
-Run with no arguments:
-```bash
+# BLE-only mode (default)
 python3 flock-back.py
-```
-This launches BLE scanning only (no Wi-Fi required).
 
----
-
-### BLE + Wi-Fi Mode
-```bash
+# BLE + Wi-Fi mode
 python3 flock-back.py -i wlan0
+
+# Verbose mode (shows all non-AI cameras detected)
+python3 flock-back.py -v
+
+# Full scan with verbose output
+python3 flock-back.py -i wlan0 -v
 ```
 
 **Flags:**
@@ -52,48 +45,66 @@ python3 flock-back.py -i wlan0
 | Flag | Description |
 |------|-------------|
 | `-h` | Show help menu |
-| `-i` | Pass a Wi-Fi interface (must be in monitor mode) |
-
-Example:
-```bash
-python3 flock-back.py -i wlan1
-```
+| `-i` | Wi-Fi interface in monitor mode |
+| `-v` | Verbose mode (show all detected devices) |
 
 ---
 
 ## Requirements
-- Linux recommended  
+- Linux (recommended)
 - Python **3.10+**
-- Bluetooth adapter  
+- Bluetooth adapter
 - Wi-Fi adapter with monitor mode (optional)
-- BlueZ (required for BLE scanning)
-- requirements.txt
-
-If BlueZ dependencies are missing, check:
-
-```
-setup_ble.txt
-```
+- BlueZ for BLE scanning
 
 ---
 
 ## Installation
 
-### 1. Clone the repository
+### 1. Install BlueZ (BLE Support)
+```bash
+sudo apt update
+sudo apt install bluez bluez-tools bluez-firmware
+```
+
+### 2. Enable and start Bluetooth service
+```bash
+sudo systemctl enable bluetooth
+sudo systemctl start bluetooth
+```
+
+### 3. Check Bluetooth service status
+```bash
+systemctl status bluetooth
+```
+
+> **Note:** If you experience Bluetooth issues, refer to `setup/setup_ble.txt` for additional troubleshooting steps.
+
+### 4. Clone the repository
 ```bash
 git clone https://github.com/NSM-Barii/flock-back
 cd flock-back
 ```
 
-### 2. Create and activate a virtual environment
+### 5. Navigate to flock_off and create a virtual environment
 ```bash
+cd flock_off
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Install Python dependencies
+### 6. Install Python dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+### 7. Run the program
+```bash
+# BLE-only mode
+python3 flock-back.py
+
+# BLE + Wi-Fi mode
+python3 flock-back.py -i wlan0
 ```
 
 ---
