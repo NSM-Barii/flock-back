@@ -248,12 +248,12 @@ class BLE_Sniffer():
         await asyncio.sleep(duration)
 
 
-    @staticmethod
-    async def _discover(timeout):
+    @classmethod
+    async def _discover(cls, timeout):
         """internal scanner"""
         
         try:
-            return await BleakScanner.discover(timeout=timeout, return_adv=True)
+            return await cls.scanner.discover(timeout=timeout, return_adv=True)
         
         except Exception as e:
             console.print(f"[bold red]Exception Error:[bold red] {e}")
@@ -330,7 +330,7 @@ class BLE_Sniffer():
         
          
     @classmethod
-    def main(cls, verbose=True, scan_duration=5, timeout=2):
+    def main(cls, bface, verbose=True, scan_duration=5, timeout=2):
         """This method will be resposnible for looping through ble_scan <-- scan"""
 
 
@@ -340,6 +340,9 @@ class BLE_Sniffer():
         cls.last_flush = time.time()
         cls.ble_devices = []
         cls.ai_cameras = []
+
+        # CREATE SCANNER AND PASS ARG
+        cls.scanner = BleakScanner(adapter=bface)
 
 
 
@@ -487,14 +490,14 @@ class Main_Thread():
 
 
     @classmethod
-    def main(cls, iface, verbose):
+    def main(cls, bface, iface, verbose):
         """Get shit done"""
 
         cls.BACKGROUND = True; cls.ai_cameras_all = {
             "wifi": [],
             "ble": []
             }
-        Recon_Pusher.main()
+        Recon_Pusher.main() 
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
         

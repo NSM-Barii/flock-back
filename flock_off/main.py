@@ -19,7 +19,7 @@ class Main_UI():
         #Utilities.welcome_ui(iface=iface, text=" FLOCK \nDriving")
 
 
-        iface, gps, verbose = Utilities.get_args()
+        bface, iface, gps, verbose = Utilities.get_args()
 
 
         Utilities.clear_screen()
@@ -28,7 +28,7 @@ class Main_UI():
 
         import os, threading
 
-        Main_Thread.main(iface=iface, verbose=verbose)
+        Main_Thread.main(bface=bface, iface=iface, verbose=verbose)
         #threading.Thread(target=Main_Thread.main, args=(iface, verbose), daemon=True).start()
 
         print()

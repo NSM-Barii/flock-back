@@ -588,12 +588,14 @@ class Utilities():
         add_help=False 
         )
         parser.add_argument("-h", action="store_true", help="Display help, usage info, and project banner")
+        parser.add_argument("-b", required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
         parser.add_argument("-i", required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
         parser.add_argument("-g", required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)" )      
         parser.add_argument("-v", required=False, action="store_true",help="Verbose mode, where more information is shown on non AI Cameras the devices in your surround.")
 
 
         args = parser.parse_args()
+        bface = args.b   or "hci0"
         iface = args.i or False
         gps =   args.g or False
         help =  args.h or False
@@ -604,7 +606,7 @@ class Utilities():
        #  lat, lon, alt = Utilities._get_gps_cords()
       #  console.print(lat, lon, alt); exit()
 
-        return iface, gps, verbose
+        return bface, iface, gps, verbose
     
 
 
