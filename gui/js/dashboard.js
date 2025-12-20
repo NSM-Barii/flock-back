@@ -1,7 +1,7 @@
 // FlockBack Live Dashboard - Real-time AI Camera Detection
 // Developed by NSM Barii
 
-const DATA_PATH = 'data/live.json';
+const DATA_PATH = '/api/cameras';  // Fetch from API endpoint instead of file
 const REFRESH_INTERVAL = 2000; // Update every 2 seconds
 
 // State management
