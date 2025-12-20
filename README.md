@@ -15,9 +15,9 @@ The project is **actively in development**, and contributors are welcome — esp
 ## Features
 - **Passive BLE scanning** via Bleak (BlueZ)
 - **Wi-Fi monitor mode** scanning via Scapy (optional)
-- **GPS support** for mapping detections (coming soon)
 - **Signature matching**: BLE names, UUIDs, MAC prefixes, SSIDs, OUIs
 - **Auto-recovering sniffers** for long-duration wardriving
+- **GPS support** (coming soon)
 
 ---
 
@@ -25,16 +25,16 @@ The project is **actively in development**, and contributors are welcome — esp
 
 ```bash
 # BLE-only mode (default)
-python3 flock-back.py
+sudo venv/bin/python flock_finder.py
 
 # BLE + Wi-Fi mode
-python3 flock-back.py -i wlan0
+sudo venv/bin/python flock_finder.py -i wlan0
 
 # Verbose mode (shows all non-AI cameras detected)
-python3 flock-back.py -v
+sudo venv/bin/python flock_finder.py -v
 
 # Full scan with verbose output
-python3 flock-back.py -i wlan0 -v
+sudo venv/bin/python flock_finder.py -i wlan0 -v
 ```
 
 **Flags:**
@@ -83,9 +83,9 @@ git clone https://github.com/NSM-Barii/flock-back
 cd flock-back
 ```
 
-### 5. Navigate to flock_off and create a virtual environment
+### 5. Navigate to src and create a virtual environment
 ```bash
-cd flock_off
+cd src
 python3 -m venv venv
 source venv/bin/activate
 ```
@@ -98,10 +98,10 @@ pip install -r requirements.txt
 ### 7. Run the program
 ```bash
 # BLE-only mode
-python3 flock-back.py
+sudo venv/bin/python flock_finder.py
 
 # BLE + Wi-Fi mode
-python3 flock-back.py -i wlan0
+sudo venv/bin/python flock_finder.py -i wlan0
 ```
 
 ---
