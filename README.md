@@ -15,10 +15,9 @@ The project is **actively in development**, and contributors are welcome — esp
 ## Features
 - **Passive BLE scanning** via Bleak (BlueZ)
 - **Wi-Fi monitor mode** scanning via Scapy (optional)
-- **GPS support** for mapping detections (optional)
+- **GPS support** for mapping detections (coming soon)
 - **Signature matching**: BLE names, UUIDs, MAC prefixes, SSIDs, OUIs
 - **Auto-recovering sniffers** for long-duration wardriving
-- **Modular signatures** for easy vendor expansion
 
 ---
 
