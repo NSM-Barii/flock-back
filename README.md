@@ -1,5 +1,5 @@
 # FlockBack — AI Camera Detection Toolkit (BLE + Wi-Fi)
-<img width="1200" height="800" alt="Flock-Back Banner" src="https://github.com/user-attachments/assets/93febe59-7316-421c-97c7-3ef1330eb6df" />
+<img width="100%" alt="Flock-Back Banner" src="https://github.com/user-attachments/assets/cc1e65dc-e453-44bc-8fcc-a9e359dbeaf2" />
 
 
 
