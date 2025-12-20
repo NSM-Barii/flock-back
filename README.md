@@ -25,16 +25,16 @@ The project is **actively in development**, and contributors are welcome — esp
 
 ```bash
 # BLE-only mode (default)
-sudo venv/bin/python flock_finder.py
+sudo venv/bin/python main.py
 
 # BLE + Wi-Fi mode
-sudo venv/bin/python flock_finder.py -i wlan0
+sudo venv/bin/python main.py -i wlan0
 
 # Verbose mode (shows all non-AI cameras detected)
-sudo venv/bin/python flock_finder.py -v
+sudo venv/bin/python main.py -v
 
 # Full scan with verbose output
-sudo venv/bin/python flock_finder.py -i wlan0 -v
+sudo venv/bin/python main.py -i wlan0 -v
 ```
 
 **Flags:**
@@ -92,16 +92,16 @@ source venv/bin/activate
 
 ### 6. Install Python dependencies
 ```bash
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 ```
 
 ### 7. Run the program
 ```bash
 # BLE-only mode
-sudo venv/bin/python flock_finder.py
+sudo venv/bin/python main.py
 
 # BLE + Wi-Fi mode
-sudo venv/bin/python flock_finder.py -i wlan0
+sudo venv/bin/python main.py -i wlan0
 ```
 
 ---
