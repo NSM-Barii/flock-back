@@ -1,6 +1,7 @@
 # THIS MODULE WILL BE RESPONSIBLE FOR LAUNCHING WEB SERVER
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from rich.console import Console; console = Console()
 import json, os, threading; from pathlib import Path
 
 
@@ -43,21 +44,15 @@ class Web_Server():
     def start(port=8000):
         """Start the web server in a separate thread"""
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))  # Gets /flock_off directory
-        gui_path = os.path.join(current_dir, '..', 'gui')  # Goes up one level to /gui
-        gui_path = os.path.abspath(gui_path)  # Convert to absolute path
 
+        gui_path = str(Path(__file__).parent.parent / "gui");  os.chdir(gui_path)
 
-        gui_path = str(Path(__file__).parent.parent / "gui") 
-
-        os.chdir(gui_path)
 
         server_address = ('', port)
         Web_Server.server = HTTPServer(server_address, CameraHTTPRequestHandler)
 
-        print(f"[+] Web server started on http://localhost:{port}")
-        #print(f"[+] Serving GUI from: {gui_path}")
-        #print(f"[+] API endpoint: http://localhost:{port}/api/cameras")
-        
+        console.print(f"[bold green][+] Starting Web_Server on:[bold yellow] http://localhost:{port}")
+
+
         Web_Server.server.serve_forever()
  

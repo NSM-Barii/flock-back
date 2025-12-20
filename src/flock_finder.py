@@ -252,7 +252,7 @@ class BLE_Sniffer():
         """internal scanner"""
         
         try:
-            return await cls.scanner.discover(timeout=timeout, return_adv=True)
+            return await BleakScanner.discover(timeout=timeout, return_adv=True)
         
         except Exception as e:
             console.print(f"[bold red]Exception Error:[bold red] {e}")
@@ -329,7 +329,7 @@ class BLE_Sniffer():
         
          
     @classmethod
-    def main(cls, bface, verbose=True, scan_duration=5, timeout=2):
+    def main(cls, verbose, scan_duration=5, timeout=2):
         """This method will be resposnible for looping through ble_scan <-- scan"""
 
 
@@ -341,8 +341,6 @@ class BLE_Sniffer():
         cls.ai_cameras = []
 
         # CREATE SCANNER AND PASS ARG
-        cls.scanner = BleakScanner(adapter=bface)
-
 
 
         console.print("[bold green][+] Starting BLE_Sniffer"); time.sleep(1)
@@ -521,7 +519,7 @@ class Main_Thread():
 
         try:
             # WEB SERVER
-            from server import Web_Server
+            from server import Web_Server; time.sleep(.4)
             Web_Server.start()            
             
 
