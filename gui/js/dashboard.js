@@ -109,7 +109,7 @@ function updateBLETable(devices) {
         const name = device.local_name || 'Unnamed Device';
         const rssi = device.rssi || 0;
         const manufacturer = device.manufacturer || {};
-        const services = device.services || [];
+        const services = device.uuids || [];
 
         const signalClass = getSignalClass(rssi);
         const manufacturerHTML = formatManufacturer(manufacturer);
@@ -201,13 +201,18 @@ function formatServices(services) {
 function shortenUUID(uuid) {
     if (!uuid) return 'Unknown';
 
-    // Check if it's a standard UUID format
+    // Check if it's a standard UUID format (8-4-4-4-12)
     if (uuid.includes('-')) {
         const parts = uuid.split('-');
-        return parts[0]; // Return first segment
+        return parts[0]; // Return first segment (8 chars)
     }
 
-    return uuid.substring(0, 8) + '...';
+    // For non-standard UUIDs, show first 8 chars
+    if (uuid.length > 12) {
+        return uuid.substring(0, 8) + '...';
+    }
+
+    return uuid;
 }
 
 // Get signal strength CSS class
