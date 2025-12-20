@@ -36,7 +36,6 @@ async function fetchData() {
         if (JSON.stringify(data) !== JSON.stringify(lastData)) {
             lastData = data;
             updateDashboard(data);
-            updateTimestamp();
         }
 
     } catch (error) {
@@ -149,8 +148,8 @@ function updateWiFiTable(devices) {
 
     tbody.innerHTML = devices.map(device => {
         const time_stamp = device.time_stamp || '--:--:--';
+        const mac = device.mac || 'Unknown';
         const ssid = device.ssid || 'Hidden Network';
-        const channel = device.channel || 'N/A';
         const frequency = device.frequency || 'N/A';
         const rssi = device.rssi || 0;
         const encryption = device.encryption || 'Unknown';
@@ -160,10 +159,10 @@ function updateWiFiTable(devices) {
         return `
             <tr>
                 <td><strong>${time_stamp}</strong></td>
+                <td><code>${escapeHtml(mac)}</code></td>
                 <td><strong>${escapeHtml(ssid)}</strong></td>
-                <td>${channel}</td>
-                <td>${frequency}</td>
                 <td class="${signalClass}">${rssi} dBm</td>
+                <td>${frequency}</td>
                 <td>${escapeHtml(encryption)}</td>
             </tr>
         `;

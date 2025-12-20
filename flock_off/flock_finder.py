@@ -397,6 +397,7 @@ class WiFi_Sniffer():
                 time_stamp = Utilities.get_timestamp()
 
                 data = {
+                    "mac": addr2,
                     "ssid": ssid,
                     "frequency": freq,
                     "encryption": encryption,
@@ -550,7 +551,7 @@ class Main_Thread():
             "wifi": [],
             "ble": []
             }, CONSOLE=console, verbose=v)
-
+n
 
 if __name__ == "__main__":
     Main_Thread.main()
