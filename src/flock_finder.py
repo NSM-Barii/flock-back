@@ -28,7 +28,6 @@ from signatures import FLOCK_SIGNATURES
 from utilities import Utilities, Background_Threads, Recon_Pusher
 
 
-
 # NSM MODULE IMPORTS
 #from nsm_modules.nsm_utilities import Background_Threads, NetTilities
 #from nsm_modules.nsm_utilities import Utilities as nsm_utilities
@@ -346,7 +345,7 @@ class BLE_Sniffer():
 
 
 
-        console.print("[bold green][+] Starting BLE_Sniffer")
+        console.print("[bold green][+] Starting BLE_Sniffer"); time.sleep(1)
 
 
         while Main_Thread.BACKGROUND:
@@ -476,7 +475,7 @@ class WiFi_Sniffer():
 
 
         if not iface: console.print("[bold red][+] Cancelling WiFi_Sniffer");  return
-        console.print("[bold green][+] Starting WiFi_Sniffer")
+        console.print("[bold green][+] Starting WiFi_Sniffer"); time.sleep(1)
 
 
         Background_Threads.channel_hopper()
@@ -498,6 +497,7 @@ class Main_Thread():
             "wifi": [],
             "ble": []
             }
+        
         Recon_Pusher.main() 
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
@@ -513,22 +513,16 @@ class Main_Thread():
 
 
         # DATA HANDLER
-        
+        v = False
+        Recon_Pusher.push_war(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
+        #Recon_Pusher.push_to_gui(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
 
-        
-        #time.sleep(.5); console.print(f"[bold green][+] ALL Background Threads Started")
 
-        try:                           # PUSH UPDATE
-            while True: 
-                #all = []; all.append(BLE_Sniffer.ai_cameras); all.append(WiFi_Sniffer.ai_cameras)
 
-                #print(cls.ai_cameras_all)
-                v = False
-                if v: console.print(cls.ai_cameras_all)
-                Recon_Pusher.push_war(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
-                Recon_Pusher.push_to_gui(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
-                time.sleep(2)
-            
+        try:
+            # WEB SERVER
+            from server import Web_Server
+            Web_Server.start()            
             
 
         except KeyboardInterrupt as e:
@@ -543,7 +537,7 @@ class Main_Thread():
             console.print(f"\n[bold yellow]BLE_Sniffer:[/bold yellow] {BLE_Sniffer.ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {WiFi_Sniffer.ai_cameras}")
              
 
-            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
+            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds") # - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
 
             
             # CLEAN live.json
@@ -551,7 +545,7 @@ class Main_Thread():
             "wifi": [],
             "ble": []
             }, CONSOLE=console, verbose=v)
-n
+
 
 if __name__ == "__main__":
     Main_Thread.main()
