@@ -510,6 +510,10 @@ class Main_Thread():
         # BLE SNIFFER
         threading.Thread(target=BLE_Sniffer.main, args=(verbose,), daemon=True).start()
 
+
+        # DATA HANDLER
+        
+
         
         #time.sleep(.5); console.print(f"[bold green][+] ALL Background Threads Started")
 
