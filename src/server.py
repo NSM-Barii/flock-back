@@ -10,8 +10,6 @@ import json, os, threading; from pathlib import Path
 from flock_finder import Main_Thread
 
 
-cameras = Main_Thread.ai_cameras_all
-
 class CameraHTTPRequestHandler(SimpleHTTPRequestHandler):
     """Custom HTTP handler to serve GUI files and camera data"""
 
@@ -28,7 +26,7 @@ class CameraHTTPRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
 
             # Send the camera data as JSON
-            self.wfile.write(json.dumps(cameras).encode())
+            self.wfile.write(json.dumps(Main_Thread.ai_cameras_all).encode())
 
 
         else: super().do_GET()
