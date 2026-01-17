@@ -1,0 +1,99 @@
+# BELOW IS THE OUTPUT OF ERRORS I GET AFTER RUNNING THE BLE SCANNER FOR A COUPLE OF MINUES // THIS NEEDS TO BE FIXED IN ORDER TO ALLOW FOR LONG TERM WAR DRIVING!
+
+
+Exception Error: [Errno 9] Bad file descriptor
+Exception Error:  Could not activate remote peer 'org.bluez': startup job failed
+Exception Error: ('No Bluetooth adapters found.', <BleakBluetoothNotAvailableReason.NO_BLUETOOTH: 1>)
+Exception Error:  Could not activate remote peer 'org.bluez': startup job failed
+Exception Error:  Could not activate remote peer 'org.bluez': startup job failed
+Exception Error:  Could not activate remote peer 'org.bluez': startup job failed
+Exception Error: ('No Bluetooth adapters found.', <BleakBluetoothNotAvailableReason.NO_BLUETOOTH: 1>)
+Exception Error:  Could not activate remote peer 'org.bluez': startup job failed
+Exception Error: ('No Bluetooth adapters found.', <BleakBluetoothNotAvailableReason.NO_BLUETOOTH: 1>)
+could not shut down socket
+Traceback (most recent call last):
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/bleak/backends/bluezdbus/manager.py", line 281, in async_init
+    reply = await add_match(bus, rules)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/bleak/backends/bluezdbus/signals.py", line 185, in add_match
+    reply = await bus.call(
+            ^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/dbus_fast/aio/message_bus.py", line 409, in call
+    await future
+  File "src/dbus_fast/aio/message_reader.py", line 25, in dbus_fast.aio.message_reader._message_reader
+  File "src/dbus_fast/_private/unmarshaller.py", line 870, in dbus_fast._private.unmarshaller.Unmarshaller._unmarshall
+  File "src/dbus_fast/_private/unmarshaller.py", line 734, in dbus_fast._private.unmarshaller.Unmarshaller._read_header
+  File "src/dbus_fast/_private/unmarshaller.py", line 457, in dbus_fast._private.unmarshaller.Unmarshaller._read_to_pos
+  File "src/dbus_fast/_private/unmarshaller.py", line 418, in dbus_fast._private.unmarshaller.Unmarshaller._read_sock_without_fds
+EOFError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/dbus_fast/message_bus.py", line 532, in dbus_fast.message_bus.BaseMessageBus.disconnect
+OSError: [Errno 9] Bad file descriptor
+Exception Error: 
+could not shut down socket
+Traceback (most recent call last):
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/bleak/backends/bluezdbus/manager.py", line 281, in async_init
+    reply = await add_match(bus, rules)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/bleak/backends/bluezdbus/signals.py", line 185, in add_match
+    reply = await bus.call(
+            ^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/dbus_fast/aio/message_bus.py", line 409, in call
+    await future
+  File "src/dbus_fast/aio/message_reader.py", line 25, in dbus_fast.aio.message_reader._message_reader
+  File "src/dbus_fast/_private/unmarshaller.py", line 870, in dbus_fast._private.unmarshaller.Unmarshaller._unmarshall
+  File "src/dbus_fast/_private/unmarshaller.py", line 734, in dbus_fast._private.unmarshaller.Unmarshaller._read_header
+  File "src/dbus_fast/_private/unmarshaller.py", line 457, in dbus_fast._private.unmarshaller.Unmarshaller._read_to_pos
+  File "src/dbus_fast/_private/unmarshaller.py", line 418, in dbus_fast._private.unmarshaller.Unmarshaller._read_sock_without_fds
+EOFError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/dbus_fast/message_bus.py", line 532, in dbus_fast.message_bus.BaseMessageBus.disconnect
+OSError: [Errno 9] Bad file descriptor
+Exception Error: 
+could not shut down socket
+Traceback (most recent call last):
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/bleak/backends/bluezdbus/manager.py", line 281, in async_init
+    reply = await add_match(bus, rules)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/bleak/backends/bluezdbus/signals.py", line 185, in add_match
+    reply = await bus.call(
+            ^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "/home/bari/Documents/nsm_tools/flock-back/src/venv/lib/python3.14/site-packages/dbus_fast/aio/message_bus.py", line 409, in call
+    await future
+  File "src/dbus_fast/aio/message_reader.py", line 25, in dbus_fast.aio.message_reader._message_reader
+  File "src/dbus_fast/_private/unmarshaller.py", line 870, in dbus_fast._private.unmarshaller.Unmarshaller._unmarshall
+  File "src/dbus_fast/_private/unmarshaller.py", line 734, in dbus_fast._private.unmarshaller.Unmarshaller._read_header
+  File "src/dbus_fast/_private/unmarshaller.py", line 457, in dbus_fast._private.unmarshaller.Unmarshaller._read_to_pos
+  File "src/dbus_fast/_private/unmarshaller.py", line 418, in dbus_fast._private.unmarshaller.Unmarshaller._read_sock_without_fds
+EOFError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/dbus_fast/message_bus.py", line 532, in dbus_fast.message_bus.BaseMessageBus.disconnect
+OSError: [Errno 9] Bad file descriptor
+Exception Error: 
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
+Exception Error:  Remote peer disconnected
