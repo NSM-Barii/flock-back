@@ -1,55 +1,69 @@
-"""
-Simplified Robust BLE Scanner - Fixes error.txt issues
-Key fixes: Fresh scanner instances + proper cleanup + adapter resets
-"""
-
 import asyncio
 import subprocess
 import time
 from bleak import BleakScanner
+from rich.console import Console
 
-console = None  # Will be set from flock_finder
+console = Console()
 
 
-async def discover_safe(timeout=5):
-    """
-    Safe BLE discovery that prevents DBus errors
-    Creates fresh scanner instance and ensures cleanup
-    """
+async def ble_scan(timeout=5, passive=False):
     scanner = None
     try:
-        scanner = BleakScanner(return_adv=True)
-        await scanner.start()
-        await asyncio.sleep(timeout)
-        await scanner.stop()
-        return await scanner.get_discovered_devices_and_advertisement_data()
-
+        mode = "passive" if passive else "active"
+        devices = await BleakScanner.discover(timeout=timeout, return_adv=True, scanning_mode=mode)
+        return devices
     except Exception as e:
-        if console:
-            console.print(f"[bold red]BLE Error:[bold yellow] {e}")
+        console.print(f"[bold red]BLE Error:[bold yellow] {e}")
         return None
 
-    finally:
-        # Cleanup scanner resources
-        if scanner:
-            try:
-                await scanner.stop()
-            except:
-                pass
-        await asyncio.sleep(0.5)  # Let resources release
 
-
-def reset_adapter():
-    """Reset BT adapter when errors occur"""
+def reset_bt():
     try:
         subprocess.run(["sudo", "bluetoothctl", "power", "off"], capture_output=True, timeout=5)
         time.sleep(2)
         subprocess.run(["sudo", "bluetoothctl", "power", "on"], capture_output=True, timeout=5)
         time.sleep(3)
-        if console:
-            console.print("[bold green][+] Adapter reset")
+        console.print("[bold green][+] BT reset")
     except:
         pass
 
 
-# Usage example - replace your _discover() and exception handling with this pattern
+def main():
+    scans = 0
+    last_reset = time.time()
+    errors = 0
+
+    while True:
+        scans += 1
+        console.print(f"\n[bold cyan]Scan #{scans}")
+
+        devices = asyncio.run(ble_scan(timeout=5, passive=False))
+
+        if devices:
+            console.print(f"[bold green]Found {len(devices)} devices")
+            errors = 0
+
+            for mac, (device, adv) in devices.items():
+                console.print(f"  {mac} - {adv.local_name} - {adv.rssi}dBm")
+
+        else:
+            errors += 1
+            console.print(f"[bold red]Scan failed - errors: {errors}")
+
+            if errors >= 3:
+                reset_bt()
+                errors = 0
+
+        if time.time() - last_reset > 120:
+            reset_bt()
+            last_reset = time.time()
+
+        time.sleep(5)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        console.print("\n[bold red]Stopped")
