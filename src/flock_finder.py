@@ -259,19 +259,19 @@ class BLE_Sniffer():
 
 
     @classmethod
-    def ble_scan(cls, timeout=5):
+    async def ble_scan(cls, timeout=5):
         """This will sniff for ble advertisements traversing our surroundings"""
 
         
-        devices = asyncio.run(BLE_Sniffer._discover(timeout=timeout))
-        asyncio.run(BLE_Sniffer._pause_ble())
+
+        await cls.scanner.start()
+        await asyncio.sleep(5)
+        await cls.scanner.stop()
+        devices = cls.scanner.discovered_devices_and_advertisement_data
 
 
         if not devices: return
 
-        #BLE_Sniffer._reset_ble()
-
-        
 
         try:
 
@@ -319,12 +319,6 @@ class BLE_Sniffer():
             console.print(f"[bold red]BLE Exception Error:[bold yellow] {e}"); return
 
             
-            BLE_Sniffer._pause_ble(duration=5)
-            BLE_Sniffer._reset_ble()
-
-            BLE_Sniffer._reset_ble(duration=5)
-
-            return           
 
         
          
@@ -341,6 +335,7 @@ class BLE_Sniffer():
         cls.ai_cameras = []
 
         # CREATE SCANNER AND PASS ARG
+        cls.scanner = BleakScanner()
 
 
         console.print("[bold green][+] Starting BLE_Sniffer"); time.sleep(1)
@@ -349,7 +344,7 @@ class BLE_Sniffer():
         while Main_Thread.BACKGROUND:
 
 
-            BLE_Sniffer.ble_scan(timeout=scan_duration); scans += 1
+            asyncio.run(BLE_Sniffer.ble_scan(timeout=scan_duration)); scans += 1
 
             time.sleep(timeout)
         
