@@ -264,53 +264,60 @@ class BLE_Sniffer():
 
         
 
-        await cls.scanner.start()
-        await asyncio.sleep(5)
-        await cls.scanner.stop()
-        devices = cls.scanner.discovered_devices_and_advertisement_data
-
-
-        if not devices: return
 
 
         try:
 
-            # PARSE DATA
-            for mac, (device, adv) in devices.items():
+            scanner = BleakScanner()
+            
+
+            while Main_Thread.BACKGROUND:
+
+                await scanner.start()
+                await asyncio.sleep(5)
+                await scanner.stop()
+                devices = scanner.discovered_devices_and_advertisement_data
 
 
-                if mac not in cls.ble_devices and adv:
-
-                    cls.ble_devices.append(mac)
-
-                    # STORE VARS
-                    local_name = adv.local_name
-                    rssi = adv.rssi
-                    uuid = adv.service_uuids or False
-
-                    manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
-                    a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
-                    time_stamp = Utilities.get_timestamp()
-    
-                    data = {
-                        "mac": mac,
-                        "rssi": rssi,
-                        "local_name": local_name,
-                        "manufacturer": manufacturer,
-                        "uuids": valid_uuid,
-                        "time_stamp": time_stamp
-                    }
 
 
-                    # ARE YOU FLOCK or AI ??? 
-                    with LOCK:
-                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid): 
-                            Main_Thread.ai_cameras_all["ble"].append(data); return
-                            
+                if not devices: return
+                # PARSE DATA
+                for mac, (device, adv) in devices.items():
+
+
+                    if mac not in cls.ble_devices and adv:
+
+                        cls.ble_devices.append(mac)
+
+                        # STORE VARS
+                        local_name = adv.local_name
+                        rssi = adv.rssi
+                        uuid = adv.service_uuids or False
+
+                        manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
+                        a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
+                        time_stamp = Utilities.get_timestamp()
+        
+                        data = {
+                            "mac": mac,
+                            "rssi": rssi,
+                            "local_name": local_name,
+                            "manufacturer": manufacturer,
+                            "uuids": valid_uuid,
+                            "time_stamp": time_stamp
+                        }
+
+
+                        # ARE YOU FLOCK or AI ??? 
+                        with LOCK:
+                            if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid): 
+                                Main_Thread.ai_cameras_all["ble"].append(data); return
+                                
+                        
+                        if cls.verbose:
+                            console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
                     
-                    if cls.verbose:
-                        console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
-                
                         
         except KeyboardInterrupt as e:
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
