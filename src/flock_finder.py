@@ -79,12 +79,12 @@ class PDU_Inspector():
 
         for flock_mac in cls.mac_prefixes:
 
-            if flock_mac == mac:
+            if mac.upper().startswith(flock_mac.upper()):
 
                 if cls.verboose: console.print(f"[bold red][+] Found Flock MAC:[bold yellow] {mac}")
-                 
+
                 return True
-            
+
         return False
     
     
