@@ -1,0 +1,25 @@
+BLE Adapter Control Commands (Simple Cheat Sheet)
+
+Turn OFF Bluetooth adapter: sudo btmgmt -i hci0 power off
+
+Turn ON Bluetooth adapter: sudo btmgmt -i hci0 power on
+
+Check available Bluetooth adapters: bluetoothctl list
+
+Check adapter info: btmgmt info
+
+List Bluetooth devices (system level): ls /sys/class/bluetooth
+
+Check if USB Bluetooth adapter is detected: lsusb
+
+Check Bluetooth-related system logs: dmesg | grep -i bluetooth
+
+Quick Reset (OFF then ON): sudo btmgmt -i hci0 power off sudo btmgmt -i
+hci0 power on
+
+Notes: - hci0 = your default Bluetooth adapter - If you get “Invalid
+Index”, the adapter does not exist - Turning OFF the adapter will stop
+all BLE scanning - Turn it back ON before running your scanner
+
+Tip: Use reset if your BLE scanner becomes unstable or stops detecting
+devices properly.
