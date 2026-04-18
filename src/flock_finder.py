@@ -478,7 +478,7 @@ class WiFi_Sniffer():
         console.print("[bold green][+] Starting WiFi_Sniffer"); time.sleep(1)
 
 
-        Background_Threads.channel_hopper()
+        Background_Threads.channel_hopper(iface=iface)
 
         WiFi_Sniffer._wifi_scan(iface=iface)
 

@@ -12,7 +12,7 @@ console = Console()
 # NETWORK IMPORTS
 import  requests
 from scapy.all import sniff, RadioTap
-from scapy.layers.dot11 import Dot11Elt
+from scapy.layers.dot11 import Dot11Elt, Dot11Beacon
 
 
 # ETC IMPORTS 
@@ -719,7 +719,7 @@ class Background_Threads():
 
 
     @classmethod
-    def channel_hopper(cls, set_channel=False, verbose=False):
+    def channel_hopper(cls, iface, set_channel=False, verbose=False):
         """This method will be responsible for automatically hopping channels"""
 
 
@@ -729,7 +729,7 @@ class Background_Threads():
             delay = 0.25
             all_hops = [1, 6, 11, 36, 40, 44, 48, 149, 153, 157, 161]
 
-            iface = Settings.get_json(verbose=False)['iface']
+            #iface = Settings.get_json(verbose=False)['iface']
 
 
             # TUNE HOP
