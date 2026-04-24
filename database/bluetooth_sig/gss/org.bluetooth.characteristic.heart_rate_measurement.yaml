@@ -1,0 +1,104 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.heart_rate_measurement
+  name: Heart Rate Measurement
+  description: |-
+    The Heart Rate Measurement characteristic is used to represent data related to a heart rate measurement.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.heart_rate_measurement/field/flags}
+    - field: Heart Rate Measurement Value (8 bit resolution)
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Unit: org.bluetooth.unit.period.beats_per_minute
+        Present if bit 0 of Flags field is set to 0
+    - field: Heart Rate Measurement Value (16 bit resolution)
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.period.beats_per_minute
+        Present if bit 0 of Flags field is set to 1
+    - field: Energy Expended
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.energy.joule
+        Present if bit 3 of Flags field is set to 1
+    - field: RR-interval
+      type: uint16[n]
+      size: 0 or n*2
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.heart_rate_measurement/field/rr-interval}
+        Present if bit 4 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Heart Rate Value Format:
+            0 = Heart Rate Value Format is set to uint8
+            1 = Heart Rate Value Format is set to uint16
+        - bit: "1"
+          description: Sensor Contact detected
+        - bit: "2"
+          description: Sensor Contact Supported
+        - bit: "3"
+          description: Energy Expended present
+        - bit: "4"
+          description: RR-Interval present
+        - bit: 5–7
+          description: Reserved for Future Use
+    - name: RR-Interval
+      description: |-
+        The RR-Interval value represents the time between two R-Wave detections. Each RR-Interval value is represented by a uint16 with 1/1024 second as the unit. Because it is possible to measure several RR-Intervals between transmissions of the Heart Rate Measurement characteristic, multiple RR-Interval sub-fields can be present in the characteristic. The number of RR-Interval sub-fields present is determined by a combination of the overall length of the characteristic and whether or not the characteristic contains the Energy Expended field.
+        Where there are multiple RR-Interval values transmitted in the Heart Rate Measurement characteristic, the structure of this field is defined below.
+      value_header: RR-Interval Field
+      description_header: Description
+      values:
+        - value: RR-Interval Value 0
+          description: Oldest RR-Interval value
+        - value: RR-Interval Value 1
+          description: ""
+        - value: RR-Interval Value 2
+          description: "" 
+        - value: \textellipsis
+          description: ""
+        - value: RR-Interval Value n
+          description: Newest RR-Interval value

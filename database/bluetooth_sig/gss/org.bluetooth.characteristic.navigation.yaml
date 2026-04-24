@@ -1,0 +1,119 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.navigation
+  name: Navigation
+  description: |-
+    The Navigation characteristic is used to represent data related to a navigation sensor.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[16]
+      size: "2"
+      description: See \autoref{sec:org.bluetooth.characteristic.navigation/field/flags}
+    - field: Bearing
+      type: uint16
+      size: "2"
+      description: |-
+        Base Unit: org.bluetooth.unit.plane_angle.degree
+        Represented values: M = 1, d = -2, b = 0
+        Unit is 1*10\textsuperscript{-2} degrees
+    - field: Heading
+      type: uint16
+      size: "2"
+      description: |-
+        Base Unit: org.bluetooth.unit.plane_angle.degree
+        Represented values: M = 1, d = -2, b = 0
+        Unit is 1*10\textsuperscript{-2} degrees
+    - field: Remaining Distance
+      type: uint24
+      size: 0 or 3
+      description: |-
+        Base Unit: org.bluetooth.unit.length.metre
+        Represented values: M = 1, d = -1, b = 0
+        Unit is 1/10 m
+        Present if bit 0 of Flags field is set to 1
+    - field: Remaining Vertical Distance
+      type: sint24
+      size: 0 or 3
+      description: |-
+        Base Unit: org.bluetooth.unit.length.metre
+        Represented values: M = 1, d = -2, b = 0
+        Unit is 1/100 m
+        Present if bit 1 of Flags field is set to 1
+    - field: Estimated Time of Arrival
+      type: struct
+      size: 0 or 7
+      description: |-
+        Refer to Date Time characteristic in \autoref{sec:org.bluetooth.characteristic.date_time}.
+        Present if bit 2 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: Remaining Distance Present
+        - bit: "1"
+          description: Remaining Vertical Distance Present
+        - bit: "2"
+          description: Estimated Time of Arrival Present
+        - bit: 3–4
+          description: |-
+            Position Status:
+            0b00 = No Position
+            0b01 = Position Ok
+            0b10 = Estimated Position
+            0b11 = Last Known Position
+        - bit: "5"
+          description: |-
+            Heading Source
+            0 = Heading based on movement
+            1 = Heading based on magnetic compass
+        - bit: "6"
+          description: |-
+            Navigation Indicator Type
+            0 = To Waypoint
+            1 = To Destination
+        - bit: "7"
+          description: |-
+            Waypoint Reached
+            0 = False
+            1 = True
+        - bit: "8"
+          description: |-
+            Destination Reached
+            0 = False
+            1 = True
+        - bit: 9–15
+          description: Reserved for Future Use

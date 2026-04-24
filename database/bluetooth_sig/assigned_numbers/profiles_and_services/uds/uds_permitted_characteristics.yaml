@@ -1,0 +1,75 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+permitted_characteristics:
+ - service: org.bluetooth.service.user_data
+   characteristics:
+    - org.bluetooth.characteristic.activity_goal
+    - org.bluetooth.characteristic.aerobic_heart_rate_lower_limit
+    - org.bluetooth.characteristic.aerobic_heart_rate_upper_limit
+    - org.bluetooth.characteristic.aerobic_threshold
+    - org.bluetooth.characteristic.age
+    - org.bluetooth.characteristic.anaerobic_heart_rate_lower_limit
+    - org.bluetooth.characteristic.anaerobic_heart_rate_upper_limit
+    - org.bluetooth.characteristic.anaerobic_threshold
+    - org.bluetooth.characteristic.caloric_intake
+    - org.bluetooth.characteristic.date_of_birth
+    - org.bluetooth.characteristic.date_of_threshold_assessment
+    - org.bluetooth.characteristic.device_wearing_position
+    - org.bluetooth.characteristic.email_address
+    - org.bluetooth.characteristic.fat_burn_heart_rate_lower_limit
+    - org.bluetooth.characteristic.fat_burn_heart_rate_upper_limit
+    - org.bluetooth.characteristic.first_name
+    - org.bluetooth.characteristic.five_zone_heart_rate_limits
+    - org.bluetooth.characteristic.four_zone_heart_rate_limits
+    - org.bluetooth.characteristic.gender
+    - org.bluetooth.characteristic.handedness
+    - org.bluetooth.characteristic.heart_rate_max
+    - org.bluetooth.characteristic.height
+    - org.bluetooth.characteristic.high_intensity_exercise_threshold
+    - org.bluetooth.characteristic.high_resolution_height
+    - org.bluetooth.characteristic.hip_circumference
+    - org.bluetooth.characteristic.language
+    - org.bluetooth.characteristic.last_name
+    - org.bluetooth.characteristic.maximum_recommended_heart_rate
+    - org.bluetooth.characteristic.middle_name
+    - org.bluetooth.characteristic.preferred_units
+    - org.bluetooth.characteristic.resting_heart_rate
+    - org.bluetooth.characteristic.sedentary_interval_notification
+    - org.bluetooth.characteristic.sport_type_for_aerobic_and_anaerobic_thresholds
+    - org.bluetooth.characteristic.stride_length
+    - org.bluetooth.characteristic.three_zone_heart_rate_limits
+    - org.bluetooth.characteristic.two_zone_heart_rate_limits
+    - org.bluetooth.characteristic.vo2_max
+    - org.bluetooth.characteristic.waist_circumference
+    - org.bluetooth.characteristic.weight

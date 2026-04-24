@@ -1,0 +1,86 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.rsc_measurement
+  name: RSC Measurement
+  description: |-
+    The RSC Measurement characteristic is used to represent data related to a running speed and cadence (RSC) measurement.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.rsc_measurement/field/flags}
+    - field: Instantaneous Speed
+      type: uint16
+      size: "2"
+      description: |-
+        Base Unit: org.bluetooth.unit.velocity.metres_per_second
+        Represented values: M = 1, d = 0, b = -8
+        Unit is 1/256th of a m/s
+    - field: Instantaneous Cadence
+      type: uint8
+      size: "1"
+      description: Unit is 1/min
+    - field: Instantaneous Stride Length
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Base Unit: org.bluetooth.unit.length.metre
+        Represented values: M = 1, d = -2, b = 0
+        Unit is Centimeter
+        Present if bit 0 of Flags field is set to 1
+    - field: Total Distance
+      type: uint32
+      size: 0 or 4
+      description: |-
+        Base Unit: org.bluetooth.unit.length.metre
+        Represented values: M = 1, d = -1, b = 0
+        Unit is 1/10 m
+        Present if bit 1 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: Instantaneous Stride Length Present
+        - bit: "1"
+          description: Total Distance Present
+        - bit: "2"
+          description: |-
+            Walking or Running Status:
+            0 = Walking
+            1 = Running
+        - bit: 3–7
+          description: Reserved for Future Use

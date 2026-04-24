@@ -1,0 +1,622 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_model_opcodes:
+ - name: Config AppKey Add
+   opcode: 0x00
+   type: foundation
+ - name: Config AppKey Delete
+   opcode: 0x8000
+   type: foundation
+ - name: Config AppKey Get
+   opcode: 0x8001
+   type: foundation
+ - name: Config AppKey List
+   opcode: 0x8002
+   type: foundation
+ - name: Config AppKey Status
+   opcode: 0x8003
+   type: foundation
+ - name: Config AppKey Update
+   opcode: 0x01
+   type: foundation
+ - name: Config Beacon Get
+   opcode: 0x8009
+   type: foundation
+ - name: Config Beacon Set
+   opcode: 0x800A
+   type: foundation
+ - name: Config Beacon Status
+   opcode: 0x800B
+   type: foundation
+ - name: Config Composition Data Get
+   opcode: 0x8008
+   type: foundation
+ - name: Config Composition Data Status
+   opcode: 0x02
+   type: foundation
+ - name: Config Model Publication Set
+   opcode: 0x03
+   type: foundation
+ - name: Config Default TTL Get
+   opcode: 0x800C
+   type: foundation
+ - name: Config Default TTL Set
+   opcode: 0x800D
+   type: foundation
+ - name: Config Default TTL Status
+   opcode: 0x800E
+   type: foundation
+ - name: Config Friend Get
+   opcode: 0x800F
+   type: foundation
+ - name: Config Friend Set
+   opcode: 0x8010
+   type: foundation
+ - name: Config Friend Status
+   opcode: 0x8011
+   type: foundation
+ - name: Config GATT Proxy Get
+   opcode: 0x8012
+   type: foundation
+ - name: Config GATT Proxy Set
+   opcode: 0x8013
+   type: foundation
+ - name: Config GATT Proxy Status
+   opcode: 0x8014
+   type: foundation
+ - name: Config Heartbeat Publication Get
+   opcode: 0x8038
+   type: foundation
+ - name: Config Heartbeat Publication Set
+   opcode: 0x8039
+   type: foundation
+ - name: Config Heartbeat Publication Status
+   opcode: 0x06
+   type: foundation
+ - name: Config Heartbeat Subscription Get
+   opcode: 0x803A
+   type: foundation
+ - name: Config Heartbeat Subscription Set
+   opcode: 0x803B
+   type: foundation
+ - name: Config Heartbeat Subscription Status
+   opcode: 0x803C
+   type: foundation
+ - name: Config Key Refresh Phase Get
+   opcode: 0x8015
+   type: foundation
+ - name: Config Key Refresh Phase Set
+   opcode: 0x8016
+   type: foundation
+ - name: Config Key Refresh Phase Status
+   opcode: 0x8017
+   type: foundation
+ - name: Config Low Power Node PollTimeout Get
+   opcode: 0x802D
+   type: foundation
+ - name: Config Low Power Node PollTimeout Status
+   opcode: 0x802E
+   type: foundation
+ - name: Config Model App Bind
+   opcode: 0x803D
+   type: foundation
+ - name: Config Model App Status
+   opcode: 0x803E
+   type: foundation
+ - name: Config Model App Unbind
+   opcode: 0x803F
+   type: foundation
+ - name: Config Model Publication Get
+   opcode: 0x8018
+   type: foundation
+ - name: Config Model Publication Status
+   opcode: 0x8019
+   type: foundation
+ - name: Config Model Publication Virtual Address Set
+   opcode: 0x801A
+   type: foundation
+ - name: Config Model Subscription Add
+   opcode: 0x801B
+   type: foundation
+ - name: Config Model Subscription Delete
+   opcode: 0x801C
+   type: foundation
+ - name: Config Model Subscription Delete All
+   opcode: 0x801D
+   type: foundation
+ - name: Config Model Subscription Overwrite
+   opcode: 0x801E
+   type: foundation
+ - name: Config Model Subscription Status
+   opcode: 0x801F
+   type: foundation
+ - name: Config Model Subscription Virtual Address Add
+   opcode: 0x8020
+   type: foundation
+ - name: Config Model Subscription Virtual Address Delete
+   opcode: 0x8021
+   type: foundation
+ - name: Config Model Subscription Virtual Address Overwrite
+   opcode: 0x8022
+   type: foundation
+ - name: Config NetKey Add
+   opcode: 0x8040
+   type: foundation
+ - name: Config NetKey Delete
+   opcode: 0x8041
+   type: foundation
+ - name: Config NetKey Get
+   opcode: 0x8042
+   type: foundation
+ - name: Config NetKey List
+   opcode: 0x8043
+   type: foundation
+ - name: Config NetKey Status
+   opcode: 0x8044
+   type: foundation
+ - name: Config NetKey Update
+   opcode: 0x8045
+   type: foundation
+ - name: Config Network Transmit Get
+   opcode: 0x8023
+   type: foundation
+ - name: Config Network Transmit Set
+   opcode: 0x8024
+   type: foundation
+ - name: Config Network Transmit Status
+   opcode: 0x8025
+   type: foundation
+ - name: Config Node Identity Get
+   opcode: 0x8046
+   type: foundation
+ - name: Config Node Identity Set
+   opcode: 0x8047
+   type: foundation
+ - name: Config Node Identity Status
+   opcode: 0x8048
+   type: foundation
+ - name: Config Node Reset
+   opcode: 0x8049
+   type: foundation
+ - name: Config Node Reset Status
+   opcode: 0x804A
+   type: foundation
+ - name: Config Relay Get
+   opcode: 0x8026
+   type: foundation
+ - name: Config Relay Set
+   opcode: 0x8027
+   type: foundation
+ - name: Config Relay Status
+   opcode: 0x8028
+   type: foundation
+ - name: Config SIG Model App Get
+   opcode: 0x804B
+   type: foundation
+ - name: Config SIG Model App List
+   opcode: 0x804C
+   type: foundation
+ - name: Config SIG Model Subscription Get
+   opcode: 0x8029
+   type: foundation
+ - name: Config SIG Model Subscription List
+   opcode: 0x802A
+   type: foundation
+ - name: Config Vendor Model App Get
+   opcode: 0x804D
+   type: foundation
+ - name: Config Vendor Model App List
+   opcode: 0x804E
+   type: foundation
+ - name: Config Vendor Model Subscription Get
+   opcode: 0x802B
+   type: foundation
+ - name: Config Vendor Model Subscription List
+   opcode: 0x802C
+   type: foundation
+ - name: Health Attention Get
+   opcode: 0x8004
+   type: foundation
+ - name: Health Attention Set
+   opcode: 0x8005
+   type: foundation
+ - name: Health Attention Set Unacknowledged
+   opcode: 0x8006
+   type: foundation
+ - name: Health Attention Status
+   opcode: 0x8007
+   type: foundation
+ - name: Health Current Status
+   opcode: 0x04
+   type: foundation
+ - name: Health Fault Clear
+   opcode: 0x802F
+   type: foundation
+ - name: Health Fault Clear Unacknowledged
+   opcode: 0x8030
+   type: foundation
+ - name: Health Fault Get
+   opcode: 0x8031
+   type: foundation
+ - name: Health Fault Status
+   opcode: 0x05
+   type: foundation
+ - name: Health Fault Test
+   opcode: 0x8032
+   type: foundation
+ - name: Health Fault Test Unacknowledged
+   opcode: 0x8033
+   type: foundation
+ - name: Health Period Get
+   opcode: 0x8034
+   type: foundation
+ - name: Health Period Set
+   opcode: 0x8035
+   type: foundation
+ - name: Health Period Set Unacknowledged
+   opcode: 0x8036
+   type: foundation
+ - name: Health Period Status
+   opcode: 0x8037
+   type: foundation
+ - name: Remote Provisioning Scan Capabilities Get
+   opcode: 0x804F
+   type: foundation
+ - name: Remote Provisioning Scan Capabilities Status
+   opcode: 0x8050
+   type: foundation
+ - name: Remote Provisioning Scan Get
+   opcode: 0x8051
+   type: foundation
+ - name: Remote Provisioning Scan Start
+   opcode: 0x8052
+   type: foundation
+ - name: Remote Provisioning Scan Stop
+   opcode: 0x8053
+   type: foundation
+ - name: Remote Provisioning Scan Status
+   opcode: 0x8054
+   type: foundation
+ - name: Remote Provisioning Scan Report
+   opcode: 0x8055
+   type: foundation
+ - name: Remote Provisioning Extended Scan Start
+   opcode: 0x8056
+   type: foundation
+ - name: Remote Provisioning Extended Scan Report
+   opcode: 0x8057
+   type: foundation
+ - name: Remote Provisioning Link Get
+   opcode: 0x8058
+   type: foundation
+ - name: Remote Provisioning Link Open
+   opcode: 0x8059
+   type: foundation
+ - name: Remote Provisioning Link Close
+   opcode: 0x805A
+   type: foundation
+ - name: Remote Provisioning Link Status
+   opcode: 0x805B
+   type: foundation
+ - name: Remote Provisioning Link Report
+   opcode: 0x805C
+   type: foundation
+ - name: Remote Provisioning PDU Send
+   opcode: 0x805D
+   type: foundation
+ - name: Remote Provisioning PDU Outbound Report
+   opcode: 0x805E
+   type: foundation
+ - name: Remote Provisioning PDU Report
+   opcode: 0x805F
+   type: foundation
+ - name: DIRECTED_CONTROL_GET
+   opcode: 0x807B
+   type: foundation
+ - name: DIRECTED_CONTROL_SET
+   opcode: 0x807C
+   type: foundation
+ - name: DIRECTED_CONTROL_STATUS
+   opcode: 0x807D
+   type: foundation
+ - name: PATH_METRIC_GET
+   opcode: 0x807E
+   type: foundation
+ - name: PATH_METRIC_SET
+   opcode: 0x807F
+   type: foundation
+ - name: PATH_METRIC_STATUS
+   opcode: 0x8080
+   type: foundation
+ - name: DISCOVERY_TABLE_CAPABILITIES_GET
+   opcode: 0x8081
+   type: foundation
+ - name: DISCOVERY_TABLE_CAPABILITIES_SET
+   opcode: 0x8082
+   type: foundation
+ - name: DISCOVERY_TABLE_CAPABILITIES_STATUS
+   opcode: 0x8083
+   type: foundation
+ - name: FORWARDING_TABLE_ADD
+   opcode: 0x8084
+   type: foundation
+ - name: FORWARDING_TABLE_DELETE
+   opcode: 0x8085
+   type: foundation
+ - name: FORWARDING_TABLE_STATUS
+   opcode: 0x8086
+   type: foundation
+ - name: FORWARDING_TABLE_DEPENDENTS_ADD
+   opcode: 0x8087
+   type: foundation
+ - name: FORWARDING_TABLE_DEPENDENTS_DELETE
+   opcode: 0x8088
+   type: foundation
+ - name: FORWARDING_TABLE_DEPENDENTS_STATUS
+   opcode: 0x8089
+   type: foundation
+ - name: FORWARDING_TABLE_DEPENDENTS_GET
+   opcode: 0x808A
+   type: foundation
+ - name: FORWARDING_TABLE_DEPENDENTS_GET_STATUS
+   opcode: 0x808B
+   type: foundation
+ - name: FORWARDING_TABLE_ENTRIES_COUNT_GET
+   opcode: 0x808C
+   type: foundation
+ - name: FORWARDING_TABLE_ENTRIES_COUNT_STATUS
+   opcode: 0x808D
+   type: foundation
+ - name: FORWARDING_TABLE_ENTRIES_GET
+   opcode: 0x808E
+   type: foundation
+ - name: FORWARDING_TABLE_ENTRIES_STATUS
+   opcode: 0x808F
+   type: foundation
+ - name: WANTED_LANES_GET
+   opcode: 0x8090
+   type: foundation
+ - name: WANTED_LANES_SET
+   opcode: 0x8091
+   type: foundation
+ - name: WANTED_LANES_STATUS
+   opcode: 0x8092
+   type: foundation
+ - name: TWO_WAY_PATH_GET
+   opcode: 0x8093
+   type: foundation
+ - name: TWO_WAY_PATH_SET
+   opcode: 0x8094
+   type: foundation
+ - name: TWO_WAY_PATH_STATUS
+   opcode: 0x8095
+   type: foundation
+ - name: PATH_ECHO_INTERVAL_GET
+   opcode: 0x8096
+   type: foundation
+ - name: PATH_ECHO_INTERVAL_SET
+   opcode: 0x8097
+   type: foundation
+ - name: PATH_ECHO_INTERVAL_STATUS
+   opcode: 0x8098
+   type: foundation
+ - name: DIRECTED_NETWORK_TRANSMIT_GET
+   opcode: 0x8099
+   type: foundation
+ - name: DIRECTED_NETWORK_TRANSMIT_SET
+   opcode: 0x809A
+   type: foundation
+ - name: DIRECTED_NETWORK_TRANSMIT_STATUS
+   opcode: 0x809B
+   type: foundation
+ - name: DIRECTED_RELAY_RETRANSMIT_GET
+   opcode: 0x809C
+   type: foundation
+ - name: DIRECTED_RELAY_RETRANSMIT_SET
+   opcode: 0x809D
+   type: foundation
+ - name: DIRECTED_RELAY_RETRANSMIT_STATUS
+   opcode: 0x809E
+   type: foundation
+ - name: RSSI_THRESHOLD_GET
+   opcode: 0x809F
+   type: foundation
+ - name: RSSI_THRESHOLD_SET
+   opcode: 0x80A0
+   type: foundation
+ - name: RSSI_THRESHOLD_STATUS
+   opcode: 0x80A1
+   type: foundation
+ - name: DIRECTED_PATHS_GET
+   opcode: 0x80A2
+   type: foundation
+ - name: DIRECTED_PATHS_STATUS
+   opcode: 0x80A3
+   type: foundation
+ - name: DIRECTED_PUBLISH_POLICY_GET
+   opcode: 0x80A4
+   type: foundation
+ - name: DIRECTED_PUBLISH_POLICY_SET
+   opcode: 0x80A5
+   type: foundation
+ - name: DIRECTED_PUBLISH_POLICY_STATUS
+   opcode: 0x80A6
+   type: foundation
+ - name: PATH_DISCOVERY_TIMING_CONTROL_GET
+   opcode: 0x80A7
+   type: foundation
+ - name: PATH_DISCOVERY_TIMING_CONTROL_SET
+   opcode: 0x80A8
+   type: foundation
+ - name: PATH_DISCOVERY_TIMING_CONTROL_STATUS
+   opcode: 0x80A9
+   type: foundation
+ - name: this opcode is not used
+   opcode: 0x80AA
+   type: foundation
+ - name: DIRECTED_CONTROL_NETWORK_TRANSMIT_GET
+   opcode: 0x80AB
+   type: foundation
+ - name: DIRECTED_CONTROL_NETWORK_TRANSMIT_SET
+   opcode: 0x80AC
+   type: foundation
+ - name: DIRECTED_CONTROL_NETWORK_TRANSMIT_STATUS
+   opcode: 0x80AD
+   type: foundation
+ - name: DIRECTED_CONTROL_RELAY_RETRANSMIT_GET
+   opcode: 0x80AE
+   type: foundation
+ - name: DIRECTED_CONTROL_RELAY_RETRANSMIT_SET
+   opcode: 0x80AF
+   type: foundation
+ - name: DIRECTED_CONTROL_RELAY_RETRANSMIT_STATUS
+   opcode: 0x80B0
+   type: foundation
+ - name: PRIVATE_BEACON_GET
+   opcode: 0x8060
+   type: foundation
+ - name: PRIVATE_BEACON_SET
+   opcode: 0x8061
+   type: foundation
+ - name: PRIVATE_BEACON_STATUS
+   opcode: 0x8062
+   type: foundation
+ - name: PRIVATE_GATT_PROXY_GET
+   opcode: 0x8063
+   type: foundation
+ - name: PRIVATE_GATT_PROXY_SET
+   opcode: 0x8064
+   type: foundation
+ - name: PRIVATE_GATT_PROXY_STATUS
+   opcode: 0x8065
+   type: foundation
+ - name: PRIVATE_NODE_IDENTITY_GET
+   opcode: 0x8066
+   type: foundation
+ - name: PRIVATE_NODE_IDENTITY_SET
+   opcode: 0x8067
+   type: foundation
+ - name: PRIVATE_NODE_IDENTITY_STATUS
+   opcode: 0x8068
+   type: foundation
+ - name: ON_DEMAND_PRIVATE_PROXY_GET
+   opcode: 0x8069
+   type: foundation
+ - name: ON_DEMAND_PRIVATE_PROXY_SET
+   opcode: 0x806A
+   type: foundation
+ - name: ON_DEMAND_PRIVATE_PROXY_STATUS
+   opcode: 0x806B
+   type: foundation
+ - name: SAR_TRANSMITTER_GET
+   opcode: 0x806C
+   type: foundation
+ - name: SAR_TRANSMITTER_SET
+   opcode: 0x806D
+   type: foundation
+ - name: SAR_TRANSMITTER_STATUS
+   opcode: 0x806E
+   type: foundation
+ - name: SAR_RECEIVER_GET
+   opcode: 0x806F
+   type: foundation
+ - name: SAR_RECEIVER_SET
+   opcode: 0x8070
+   type: foundation
+ - name: SAR_RECEIVER_STATUS
+   opcode: 0x8071
+   type: foundation
+ - name: OPCODES_AGGREGATOR_SEQUENCE
+   opcode: 0x8072
+   type: foundation
+ - name: OPCODES_AGGREGATOR_STATUS
+   opcode: 0x8073
+   type: foundation
+ - name: LARGE_COMPOSITION_DATA_GET
+   opcode: 0x8074
+   type: foundation
+ - name: LARGE_COMPOSITION_DATA_STATUS
+   opcode: 0x8075
+   type: foundation
+ - name: MODELS_METADATA_GET
+   opcode: 0x8076
+   type: foundation
+ - name: MODELS_METADATA_STATUS
+   opcode: 0x8077
+   type: foundation
+ - name: SOLICITATION_PDU_RPL_ITEM_CLEAR
+   opcode: 0x8078
+   type: foundation
+ - name: SOLICITATION_PDU_RPL_ITEM_CLEAR_UNACKNOWLEDGED
+   opcode: 0x8079
+   type: foundation
+ - name: SOLICITATION_PDU_RPL_ITEM_STATUS
+   opcode: 0x807A
+   type: foundation
+ - name: SUBNET_BRIDGE_GET
+   opcode: 0x80B1
+   type: foundation
+ - name: SUBNET_BRIDGE_SET
+   opcode: 0x80B2
+   type: foundation
+ - name: SUBNET_BRIDGE_STATUS
+   opcode: 0x80B3
+   type: foundation
+ - name: BRIDGING_TABLE_ADD
+   opcode: 0x80B4
+   type: foundation
+ - name: BRIDGING_TABLE_REMOVE
+   opcode: 0x80B5
+   type: foundation
+ - name: BRIDGING_TABLE_STATUS
+   opcode: 0x80B6
+   type: foundation
+ - name: BRIDGED_SUBNETS_GET
+   opcode: 0x80B7
+   type: foundation
+ - name: BRIDGED_SUBNETS_LIST
+   opcode: 0x80B8
+   type: foundation
+ - name: BRIDGING_TABLE_GET
+   opcode: 0x80B9
+   type: foundation
+ - name: BRIDGING_TABLE_LIST
+   opcode: 0x80BA
+   type: foundation
+ - name: BRIDGING_TABLE_SIZE_GET
+   opcode: 0x80BB
+   type: foundation
+ - name: BRIDGING_TABLE_SIZE_STATUS
+   opcode: 0x80BC
+   type: foundation

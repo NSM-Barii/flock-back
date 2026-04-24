@@ -1,0 +1,86 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.time_source
+  name: Time Source
+  description: |-
+    The Time Source characteristic is used to represent the type of time source that is used for reference time.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Time Source
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.time_source/field/time_source_values}.
+  fields:
+    - name: Time Source values
+      description: The values of this field are defined below.
+      section_title: Time Source values
+      table_caption: Time Source field
+      description_header: Description
+      values:
+        - value: "0"
+          definition: Unknown
+          description: |-
+            A time source not listed in the following categories or an otherwise unknown time source
+        - value: "1"
+          definition: Network Time Protocol
+          description: |-
+            Any version of the (Simple) Network Time Protocol
+        - value: "2"
+          definition: GPS
+          description: |-
+            A time source based on GPS information (GPS, Galileo, GLONASS, BeiDou, or similar)
+        - value: "3"
+          definition: Radio Time Signal
+          description: |-
+            (Atomic) Clock synchronized through RF (in most cases the same as Time Source value 5 - Atomic Clock)
+        - value: "4"
+          definition: Manual
+          description: |-
+            A manually set time, by 'eyeball and wristwatch'
+        - value: "5"
+          definition: Atomic Clock
+          description: |-
+            Atomic Clock (synchronized through RF) (legacy, in most cases the same as Time Source value 3 - Radio Time Signal)
+        - value: "6"
+          definition: Cellular Network
+          description: |-
+            A mobile network clock (GSM, CDMA, 4G, or similar)
+        - value: "7"
+          definition: Not Synchronized
+          description: |-
+            The clock is not synchronized
+        - value: "8-255"
+          definition: Reserved for Future Use
+          description: "-"

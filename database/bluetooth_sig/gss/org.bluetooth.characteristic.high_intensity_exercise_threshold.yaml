@@ -1,0 +1,90 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.high_intensity_exercise_threshold
+  name: High Intensity Exercise Threshold
+  description: |-
+    The High Intensity Exercise Threshold characteristic is used to represent the high intensity exercise threshold of a user.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Field Selector
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.high_intensity_exercise_threshold/field/field_selector}
+    - field: Threshold as Energy Expenditure per Hour
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Base Unit: org.bluetooth.unit.energy.joule
+        Represented values: M = 1, d = 3, b = 0
+        Unit is joule with a resolution of 1000 joules
+        Present if value of Field Selector field is 1
+    - field: Threshold as Metabolic Equivalent
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Base Unit: org.bluetooth.unit.metabolic_equivalent
+        Represented values: M = 1, d = -1, b = 0
+        Unit is MET with a resolution of 0.1 MET (i.e., kcal/kg/hour)
+        Present if value of Field Selector field is 2
+    - field: Threshold as Percentage of Maximum Heart Rate
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Unit: org.bluetooth.unit.percentage
+        Present if value of Field Selector field is 3
+    - field: Threshold as Heart Rate
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Unit: org.bluetooth.unit.period.beats_per_minute
+        Present if value of Field Selector field is 4
+  fields:
+    - name: Field Selector
+      description: |-
+        The Field Selector field determines the High Intensity Exercise Threshold characteristic field selected to express the high intensity threshold. The selected field is present in the High Intensity Exercise Threshold characteristic, whereas the remaining fields are not present.
+        The values of this field are defined below.
+      values:
+        - value: "0"
+          description: No field is selected
+        - value: "1"
+          description: The Threshold as Energy Expenditure per Hour field is selected
+        - value: "2"
+          description: The Threshold as Metabolic Equivalent field is selected
+        - value: "3"
+          description: The Threshold as Percentage of Maximum Heart Rate field is selected
+        - value: "4"
+          description: The Threshold as Heart Rate field is selected
+        - value: 5–255
+          description: Reserved for Future Use

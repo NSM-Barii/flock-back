@@ -5,8 +5,6 @@
 from rich.table import Table
 from rich.live import Live 
 from rich.panel import Panel
-from rich.console import Console
-console = Console()
 
 
 # BT IMPORTS
@@ -15,7 +13,7 @@ from bleak import BleakScanner
 
 # WIFI IMPORTS
 from scapy.all import sniff, Ether, RadioTap
-from scapy.layers.dot11 import Dot11, Dot11Beacon, Dot11Elt, Dot11Deauth, Dot11ProbeReq
+from scapy.layers.dot11 import Dot11, Dot11Elt, Dot11Beacon, Dot11ProbeResp, Dot11ProbeReq, Dot11Deauth
 
 
 # ETC IMPORTS
@@ -24,19 +22,15 @@ from datetime import datetime
 
 
 # NSM SAME-MODULE IMPORTS
+from vars import Variables
 from signatures import FLOCK_SIGNATURES
-from utilities import Utilities, Background_Threads, Recon_Pusher
-
-
-# NSM MODULE IMPORTS
-#from nsm_modules.nsm_utilities import Background_Threads, NetTilities
-#from nsm_modules.nsm_utilities import Utilities as nsm_utilities
-#from nsm_modules.nsm_deauth import Frame_Snatcher
+from database import Utilities, Background_Threads, DataBase
 
 
 
-# GLOBAL LOCK
-LOCK = threading.Lock()
+# CONSTANTS
+console = Variables.console
+LOCK    = Variables.LOCK
 
 
 
@@ -49,9 +43,9 @@ class PDU_Inspector():
 
     
     # DATA
-    wifi_ssid_patterns =  FLOCK_SIGNATURES["wifi_ssid_patterns"]
-    mac_prefixes =        FLOCK_SIGNATURES["mac_prefixes"]
-    ble_name_patterns =   FLOCK_SIGNATURES["ble_name_patterns"]
+    wifi_ssid_patterns  = FLOCK_SIGNATURES["wifi_ssid_patterns"]
+    mac_prefixes        = FLOCK_SIGNATURES["mac_prefixes"]
+    ble_name_patterns   = FLOCK_SIGNATURES["ble_name_patterns"]
     raven_service_uuids = FLOCK_SIGNATURES["raven_service_uuids"]
 
 
@@ -81,7 +75,7 @@ class PDU_Inspector():
 
             if mac.upper().startswith(flock_mac.upper()):
 
-                if cls.verboose: console.print(f"[bold red][+] Found Flock MAC:[bold yellow] {mac}")
+                if cls.verbose: console.print(f"[bold red][+] Found Flock MAC:[bold yellow] {mac}")
 
                 return True
 
@@ -159,7 +153,6 @@ class PDU_Inspector():
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
             
 
-
     @classmethod
     def controller(cls, type, data, ssid=False, mac=False, ble_name=False, uuid=False):
         """This method will be the ultimate controller of all sub methods"""
@@ -171,16 +164,13 @@ class PDU_Inspector():
         check_ble_name = PDU_Inspector._check_ble_name(ble_name=ble_name) if ble_name else False
         check_uuid, services = PDU_Inspector._check_uuid(uuid=uuid)    
 
-
-        #return check_ssid, check_mac, check_ble_name, check_uuid
-    
         
         if check_ssid or check_mac or check_ble_name or check_uuid:
 
             space = "    "
 
-            if type == 1:  console.print(f"\n[bold green][+] Found AI Camera (BLE):[bold yellow] {data}"); BLE_Sniffer.ai_cameras.append(data)
-            elif type == 2: console.print(f"\n[bold green][+] Found AI Camera (WiFi):[bold yellow] {data}"); WiFi_Sniffer.ai_cameras.append(data)
+            if type == 1:  console.print(f"\n[bold green][+] Found AI Camera (BLE):[bold yellow] {data}");   Variables.ble_ai_cameras.append(data)
+            elif type == 2: console.print(f"\n[bold green][+] Found AI Camera (WiFi):[bold yellow] {data}"); Variables.wifi_ai_cameras.append(data)
     
 
             if check_ssid: console.print(f"{space}[bold green][+] Match SSID:[bold yellow] {ssid}")  
@@ -192,78 +182,45 @@ class PDU_Inspector():
             if check_uuid: console.print(f"{space}[bold green][+] Match UUID(s):[bold yellow] {services}") 
             else: console.print(f"{space}[bold red][-] Match UUID(s):[bold yellow] {uuid}")
 
-            #if vendor: console.print(f"{space}[bold green][+] Extra Info Vendor:[bold yellow] {vendor}") 
-            #else: console.print(f"{space}[bold red][-] Match Vendor:[bold yellow] False")
-
 
             return True
         
         return False
     
 
+
 class BLE_Sniffer():
     """This class will be responsible for findning ble devices"""
 
 
+    DataBase = DataBase.Bluetooth
 
-    @staticmethod
-    def _clean_manuf(manuf):
-        """clean manuf data"""
-
-        manuf_new = {}
-
-        for cid, payload in manuf.items():
-
-            manuf_new[cid] = payload.hex()
-
-        return manuf_new
 
 
 
     @classmethod
-    def _reset_ble(cls, duration=2.5, verbose=False):
-        """This will be called upon to fix ble crashing issues"""
+    def _get_manuf(cls, manuf):
+        """This will parse and get manuf"""
 
-        command = "bluetoothctl"
-
-
-        if  time.time() - cls.last_flush > duration * 60:
-
-
-            subprocess.run(["sudo", f"{command}", "power", "off"])
-            subprocess.run(["sudo", f"{command}", "power", "on"])
-
-            cls.last_flush = time.time()
-
-            if verbose: console.print("[+] BLE FLushed", style="bold green")
-        
-        #console.print(cls.last_flush)
 
     
-    @staticmethod
-    async def _pause_ble(duration=1):
-        """Small delay to stop congestion"""
+        if not manuf: return False
 
-        await asyncio.sleep(duration)
-
-
-    @classmethod
-    async def _discover(cls, timeout):
-        """internal scanner"""
+        for key, value in manuf.items():
+            id = key; hex = value.hex()
         
-        try:
-            return await BleakScanner.discover(timeout=timeout, return_adv=True)
-        
-        except Exception as e:
-            console.print(f"[bold red]Exception Error:[bold red] {e}")
+
+
+        company = cls.DataBase.get_manufacturer(id=id, data=hex)
+
+
+        return company
+
 
 
     @classmethod
     async def ble_scan(cls, timeout=5):
         """This will sniff for ble advertisements traversing our surroundings"""
-
-        
-
 
 
         try:
@@ -271,7 +228,7 @@ class BLE_Sniffer():
             scanner = BleakScanner()
             
 
-            while Main_Thread.BACKGROUND:
+            while Variables.BACKGROUND:
 
                 await scanner.start()
                 await asyncio.sleep(5)
@@ -295,35 +252,44 @@ class BLE_Sniffer():
                         rssi = adv.rssi
                         uuid = adv.service_uuids or False
 
-                        manufacturer = BLE_Sniffer._clean_manuf(manuf=adv.manufacturer_data) if adv.manufacturer_data else {}
+                        manufacturer = BLE_Sniffer._get_manuf(manuf=adv.manufacturer_data)
                         a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
                         time_stamp = Utilities.get_timestamp()
         
                         data = {
-                            "mac": mac,
+                            "type": "ble",
                             "rssi": rssi,
+                            "mac": mac,
                             "local_name": local_name,
                             "manufacturer": manufacturer,
                             "uuids": valid_uuid,
                             "time_stamp": time_stamp
                         }
 
+                        txt = (
+                            time_stamp,
+                            f"type: ble",
+                            f"rssi: {rssi}",
+                            f"mac: {mac}",
+                            f"local_name: {local_name}",
+                            f"manufacturer: {manufacturer}"
+                        )
+
+                        txt = '  '.join(txt)
+
 
                         # ARE YOU FLOCK or AI ??? 
                         with LOCK:
                             if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid): 
-                                Main_Thread.ai_cameras_all["ble"].append(data); return
+                                DataBase.push_device(save_data=txt)
+                                Variables.ai_cameras_all["ble"].append(data)
                                 
                         
-                        if cls.verbose:
-                            console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
+                        if cls.verbose: console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
                     
                         
-        except KeyboardInterrupt as e:
-            console.print(f"[bold red]Exception Error:[bold yellow] {e}")
-        
-        except Exception as e:
-            console.print(f"[bold red]BLE Exception Error:[bold yellow] {e}"); return
+        except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
+        except Exception as e:console.print(f"[bold red] BLE Exception Error:[bold yellow] {e}"); return
 
             
 
@@ -337,140 +303,145 @@ class BLE_Sniffer():
         # VARS
         cls.verbose = verbose
         scans = 1
-        cls.last_flush = time.time()
         cls.ble_devices = []
-        cls.ai_cameras = []
 
-        # CREATE SCANNER AND PASS ARG
-        cls.scanner = BleakScanner()
 
 
         console.print("[bold green][+] Starting BLE_Sniffer"); time.sleep(1)
-
-
-        while Main_Thread.BACKGROUND:
-
-
-            asyncio.run(BLE_Sniffer.ble_scan(timeout=scan_duration)); scans += 1
-
-            time.sleep(timeout)
-        
+        asyncio.run(BLE_Sniffer.ble_scan(timeout=scan_duration)); scans += 1
         console.print(f"[bold red][-] Killed -->[bold yellow] BLE_Sniffer")
 
 
 
 class WiFi_Sniffer():
-    """This class will be responsible for finding wifi devices"""
-
+    """This will be a new class to account for flock changing"""
+ 
+  
     done = False
+    DataBase = DataBase.WiFi
+
+
+    """
+    addr1 == dst address
+    addr2 == src address
+    addr3 == src address
     
+    Dot11Beacon        == beacons being sent from router -> broadcast
+    Dot11ProbeRequest  == probes being sent from client -> router
+    Dot11ProbeResponse == probes being responded to by client -> router
 
-    @classmethod
-    def _reset_adapter(cls, iface):
-        """This will be responsible for bringing back up and resetting the adapter"""
 
 
-        Utilities._get_monitor_mode(iface=iface)
+    Flock cameras advertising via hidden ssids will be found by macs that match flock OUIs
+    Flock cameras 
+    
+    """
+
 
 
     @classmethod
     def _packet_parser(cls, pkt):
-        """This will be responsible for parsing packets"""
+        """This will parse 802.11 frames"""
 
-        
+
+
         def _parser():
+            """function to be called upon by main method off class"""
 
-            if pkt.haslayer(Dot11Beacon):
+            
+            addr1 = pkt[Dot11].addr1 if pkt[Dot11].addr1 != "ff:ff:ff:ff:ff:ff" else False
+            addr2 = pkt[Dot11].addr2 if pkt[Dot11].addr2 != "ff:ff:ff:ff:ff:ff" else False
 
-                addr1 = pkt[Dot11].addr1 if pkt[Dot11].addr1 != "ff:ff:ff:ff:ff:ff" else False
-                addr2 = pkt[Dot11].addr2 if pkt[Dot11].addr2 != "ff:ff:ff:ff:ff:ff" else False
 
+            if not addr1 and not addr2: return False
+
+
+            if pkt.haslayer(Dot11Beacon) or pkt.haslayer(Dot11ProbeReq) or pkt.haslayer(Dot11ProbeResp):
+
+                
+
+                # SSID THATS IN BEACON OR PROBE-REQUEST
                 ssid = pkt[Dot11Elt].info.decode(errors="ignore") or False
-
-
-                channel = Background_Threads.get_channel(pkt=pkt)
-                #vendor = nsm_utilities.get_vendor(mac=addr2)
-                rssi = Background_Threads.get_rssi(pkt=pkt)
+            
+                channel    = Background_Threads.get_channel(pkt=pkt)
+                vendor     = cls.DataBase.get_vendor_main(mac=addr2)
+                rssi       = Background_Threads.get_rssi(pkt=pkt)
                 encryption = Background_Threads.get_encryption(pkt=pkt)
-                freq = Background_Threads.get_freq(freq=pkt[RadioTap].ChannelFrequency)
+                freq       = Background_Threads.get_freq(freq=pkt[RadioTap].ChannelFrequency)
                 time_stamp = Utilities.get_timestamp()
 
                 data = {
+                    "type": "wifi",
+                    "rssi": rssi,
                     "mac": addr2,
-                    "ssid": ssid,
+                    "ssid": "f",
+                    "vendor": vendor,
                     "frequency": freq,
                     "encryption": encryption,
                     "channel": channel,
-                    "rssi": rssi,
                     "time_stamp": time_stamp
                 }
 
-                if not ssid or not channel:
-                    return
+                txt = (
+                    time_stamp,
+                    f"type: wifi",
+                    f"rssi: {rssi}",
+                    f"mac: {addr2}",
+                    f"ssid: {ssid}",
+                    f"vendor: {vendor}"
+                )
 
-                if ssid and addr2 not in cls.macs: 
+                txt = '  '.join(txt)
+
+
+                #if not ssid or not channel: return
+
+                if ssid or addr2 and addr2 not in cls.macs:
                     
-                    cls.beacons.append(ssid)
+                    cls.ssids.append(ssid)
                     cls.macs.append(addr2)
 
                     with LOCK:
                         if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=addr2, ble_name=False, uuid=False): 
-                            Main_Thread.ai_cameras_all["wifi"].append(data)
-                            return
+                            DataBase.push_device(save_data=txt)
+                            Variables.ai_cameras_all["wifi"].append(data); return False
+ 
 
-                    if cls.verbose:
-                        console.print(f"[bold red][-] Non AI Camera (WiFi):[bold yellow] {data}")
-                
-                
+                    if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi):[bold yellow] {data}")
+            
+
+        if  Variables.BACKGROUND: threading.Thread(target=_parser, args=(), daemon=True).start()
+        if not cls.done and not Variables.BACKGROUND: cls.done = True; return KeyboardInterrupt
         
-        if  Main_Thread.BACKGROUND: threading.Thread(target=_parser, args=(), daemon=True).start()
-        if not cls.done and not Main_Thread.BACKGROUND: cls.done = True; return KeyboardInterrupt
-        
+
 
     @classmethod
-    def _wifi_scan(cls, iface):
-        """This will perform a wifi scan"""
-
-        attempts = 0
+    def _wifi_scanner(cls, iface):
+        """This will begin wifi scanning"""
 
         
-        while True:
+        num = 0
+
+        
+        while Variables.BACKGROUND:
 
             try:
 
-                attempts += 1
-
-                if cls.verbose:
-                    console.print(f"Attempt #{attempts}")
-
-                sniff(iface=iface, store=0, prn=WiFi_Sniffer._packet_parser, timeout=15); time.sleep(0.5)
+                if cls.verbose: console.print(f"[+] Starting sniffer instance: #{num}"); num += 1
+                sniff(iface=iface, store=0, prn=cls._packet_parser, timeout=15); time.sleep(0.3)
             
 
-            except OSError as e:
-                console.print(f"[bold red]OS Error:[bold yellow] {e}")
+            except Exception as e: console.print(f"[bold red][-] Exception Error:[bold yellow] {e}"); break
 
-                WiFi_Sniffer._reset_adapter(iface=iface); time.sleep(5)        #BLE_Sniffer._reset_ble()
-                # from main import Main_UI; Main_UI.main_menu()
-                
-
-            
-            except KeyboardInterrupt as e:
-                console.print(f"[bold red][-] Killed -->[bold yellow] WiFi Sniffer")
-                break
-            
-            except Exception as e:
-                console.print(f"[bold red]WiFi LastException Error:[bold yellow] {e}")
-                break
-    
 
     @classmethod
-    def main(cls, iface, verbose=True):
-        """This method will be responsible for running wifi_scan <-- """
+    def main(cls, iface, verbose):
+        """This will start class wide logic"""
 
-          # VARS
-        cls.verbose = verbose
+
         cls.macs = []
-        cls.beacons = []
+        cls.ssids = []
+        cls.verbose = verbose
         cls.ai_cameras = []
 
 
@@ -480,9 +451,8 @@ class WiFi_Sniffer():
 
         Background_Threads.channel_hopper(iface=iface)
 
-        WiFi_Sniffer._wifi_scan(iface=iface)
+        cls._wifi_scanner(iface=iface)
 
-        console.print(f"[bold red][-] Killed -->[bold yellow] WiFi_Sniffer")
 
 
 class Main_Thread():
@@ -490,21 +460,23 @@ class Main_Thread():
 
 
     @classmethod
-    def main(cls, bface, iface, verbose):
+    def main(cls):
         """Get shit done"""
 
-        cls.BACKGROUND = True; cls.ai_cameras_all = {
-            "wifi": [],
-            "ble": []
-            }
-        
-        Recon_Pusher.main() 
-        time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S"); time_start = time.time()
+
+        bface   = Variables.bface
+        iface   = Variables.iface
+        verbose = Variables.verbose
+
+
+        #Recon_Pusher.main() 
+        time_start = time.time()
+        time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S")
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
         
         
 
-        # WIFI SNIFFER
+        # WIFI SNIFFER 
         threading.Thread(target=WiFi_Sniffer.main, args=(iface, verbose), daemon=True).start()
         
 
@@ -512,11 +484,7 @@ class Main_Thread():
         threading.Thread(target=BLE_Sniffer.main, args=(verbose,), daemon=True).start()
 
 
-        # DATA HANDLER
-        v = False
-        Recon_Pusher.push_war(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
-        #Recon_Pusher.push_to_gui(save_data=cls.ai_cameras_all, CONSOLE=console, verbose=v)
-
+     
 
 
         try:
@@ -527,24 +495,23 @@ class Main_Thread():
 
         except KeyboardInterrupt as e:
 
-            cls.BACKGROUND = False
+            Variables.BACKGROUND = False
             time_duration = time.time() - time_start
+            #TIME = datetime
+            
             time.sleep(0.1); console.print(f"\n[bold red][-] Killing Background Threads.....\n")
             
+            total = len(Variables.ble_ai_cameras); total += len(Variables.wifi_ai_cameras)
             console.print('[bold red] =====  Found AI Cameras  ===== \n')
-            total = len(BLE_Sniffer.ai_cameras); total += len(WiFi_Sniffer.ai_cameras); minutes = total / 60
-            console.print(f"[bold yellow]BLE:[/bold yellow] {len(BLE_Sniffer.ai_cameras)}\n[bold yellow]WiFi:[/bold yellow] {len(WiFi_Sniffer.ai_cameras)}\n[bold green]Total AI Cameras:[/bold green] {total}")
-            console.print(f"\n[bold yellow]BLE_Sniffer:[/bold yellow] {BLE_Sniffer.ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {WiFi_Sniffer.ai_cameras}")
+            console.print(f"[bold yellow]BLE:[/bold yellow] {len(Variables.ble_ai_cameras)}\n[bold yellow]WiFi:[/bold yellow] {len(Variables.wifi_ai_cameras)}\n[bold green]Total AI Cameras:[/bold green] {total}")
+            console.print(f"\n[bold yellow]BLE_Sniffer:[/bold yellow] {Variables.ble_ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {Variables.wifi_ai_cameras}")
              
 
-            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration:.2f} seconds") # - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
+            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration}") # - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
 
-            
-            # CLEAN live.json
-            Recon_Pusher.push_to_gui(save_data = {
-            "wifi": [],
-            "ble": []
-            }, CONSOLE=console, verbose=v)
+
+
+
 
 
 if __name__ == "__main__":

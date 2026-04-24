@@ -1,0 +1,190 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_model_uuids:
+ - name: Generic OnOff Server
+   uuid: 0x1000
+   type: model
+ - name: Generic OnOff Client
+   uuid: 0x1001
+   type: model
+ - name: Generic Level Server
+   uuid: 0x1002
+   type: model
+ - name: Generic Level Client
+   uuid: 0x1003
+   type: model
+ - name: Generic Default Transition Time Server
+   uuid: 0x1004
+   type: model
+ - name: Generic Default Transition Time Client
+   uuid: 0x1005
+   type: model
+ - name: Generic Power OnOff Server
+   uuid: 0x1006
+   type: model
+ - name: Generic Power OnOff Setup Server
+   uuid: 0x1007
+   type: model
+ - name: Generic Power OnOff Client
+   uuid: 0x1008
+   type: model
+ - name: Generic Power Level Server
+   uuid: 0x1009
+   type: model
+ - name: Generic Power Level Setup Server
+   uuid: 0x100A
+   type: model
+ - name: Generic Power Level Client
+   uuid: 0x100B
+   type: model
+ - name: Generic Battery Server
+   uuid: 0x100C
+   type: model
+ - name: Generic Battery Client
+   uuid: 0x100D
+   type: model
+ - name: Generic Location Server
+   uuid: 0x100E
+   type: model
+ - name: Generic Location Setup Server
+   uuid: 0x100F
+   type: model
+ - name: Generic Location Client
+   uuid: 0x1010
+   type: model
+ - name: Generic Admin Property Server
+   uuid: 0x1011
+   type: model
+ - name: Generic Manufacturer Property Server
+   uuid: 0x1012
+   type: model
+ - name: Generic User Property Server
+   uuid: 0x1013
+   type: model
+ - name: Generic Client Property Server
+   uuid: 0x1014
+   type: model
+ - name: Generic Property Client
+   uuid: 0x1015
+   type: model
+ - name: Sensor Server
+   uuid: 0x1100
+   type: model
+ - name: Sensor Setup Server
+   uuid: 0x1101
+   type: model
+ - name: Sensor Client
+   uuid: 0x1102
+   type: model
+ - name: Time Server
+   uuid: 0x1200
+   type: model
+ - name: Time Setup Server
+   uuid: 0x1201
+   type: model
+ - name: Time Client
+   uuid: 0x1202
+   type: model
+ - name: Scene Server
+   uuid: 0x1203
+   type: model
+ - name: Scene Setup Server
+   uuid: 0x1204
+   type: model
+ - name: Scene Client
+   uuid: 0x1205
+   type: model
+ - name: Scheduler Server
+   uuid: 0x1206
+   type: model
+ - name: Scheduler Setup Server
+   uuid: 0x1207
+   type: model
+ - name: Scheduler Client
+   uuid: 0x1208
+   type: model
+ - name: Light Lightness Server
+   uuid: 0x1300
+   type: model
+ - name: Light Lightness Setup Server
+   uuid: 0x1301
+   type: model
+ - name: Light Lightness Client
+   uuid: 0x1302
+   type: model
+ - name: Light CTL Server
+   uuid: 0x1303
+   type: model
+ - name: Light CTL Setup Server
+   uuid: 0x1304
+   type: model
+ - name: Light CTL Client
+   uuid: 0x1305
+   type: model
+ - name: Light CTL Temperature Server
+   uuid: 0x1306
+   type: model
+ - name: Light HSL Server
+   uuid: 0x1307
+   type: model
+ - name: Light HSL Setup Server
+   uuid: 0x1308
+   type: model
+ - name: Light HSL Client
+   uuid: 0x1309
+   type: model
+ - name: Light HSL Hue Server
+   uuid: 0x130A
+   type: model
+ - name: Light HSL Saturation Server
+   uuid: 0x130B
+   type: model
+ - name: Light xyL Server
+   uuid: 0x130C
+   type: model
+ - name: Light xyL Setup Server
+   uuid: 0x130D
+   type: model
+ - name: Light xyL Client
+   uuid: 0x130E
+   type: model
+ - name: Light LC Server
+   uuid: 0x130F
+   type: model
+ - name: Light LC Setup Server
+   uuid: 0x1310
+   type: model
+ - name: Light LC Client
+   uuid: 0x1311
+   type: model

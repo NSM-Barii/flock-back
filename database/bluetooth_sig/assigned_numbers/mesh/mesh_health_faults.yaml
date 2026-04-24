@@ -1,0 +1,138 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_health_faults:
+ - name: No Fault
+   fault: "0x00"
+ - name: Battery Low Warning
+   fault: "0x01"
+ - name: Battery Low Error
+   fault: "0x02"
+ - name: Supply Voltage Too Low Warning
+   fault: "0x03"
+ - name: Supply Voltage Too Low Error
+   fault: "0x04"
+ - name: Supply Voltage Too High Warning
+   fault: "0x05"
+ - name: Supply Voltage Too High Error
+   fault: "0x06"
+ - name: Power Supply Interrupted Warning
+   fault: "0x07"
+ - name: Power Supply Interrupted Error
+   fault: "0x08"
+ - name: No Load Warning
+   fault: "0x09"
+ - name: No Load Error
+   fault: "0x0A"
+ - name: Overload Warning
+   fault: "0x0B"
+ - name: Overload Error
+   fault: "0x0C"
+ - name: Overheat Warning
+   fault: "0x0D"
+ - name: Overheat Error
+   fault: "0x0E"
+ - name: Condensation Warning
+   fault: "0x0F"
+ - name: Condensation Error
+   fault: "0x10"
+ - name: Vibration Warning
+   fault: "0x11"
+ - name: Vibration Error
+   fault: "0x12"
+ - name: Configuration Warning
+   fault: "0x13"
+ - name: Configuration Error
+   fault: "0x14"
+ - name: Element Not Calibrated Warning
+   fault: "0x15"
+ - name: Element Not Calibrated Error
+   fault: "0x16"
+ - name: Memory Warning
+   fault: "0x17"
+ - name: Memory Error
+   fault: "0x18"
+ - name: Self-Test Warning
+   fault: "0x19"
+ - name: Self-Test Error
+   fault: "0x1A"
+ - name: Input Too Low Warning
+   fault: "0x1B"
+ - name: Input Too Low Error
+   fault: "0x1C"
+ - name: Input Too High Warning
+   fault: "0x1D"
+ - name: Input Too High Error
+   fault: "0x1E"
+ - name: Input No Change Warning
+   fault: "0x1F"
+ - name: Input No Change Error
+   fault: "0x20"
+ - name: Actuator Blocked Warning
+   fault: "0x21"
+ - name: Actuator Blocked Error
+   fault: "0x22"
+ - name: Housing Opened Warning
+   fault: "0x23"
+ - name: Housing Opened Error
+   fault: "0x24"
+ - name: Tamper Warning
+   fault: "0x25"
+ - name: Tamper Error
+   fault: "0x26"
+ - name: Device Moved Warning
+   fault: "0x27"
+ - name: Device Moved Error
+   fault: "0x28"
+ - name: Device Dropped Warning
+   fault: "0x29"
+ - name: Device Dropped Error
+   fault: "0x2A"
+ - name: Overflow Warning
+   fault: "0x2B"
+ - name: Overflow Error
+   fault: "0x2C"
+ - name: Empty Warning
+   fault: "0x2D"
+ - name: Empty Error
+   fault: "0x2E"
+ - name: Internal Bus Warning
+   fault: "0x2F"
+ - name: Internal Bus Error
+   fault: "0x30"
+ - name: Mechanism Jammed Warning
+   fault: "0x31"
+ - name: Mechanism Jammed Error
+   fault: "0x32"
+ - name: Vendor Specific Warning / Error
+   fault: "0x80-0xFF"

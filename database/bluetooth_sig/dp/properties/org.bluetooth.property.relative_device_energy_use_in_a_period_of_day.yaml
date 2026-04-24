@@ -1,0 +1,57 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+property:
+  identifier: org.bluetooth.property.relative_device_energy_use_in_a_period_of_day
+  name: Relative Device Energy Use in a Period of Day
+  group: org.bluetooth.property_group.energy_management
+  characteristic: org.bluetooth.characteristic.energy_in_a_period_of_day
+  description: |-
+    This property represents the energy use by a device over a period of time during the day. This property can be used to update a column in a bar chart.
+    A period of time is represented with a start time of 0, which corresponds to midnight (local time), and the maximum value for the start time is 23.9.
+    The values reported represent the average values for these periods during the past 24 hours.
+    Example use case: If the current time is 11:00AM, and an average is reported for a time period with a start value of 11.5 and an end value of 11.7 (corresponding to a time period from 11:30AM to 11:42AM), then that measurement represents the average energy use during that time period on the previous day.
+  mapping:
+    description: This property has three fields, each of which derives its value from the characteristic. These fields are shown in the table below.
+    caption: Mapping from property fields to characteristic fields
+    fields:
+      - property: Start
+        characteristic: Start Time
+      - property: Width
+        characteristic: |- 
+          If End Time is greater than or equal to Start Time:
+          End Time - Start Time
+          \vspace{1\baselineskip} Otherwise:
+          End Time - Start Time + 24
+      - property: Value
+        characteristic: Energy Value

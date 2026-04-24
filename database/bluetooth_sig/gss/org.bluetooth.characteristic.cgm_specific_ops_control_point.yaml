@@ -1,0 +1,281 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.cgm_specific_ops_control_point
+  name: CGM Specific Ops Control Point
+  description: |-
+    The CGM Specific Ops Control Point characteristic is used to enable procedures related to a continuous glucose monitor (CGM).
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Op Code
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/op_code_and_operand}
+    - field: Operand
+      type: struct
+      size: 0 … 17
+      description: See \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/op_code_and_operand}
+    - field: E2E-CRC
+      type: uint16
+      size: 0 or 2
+      description: |-
+        CRC calculated over all fields except the E2E-CRC field itself. See \autoref{sec:crc_calculation} for details.
+        Present if E2E-CRC Supported bit in CGM Feature characteristic is set to 1
+  fields:
+    - name: Op Code and Operand
+      description: The values of these fields are defined below.
+      section_title: Op Code and Operand fields
+      table_caption: Op Code and Operand fields
+      values:
+        - op_code_value: "0x00"
+          definition: Reserved for Future Use
+          operand: N/A
+          operand_data_type: N/A
+          description: N/A
+        - op_code_value: "0x01"
+          definition: Set CGM Communication Interval
+          operand: Communication interval in minutes
+          operand_data_type: uint8
+          description: The response to this control point is Response Code (Op Code 0x0F).
+        - op_code_value: "0x02"
+          definition: Get CGM Communication Interval
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x03. For error conditions, the response is Response Code. as defined in \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/response_code_values}.
+        - op_code_value: "0x03"
+          definition: CGM Communication Interval response
+          operand: Communication Interval in minutes
+          operand_data_type: uint16
+          description: This is the normal response to Op Code 0x02.
+        - op_code_value: "0x04"
+          definition: Set Glucose Calibration value
+          operand: Operand as defined below. (See \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/calibration_value})
+          operand_data_type: See \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/calibration_value}
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x05"
+          definition: Get Glucose Calibration Value
+          operand: Calibration Data Record Number
+          operand_data_type: uint16
+          description: The normal response to this control point is Op Code 0x06. For error conditions, the response is Response Code.
+        - op_code_value: "0x06"
+          definition: Glucose Calibration Value response
+          operand: Calibration Data
+          operand_data_type: See \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/calibration_value}
+          description: This is the normal response to Op Code 0x05.
+        - op_code_value: "0x07"
+          definition: Set Patient High Alert Level
+          operand: Patient High bG value in mg/dL
+          operand_data_type: medfloat16
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x08"
+          definition: Get Patient High Alert Level
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x09. For error conditions, the response is Response Code.
+        - op_code_value: "0x09"
+          definition: Patient High Alert Level Response
+          operand: Patient High bG value in mg/dL
+          operand_data_type: medfloat16
+          description: This is the normal response to Op Code 0x08.
+        - op_code_value: "0x0A"
+          definition: Set Patient Low Alert Level
+          operand: Patient Low bG value in mg/dL
+          operand_data_type: medfloat16
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x0B"
+          definition: Get Patient Low Alert Level
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x0C. For error conditions, the response is Response Code.
+        - op_code_value: "0x0C"
+          definition: Patient Low Alert Level Response
+          operand: Patient Low bG value in mg/dL
+          operand_data_type: medfloat16
+          description: This is the normal response to Op Code 0x0B.
+        - op_code_value: "0x0D"
+          definition: Set Hypo Alert Level
+          operand: Hypo Alert Level value in mg/dL
+          operand_data_type: medfloat16
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x0E"
+          definition: Get Hypo Alert Level
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x0F. For error conditions, the response is Response Code.
+        - op_code_value: "0x0F"
+          definition: Hypo Alert Level Response
+          operand: Hypo Alert Level value in mg/dL
+          operand_data_type: medfloat16
+          description: This is the normal response to Op Code 0x0E.
+        - op_code_value: "0x10"
+          definition: Set Hyper Alert Level
+          operand: Hyper Alert Level value in mg/dL
+          operand_data_type: medfloat16
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x11"
+          definition: Get Hyper Alert Level
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x12. For error conditions, the response is Response Code.
+        - op_code_value: "0x12"
+          definition: Hyper Alert Level Response
+          operand: Hyper Alert Level value in mg/dL
+          operand_data_type: medfloat16
+          description: This is the normal response to Op Code 0x11.
+        - op_code_value: "0x13"
+          definition: Set Rate of Decrease Alert Level
+          operand: Rate of Decrease Alert Level value in mg/dL/min
+          operand_data_type: medfloat16
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x14"
+          definition: Get Rate of Decrease Alert Level
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x15. For error conditions, the response is Response Code.
+        - op_code_value: "0x15"
+          definition: Rate of Decrease Alert Level Response
+          operand: Rate of Decrease Alert Level value in mg/dL/min
+          operand_data_type: medfloat16
+          description: This is the normal response to Op Code 0x14.
+        - op_code_value: "0x16"
+          definition: Set Rate of Increase Alert Level
+          operand: Rate of Increase Alert Level value in mg/dL/min
+          operand_data_type: medfloat16
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x17"
+          definition: Get Rate of Increase Alert Level
+          operand: N/A
+          operand_data_type: N/A
+          description: The normal response to this control point is Op Code 0x18. For error conditions, the response is Response Code.
+        - op_code_value: "0x18"
+          definition: Rate of Increase Alert Level Response
+          operand: Rate of Increase Alert Level value in mg/dL/min
+          operand_data_type: medfloat16
+          description: This is the normal response to Op Code 0x17.
+        - op_code_value: "0x19"
+          definition: Reset Device Specific Alert
+          operand: N/A
+          operand_data_type: N/A
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x1A"
+          definition: Start the Session
+          operand: N/A
+          operand_data_type: N/A
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x1B"
+          definition: Stop the Session
+          operand: N/A
+          operand_data_type: N/A
+          description: The response to this control point is Response Code.
+        - op_code_value: "0x1C"
+          definition: Response Code
+          operand: Request Op Code, Response Code Value
+          operand_data_type: N/A
+          description: See \autoref{sec:org.bluetooth.characteristic.cgm_specific_ops_control_point/field/response_code_values}.
+        - op_code_value: 0x1D–0xFF
+          definition: Reserved for Future Use
+          operand: N/A
+          operand_data_type: N/A
+          description: N/A
+    - name: Response Code Values
+      description: The Response Code Values associated with the CGM Specific Ops Control Point are defined below.
+      section_title: Response Code Values
+      table_caption: Response Code Values
+      values:
+        - response_code_value: "0x00"
+          definition: Reserved For Future Use
+          description: N/A
+        - response_code_value: "0x01"
+          definition: Success
+          description: Normal response for successful operation.
+        - response_code_value: "0x02"
+          definition: Op Code not supported
+          description: Normal response if unsupported Op Code is received.
+        - response_code_value: "0x03"
+          definition: Invalid Operand
+          description: Normal response if Operand received does not meet the requirements of the service.
+        - response_code_value: "0x04"
+          definition: Procedure not completed
+          description: Normal response if unable to complete a procedure for any reason.
+        - response_code_value: "0x05"
+          definition: Parameter out of range
+          description: Normal response if Operand received does not meet the range requirements
+        - response_code_value: 0x06–0xFF
+          definition: Reserved for Future Use
+          description: N/A
+    - name: Calibration Value
+      description: The Operand which is used for setting and getting the calibration value is defined below.
+      section_title: Calibration Value
+      table_caption: Calibration Value Operand
+      values:
+        - field: Glucose Concentration of Calibration
+          data_type: medfloat16
+          size: "2"
+          description: |-
+            Glucose value of the calibration.
+            Unit: org.bluetooth.unit.mass_density.milligram_per_decilitre
+        - field: Calibration Time
+          data_type: uint16
+          size: "2"
+          description: |-
+            Minutes since the Session Start Time (see \autoref{sec:org.bluetooth.characteristic.cgm_session_start_time}) of the reported Glucose Concentration of Calibration value.
+            Unit: org.bluetooth.unit.time.minute
+        - field: Calibration Type-Sample Location
+          data_type: uint4[2]
+          size: "1"
+          description: |-
+            Definition and field value are the same as CGM Type-Sample Location as described in the CGM Features characteristic (see \autoref{sec:org.bluetooth.characteristic.cgm_feature/field/cgm_type-sample_location}).
+            Unit: org.bluetooth.unit.unitless
+        - field: Next Calibration Time
+          data_type: uint16
+          size: "2"
+          description: |-
+            The next calibration measurement time in minutes since the Session Start Time (see \autoref{sec:org.bluetooth.characteristic.cgm_session_start_time}).
+            Unit: org.bluetooth.unit.time.minute
+        - field: Calibration Data Record Number
+          data_type: uint16
+          size: "2"
+          description: |-
+            Sequence number for the stored calibration record.
+            Unit: org.bluetooth.unit.unitless
+        - field: Calibration Status
+          data_type: boolean[8]
+          size: "1"
+          description: |-
+            The result of the calibration procedure of the sensor.
+            Unit: org.bluetooth.unit.unitless
+            0: Calibration Data rejected (Calibration failed)
+            1: Calibration Data out of range
+            2: Calibration Process Pending
+            3–7: Reserved for Future Use

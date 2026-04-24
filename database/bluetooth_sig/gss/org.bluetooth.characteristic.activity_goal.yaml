@@ -1,0 +1,119 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.activity_goal
+  name: Activity Goal
+  description: |-
+    The Activity Goal characteristic is used to represent the goal or target of a user, such as number of steps or total energy expenditure, related to a physical activity session.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Presence Flags
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.activity_goal/field/presence_flags}
+    - field: Total Energy Expenditure
+      type: uint16
+      size: 0 or 2
+      unit: org.bluetooth.unit.energy.joule
+      description: |-
+        Base Unit: org.bluetooth.unit.energy.joule
+        Represented values: M = 1, d = 3, b = 0
+        Unit is joule with a resolution of 1000 J.
+        Present if bit 0 of Presence Flags field is set to 1
+    - field: Normal Walking Steps
+      type: uint24
+      size: 0 or 3
+      unit: org.bluetooth.unit.unitless
+      description: |-
+        Unit: org.bluetooth.unit.unitless
+        Present if bit 1 of Presence Flags field is set to 1
+    - field: Intensity Steps
+      type: uint24
+      size: 0 or 3
+      unit: org.bluetooth.unit.unitless
+      description: |-
+        Unit: org.bluetooth.unit.unitless
+        Present if bit 2 of Presence Flags field is set to 1
+    - field: Floor Steps
+      type: uint24
+      size: 0 or 3
+      unit: org.bluetooth.unit.unitless
+      description: |-
+        Unit: org.bluetooth.unit.unitless
+        Present if bit 3 of Presence Flags field is set to 1
+    - field: Distance
+      type: uint24
+      size: 0 or 3
+      unit: org.bluetooth.unit.length.metre
+      description: |-
+        Base Unit: org.bluetooth.unit.length.metre
+        Represented values: M = 1, d = 1, b = 0
+        Unit is meter with a resolution of 1 m.
+        Present if bit 4 of Presence Flags field is set to 1
+    - field: Duration of Normal Walking
+      type: uint24
+      size: 0 or 3
+      unit: org.bluetooth.unit.time.second
+      description: |-
+        Unit: org.bluetooth.unit.time.second
+        Present if bit 5 of Presence Flags field is set to 1
+    - field: Duration of Intensity Walking
+      type: uint24
+      size: 0 or 3
+      unit: org.bluetooth.unit.time.second
+      description: |-
+        Unit: org.bluetooth.unit.time.second
+        Present if bit 6 of Presence Flags field is set to 1
+  fields:
+    - name: Presence Flags
+      description: |-
+        The presence of a conditional field of the Activity Goal characteristic is dependent on the Presence Flags field value. When the respective Presence Flags field bit is set to 1, the field is present.
+        The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: Total Energy Expenditure Present
+        - bit: "1"
+          description: Normal Walking Steps Present
+        - bit: "2"
+          description: Intensity Steps Present
+        - bit: "3"
+          description: Floor Steps Present
+        - bit: "4"
+          description: Distance Present
+        - bit: "5"
+          description: Duration of Normal Walking Present
+        - bit: "6"
+          description: Duration of Intensity Walking Present
+        - bit: "7"
+          description: Reserved for Future Use

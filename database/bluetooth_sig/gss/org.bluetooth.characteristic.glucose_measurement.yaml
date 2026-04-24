@@ -1,0 +1,243 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.glucose_measurement
+  name: Glucose Measurement
+  description: |-
+    The Glucose Measurement characteristic is used to represent data related to a glucose measurement record.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.glucose_measurement/field/flags}
+    - field: Sequence Number
+      type: uint16
+      size: "2"
+      description: Contains a sequence number of the record. It is used to number a sequence of measurements as defined by the service.
+    - field: Base Time
+      type: struct
+      size: "7"
+      description: Refer to Date Time characteristic in \autoref{sec:org.bluetooth.characteristic.date_time}
+    - field: Time Offset
+      type: int16
+      size: 0 or 2
+      description: |-
+        Specifies the time difference from the value of the Base Time field.
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement/field/time_offset}
+        unit: org.bluetooth.unit.time.minute
+        Present if bit 0 of Flags field is set to 1
+    - field: Glucose Concentration
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        If bit 2 of Flags field is set to 0,
+        unit: org.bluetooth.unit.mass_density.kilogram_per_liter
+        If bit 2 of Flags field is set to 1,
+        unit: org.bluetooth.unit.mass_density.mole_per_litre
+        Present if bit 1 of Flags field is set to 1
+    - field: Type-Sample Location
+      type: struct
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement/field/type-sample_location}
+        Present if bit 1 of Flags field is set to 1
+    - field: Sensor Status Annunciation
+      type: boolean[16]
+      size: 0 or 2
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement/field/sensor_status_annunciation}
+        Present if bit 3 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Time Offset Flag:
+            0 = Time Offset field not present
+            1 = Time Offset field present
+        - bit: "1"
+          description: |-
+            Glucose Concentration and Type-Sample Location Flag:
+            0 = Glucose Concentration and Type-Sample Location fields not present
+            1 = Glucose Concentration and Type-Sample Location fields present
+        - bit: "2"
+          description: |-
+            Glucose Units Flag:
+            0 = Glucose concentration in units of mg/dL
+            1 = Glucose concentration in units of mmol/L
+        - bit: "3"
+          description: |-
+            Sensor Status Annunciation Flag:
+            0 = Sensor Status Annunciation field not present
+            1 = Sensor Status Annunciation field present
+        - bit: "4"
+          description: |-
+            Context Information Flag:
+            0 = This record does not include context information
+            1 = This record includes context information
+        - bit: 5–7
+          description: Reserved for Future Use
+    - name: Time Offset
+      description: The values of this field are defined below
+      values:
+        - value: 0x0000–0xFFFF
+          description: Time offset in minutes
+    - name: Type-Sample Location
+      description: The structure of this field is defined below.
+      size_in_bits: true
+      values:
+        - field: Type
+          data_type: uint4
+          size: "4"
+          description: |-
+            Unit: org.bluetooth.unit.unitless
+            See \autoref{sec:org.bluetooth.characteristic.glucose_measurement/subfield/type}
+        - field: Sample Location
+          data_type: uint4
+          size: "4"
+          description: |-
+            Unit: org.bluetooth.unit.unitless
+            See \autoref{sec:org.bluetooth.characteristic.glucose_measurement/subfield/sample_location}
+      subfields:
+        - name: Type
+          description: The values of this field are defined below.
+          values:
+            - value: "0x0"
+              description: Reserved for Future Use
+            - value: "0x1"
+              description: Capillary Whole blood
+            - value: "0x2"
+              description: Capillary Plasma
+            - value: "0x3"
+              description: Venous Whole blood
+            - value: "0x4"
+              description: Venous Plasma
+            - value: "0x5"
+              description: Arterial Whole blood
+            - value: "0x6"
+              description: Arterial Plasma
+            - value: "0x7"
+              description: Undetermined Whole blood
+            - value: "0x8"
+              description: Undetermined Plasma
+            - value: "0x9"
+              description: Interstitial Fluid (ISF)
+            - value: "0xA"
+              description: Control Solution
+            - value: 0xB–0xF
+              description: Reserved for Future Use
+        - name: Sample Location
+          description: The values of this field are defined below
+          values:
+            - value: "0x0"
+              description: Reserved for Future Use
+            - value: "0x1"
+              description: Finger
+            - value: "0x2"
+              description: Alternate Site Test (AST)
+            - value: "0x3"
+              description: Earlobe
+            - value: "0x4"
+              description: Control solution
+            - value: 0x5–0xE
+              description: Reserved for Future Use
+            - value: "0xF"
+              description: Sample Location value not available
+    - name: Sensor Status Annunciation
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Device battery low:
+            0 = The battery was not low at the time of measurement.
+            1 = The battery was low at the time of measurement.
+        - bit: "1"
+          description: |-
+            Sensor malfunction:
+            0 = The sensor was not malfunctioning or faulting at the time of measurement.
+            1 = The sensor was malfunctioning or faulting at the time of measurement.
+        - bit: "2"
+          description: |-
+            Sample size insufficient:
+            0 = There was enough blood or control solution on the strip during the measurement.
+            1 = There was not enough blood or control solution on the strip during the measurement.
+        - bit: "3"
+          description: |-
+            Strip insertion error:
+            0 = The strip was inserted correctly.
+            1 = The strip was not inserted correctly.
+        - bit: "4"
+          description: |-
+            Strip type incorrect:
+            0 = The strip was the right type for the device.
+            1 = The strip was not the right type for the device.
+        - bit: "5"
+          description: |-
+            Sensor result too high:
+            0 = The reading or value was not higher than the device can process.
+            1 = The reading or value was higher than the device can process.
+        - bit: "6"
+          description: |-
+            Sensor result too low:
+            0 = The reading or value was not lower than the device can process.
+            1 = The reading or value was lower than the device can process.
+        - bit: "7"
+          description: |-
+            Sensor temperature too high:
+            0 = The ambient temperature was not too high for a valid test/result at the time of measurement.
+            1 = The ambient temperature was too high for a valid test/result at the time of measurement.
+        - bit: "8"
+          description: |-
+            Sensor temperature too low:
+            0 = The ambient temperature was not too low for a valid test/result at the time of measurement.
+            1 = The ambient temperature was too low for a valid test/result at the time of measurement.
+        - bit: "9"
+          description: |-
+            Sensor read interrupted:
+            0 = The reading was not interrupted and the strip was not pulled too soon during the measurement.
+            1 = The reading was interrupted or the strip was pulled too soon during the measurement.
+        - bit: "10"
+          description: |-
+            General device fault:
+            0 = A general device fault has not occurred in the sensor device.
+            1 = A general device fault has occurred in the sensor device.
+        - bit: "11"
+          description: |-
+            Time fault:
+            0 = A time fault has not occurred in the sensor device.
+            1 = A time fault has occurred in the sensor device and the time is inaccurate.
+        - bit: 12–15
+          description: Reserved for Future Use

@@ -1,0 +1,88 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_transport_control_opcodes:
+ - name: –
+   opcode: 0x00
+   description: Reserved for the lower transport layer.
+ - name: Friend Poll
+   opcode: 0x01
+   description: Sent by a Low Power node to its Friend node to request any messages that it has stored for the Low Power node.
+ - name: Friend Update
+   opcode: 0x02
+   description: Sent by a Friend node to a Low Power node to inform it about security updates.
+ - name: Friend Request
+   opcode: 0x03
+   description: Sent by a Low Power node to the all-friends fixed group address to initiate a search for a friend.
+ - name: Friend Offer
+   opcode: 0x04
+   description: Sent by a Friend node to a Low Power node to offer to become its friend.
+ - name: Friend Clear
+   opcode: 0x05
+   description: Sent to a Friend node to inform a previous friend of a Low Power node about the removal of a friendship.
+ - name: Friend Clear Confirm
+   opcode: 0x06
+   description: Sent from a previous friend to the Friend node to confirm that a prior friend relationship has been removed.
+ - name: Friend Subscription List Add
+   opcode: 0x07
+   description: Sent to a Friend node to add one or more addresses to the Friend Subscription List.
+ - name: Friend Subscription List Remove
+   opcode: 0x08
+   description: Sent to a Friend node to remove one or more addresses from the Friend Subscription List.
+ - name: Friend Subscription List Confirm
+   opcode: 0x09
+   description: Sent by a Friend node to confirm Friend Subscription List updates.
+ - name: Heartbeat
+   opcode: 0x0A
+   description: Sent by a node to let other nodes determine topology of a subnet.
+ - name: PATH_REQUEST
+   opcode: 0x0B
+   description: Sent by a Path Origin or by a Directed Relay node to discover a path to a destination.
+ - name: PATH_REPLY
+   opcode: 0x0C
+   description: Sent by a Path Target or by a Directed Relay node to establish a path from a Path Origin to a Path Target.
+ - name: PATH_CONFIRMATION
+   opcode: 0x0D
+   description: Sent by a Path Origin or by a Directed Relay node to confirm that a two-way path has been established from the Path Origin to a Path Target.
+ - name: PATH_ECHO_REQUEST
+   opcode: 0x0E
+   description: Sent by a Path Origin to validate a path from the Path Origin to a destination.
+ - name: PATH_ECHO_REPLY
+   opcode: 0x0F
+   description: Sent by a Path Target in order to confirm that a path exists from a Path Origin to the destination.
+ - name: DEPENDENT_NODE_UPDATE
+   opcode: 0x10
+   description: Sent by a path endpoint or a Directed Relay node to notify nodes in a subnet that element addresses of a dependent node are to be added to or removed from the Forwarding Table.
+ - name: PATH_REQUEST_SOLICITATION
+   opcode: 0x11
+   description: "Sent by a Directed Forwarding node or a Configuration Manager to solicit the discovery of paths toward unicast addresses, group addresses, or virtual addresses."

@@ -1,0 +1,179 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.blood_pressure_measurement
+  name: Blood Pressure Measurement
+  description: |-
+    The Blood Pressure Measurement characteristic is used to represent blood pressure measurement data.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.blood_pressure_measurement/field/flags}.
+    - field: Blood Pressure Measurement Compound Value - Systolic (mmHg)
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.pressure.millimetre_of_mercury
+        Present if bit 0 of Flags field is set to 0
+    - field: Blood Pressure Measurement Compound Value - Diastolic (mmHg)
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.pressure.millimetre_of_mercury
+        Present if bit 0 of Flags field is set to 0
+    - field: Blood Pressure Measurement Compound Value - Mean Arterial Pressure (mmHg)
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.pressure.millimetre_of_mercury
+        Present if bit 0 of Flags field is set to 0
+    - field: Blood Pressure Measurement Compound Value - Systolic (kPa)
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Base Unit: org.bluetooth.unit.pressure.pascal;
+        M = 1, d = 3, and b = 0
+        Present if bit 0 of Flags field is set to 1
+    - field: Blood Pressure Measurement Compound Value - Diastolic (kPa)
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Base Unit: org.bluetooth.unit.pressure.pascal;
+        M = 1, d = 3, and b = 0
+        Present if bit 0 of Flags field is set to 1
+    - field: Blood Pressure Measurement Compound Value - Mean Arterial Pressure (kPa)
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Base Unit: org.bluetooth.unit.pressure.pascal;
+        M = 1, d = 3, and b = 0
+        Present if bit 0 of Flags field is set to 1
+    - field: Time Stamp
+      type: struct
+      size: 0 or 7
+      description: |-
+        Refer to Date Time characteristic in \autoref{sec:org.bluetooth.characteristic.date_time}.
+        Present if bit 1 of Flags field is set to 1
+    - field: Pulse Rate
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.period.beats_per_minute
+        Present if bit 2 of Flags field is set to 1
+    - field: User ID
+      type: uint8
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.blood_pressure_measurement/field/user_id}.
+        Present if bit 3 of Flags field is set to 1
+    - field: Measurement Status
+      type: boolean[16]
+      size: 0 or 2
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.blood_pressure_measurement/field/measurement_status}.
+        Present if bit 4 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: |-
+        These flags define which data fields are present in the characteristic value.
+        The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Blood Pressure Units Flag
+            0 = Blood pressure for Systolic, Diastolic and MAP in units of mmHg
+            1 = Blood pressure for Systolic, Diastolic and MAP in units of kPa
+        - bit: "1"
+          description: |-
+            Time Stamp Flag
+            0 = Time Stamp not present
+            1 = Time Stamp present
+        - bit: "2"
+          description: |-
+            Pulse Rate Flag
+            0 = Pulse Rate not present
+            1 = Pulse Rate present
+        - bit: "3"
+          description: |-
+            User ID Flag
+            0 = User ID not present
+            1 = User ID present
+        - bit: "4"
+          description: |-
+            Measurement Status Flag
+            0 = Measurement Status not present
+            1 = Measurement Status present
+        - bit: 5–7
+          description: Reserved for Future Use
+    - name: User ID
+      description: The values of this field are defined below.
+      values:
+        - value: 0x00–0xFE
+          description: Defined by the service specification
+        - value: "0xFF"
+          description: Unknown User
+    - name: Measurement Status
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Body Movement Detection Flag
+            0 = No body movement
+            1 = Body movement detected during measurement
+        - bit: "1"
+          description: |-
+            Cuff Fit Detection Flag
+            0 = Cuff fits properly
+            1 = Cuff too loose
+        - bit: "2"
+          description: |-
+            Irregular Pulse Detection Flag
+            0 = No irregular pulse detected
+            1 = Irregular pulse detected
+        - bit: 3–4
+          description: |-
+            Pulse Rate Range Detection Flags
+            0b00 = Pulse rate is within the range
+            0b01 = Pulse rate exceeds upper limit
+            0b10 = Pulse rate is less than lower limit
+            0b11 = Reserved for Future Use
+        - bit: "5"
+          description: |-
+            Measurement Position Detection Flag
+            0 = Proper measurement position
+            1 = Improper measurement position
+        - bit: 6–15
+          description: Reserved for Future Use

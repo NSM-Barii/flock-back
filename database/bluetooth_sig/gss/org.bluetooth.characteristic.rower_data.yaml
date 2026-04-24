@@ -1,0 +1,196 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.rower_data
+  name: Rower Data
+  description: |-
+    The Rower Data characteristic is used to represent data related to a rowing device.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[16]
+      size: "2"
+      description: See \autoref{sec:org.bluetooth.characteristic.rower_data/field/flags}
+    - field: Stroke Rate
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Base Unit: org.bluetooth.unit.stroke_per_minute
+        Represented values: M = 1, d = 0, b = -1
+        Unit is 1/2 of a stroke per minute
+        The Stroke Rate field represents the instantaneous stroke rate measured by the Server.
+        Present if bit 0 of Flags field is set to 0
+    - field: Stroke Count
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.unitless
+        The Stroke Count field represents the total number of strokes since the beginning of the training session.
+        Present if bit 0 of Flags field is set to 0
+    - field: Average Stroke Rate
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Base Unit: org.bluetooth.unit.stroke_per_minute
+        Represented values: M = 1, d = 0, b = -1
+        Unit is 1/2 of a stroke per minute
+        The Average Stroke Rate field represents the average speed since the beginning of the training session
+        Present if bit 1 of Flags field is set to 1
+    - field: Total Distance
+      type: uint24
+      size: 0 or 3
+      description: |-
+        Unit: org.bluetooth.unit.length.metre
+        The Total Distance field represents the total distance reported by the Server since the beginning of the training session.
+        Present if bit 2 of Flags field is set to 1
+    - field: Instantaneous Pace (Time per 500 meters)
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.time.second
+        The Instantaneous Pace field represents the value of the pace (time per 500 meters) of the user while exercising.
+        Present if bit 3 of Flags field is set to 1
+    - field: Average Pace (Time per 500 meters)
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.time.second
+        The Average Pace field represents the value of the average pace (time per 500 meters) since the beginning of the training session.
+        Present if bit 4 of Flags field is set to 1
+    - field: Instantaneous Power
+      type: sint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.power.watt
+        The Instantaneous Power field represents the value of the instantaneous power measured by the Server.
+        Present if bit 5 of Flags field is set to 1
+    - field: Average Power
+      type: sint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.power.watt
+        The Average Power field represents the value of the average power measured by the Server since the beginning of the training session.
+        Present if bit 6 of Flags field is set to 1
+    - field: Resistance Level
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Base Unit: org.bluetooth.unit.unitless
+        Represented values: M = 1, d = 1, b = 0
+        Unit is 1
+        The Resistance Level field represents the value of the current value of the resistance level of the Server.
+        Present if bit 7 of Flags field is set to 1
+    - field: Total Energy
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.energy.kilogram_calorie
+        The Total Energy field represents the total expended energy of a user since the training session has started.
+        Present if bit 8 of Flags field is set to 1
+    - field: Energy Per Hour
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.energy.kilogram_calorie
+        The Energy per Hour field represents the average expended energy of a user during a period of one hour.
+        Present if bit 8 of Flags field is set to 1
+    - field: Energy Per Minute
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Unit: org.bluetooth.unit.energy.kilogram_calorie
+        The Energy per Minute field represents the average expended energy of a user during a period of one minute.
+        Present if bit 8 of Flags field is set to 1
+    - field: Heart Rate
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Unit: org.bluetooth.unit.period.beats_per_minute
+        The Heart Rate field represents the current heart rate value of the user (e.g., measured via the contact heart rate or any other means).
+        Present if bit 9 of Flags field is set to 1
+    - field: Metabolic Equivalent
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Base Unit: org.bluetooth.unit.metabolic_equivalent
+        Represented values: M = 1, d = -1, b = 0
+        Unit is 1/10 metabolic equivalent
+        The Metabolic Equivalent field represents the metabolic equivalent of the user.
+        Present if bit 10 of Flags field is set to 1
+    - field: Elapsed Time
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.time.second
+        The Elapsed Time field represents the elapsed time of a training session since the training session has started.
+        Present if bit 11 of Flags field is set to 1
+    - field: Remaining Time
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.time.second
+        The Remaining Time field represents the remaining time of a selected training session.
+        Present if bit 12 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: More Data
+        - bit: "1"
+          description: Average Stroke rate present
+        - bit: "2"
+          description: Total Distance present
+        - bit: "3"
+          description: Instantaneous Pace present
+        - bit: "4"
+          description: Average Pace present
+        - bit: "5"
+          description: Instantaneous Power present
+        - bit: "6"
+          description: Average Power present
+        - bit: "7"
+          description: Resistance Level present
+        - bit: "8"
+          description: Expended Energy present
+        - bit: "9"
+          description: Heart Rate present
+        - bit: "10"
+          description: Metabolic Equivalent present
+        - bit: "11"
+          description: Elapsed Time present
+        - bit: "12"
+          description: Remaining Time present
+        - bit: 13–15
+          description: Reserved for Future Use

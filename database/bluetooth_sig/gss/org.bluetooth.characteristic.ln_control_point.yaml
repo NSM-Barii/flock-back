@@ -1,0 +1,157 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.ln_control_point
+  name: LN Control Point
+  description: |-
+    The LN Control Point characteristic is used to enable device-specific procedures related to the exchange of location and navigation (LN) information.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Op Code
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.ln_control_point/field/op_code_and_parameter}
+    - field: Parameter
+      type: struct
+      size: 0–18
+      description: See \autoref{sec:org.bluetooth.characteristic.ln_control_point/field/op_code_and_parameter}
+  fields:
+    - name: Op Code and Parameter
+      description: The values of these fields are defined below.
+      section_title: Op Code and Parameter fields
+      table_caption: Op Code and Parameter fields
+      values:
+        - op_code_value: "0x00"
+          definition: Reserved for Future Use
+          parameter: N/A
+          parameter_type: N/A
+          description: N/A
+        - op_code_value: "0x01"
+          definition: Set Cumulative Value
+          parameter: Cumulative value as defined per service
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to reset a cumulative value. The new value is sent as a parameter following op code
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x02"
+          definition: Mask Location and Speed Characteristic Content
+          parameter: Content Mask as defined per service
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the content of Location and Speed characteristic
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x03"
+          definition: Navigation Control
+          parameter: Defined per service
+          parameter_type: Defined per service
+          description: Update to the location of the sensor with the value sent as parameter to this op code.
+        - op_code_value: "0x04"
+          definition: Request Number of Routes
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Initiate the procedure to request the number of routes stored into the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the number of routes in the Response Parameter.
+        - op_code_value: "0x05"
+          definition: Request Name of Route
+          parameter: Defined per service
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to request the name of wanted route stored into the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the name of the route in the Response Parameter.
+        - op_code_value: "0x06"
+          definition: Select Route
+          parameter: Defined per service
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to select certain route to be used for navigation performed by the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x07"
+          definition: Set Fix Rate
+          parameter: Defined per service
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the Sensor fix rate.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x08"
+          definition: Set Elevation
+          parameter: Defined per service
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the elevation value of the sensor (usually this procedure needed if barometric air pressure is used for elevation calculation and elevation needs calibration).
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: 0x09–0x1F
+          definition: Reserved for Future Use
+          parameter: N/A
+          parameter_type: N/A
+          description: N/A
+        - op_code_value: "0x20"
+          definition: Response Code
+          parameter: Request Op Code, Response Code Value
+          parameter_type: N/A
+          description: See \autoref{sec:org.bluetooth.characteristic.ln_control_point/field/response_code_values}
+        - op_code_value: 0x21–0xFF
+          definition: Reserved for Future Use
+          parameter: N/A
+          parameter_type: N/A
+          description: N/A
+    - name: Response Code Values
+      description: The Response Code Values associated with the LN Control Point are defined below.
+      section_title: Response Code Values
+      table_caption: Response Code Values
+      values:
+        - response_code_value: "0x00"
+          definition: Reserved for Future Use
+          response_parameter: N/A
+          description: N/A
+        - response_code_value: "0x01"
+          definition: Success
+          response_parameter: Defined per service
+          description: Response for successful operation.
+        - response_code_value: "0x02"
+          definition: Op Code not supported
+          response_parameter: N/A
+          description: Response if unsupported Op Code is received
+        - response_code_value: "0x03"
+          definition: Invalid Operand
+          response_parameter: N/A
+          description: Response if Parameter received does not meet the requirements of the service.
+        - response_code_value: "0x04"
+          definition: Operation Failed
+          response_parameter: N/A
+          description: Response if the requested procedure failed.
+        - response_code_value: 0x05–0xFF
+          definition: Reserved for Future Use
+          response_parameter: ""
+          description: N/A

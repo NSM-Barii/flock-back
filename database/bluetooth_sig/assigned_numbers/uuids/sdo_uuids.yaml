@@ -1,0 +1,68 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+uuids:
+ - uuid: 0xFFFE
+   name: Wireless Power Transfer
+ - uuid: 0xFFFD
+   name: Universal Second Factor Authenticator
+ - uuid: 0xFFFC
+   name: Wireless Power Transfer (WPT)
+ - uuid: 0xFFFB
+   name: Direct Thread Commissioning
+ - uuid: 0xFFFA
+   name: ASTM Remote ID
+ - uuid: 0xFFF9
+   name: FIDO2 secure client-to-authenticator transport
+ - uuid: 0xFFF8
+   name: Mopria Alliance BLE
+ - uuid: 0xFFF7
+   name: Zigbee Direct
+ - uuid: 0xFFF6
+   name: Matter Profile ID
+ - uuid: 0xFFF5
+   name: "Car Connectivity Consortium, LLC"
+ - uuid: 0xFFF4
+   name: FiRa Consortium
+ - uuid: 0xFFF3
+   name: FiRa Consortium
+ - uuid: 0xFFF2
+   name: Aliro
+ - uuid: 0xFFF1
+   name: ICCE Digital Key
+ - uuid: 0xFFF0
+   name: Public Key Open Credential (PKOC)
+ - uuid: 0xFFEF
+   name: Wi-Fi Direct Specification
+ - uuid: 0xFCCC
+   name: Wi-Fi Easy Connect Specification

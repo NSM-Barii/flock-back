@@ -5,3 +5,4 @@ scapy
 bleak
 pathlib
 gps3
+manuf

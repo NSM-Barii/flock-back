@@ -1,0 +1,177 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.battery_information
+  name: Battery Information
+  description: |-
+    The Battery Information characteristic is used to represent the physical characteristics of a battery in the context of the battery’s connection in a device.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[16]
+      size: "2"
+      description: See \autoref{sec:org.bluetooth.characteristic.battery_information/field/flags}.
+    - field: Battery Features
+      type: boolean[8]
+      size: "1"
+      description: The supported features of the battery. See \autoref{sec:org.bluetooth.characteristic.battery_information/field/battery_features}.
+    - field: Battery Manufacture Date
+      type: uint24
+      size: 0 or 3
+      description: |-
+        Battery date of manufacture specified as days elapsed since the Epoch (Jan 1, 1970) in the Coordinated Universal Time (UTC) time zone.
+        Refer to the Date UTC characteristic in \autoref{sec:org.bluetooth.characteristic.date_utc}.
+        Base unit: org.bluetooth.unit.time.day
+        Present if bit 0 of the Flags field is set to 1
+    - field: Battery Expiration Date
+      type: uint24
+      size: 0 or 3
+      description: |-
+        Battery expiration date specified as days elapsed since the Epoch (Jan 1, 1970) in the Coordinated Universal Time (UTC) time zone.
+        Refer to the Date UTC characteristic in \autoref{sec:org.bluetooth.characteristic.date_utc}.
+        Base unit: org.bluetooth.unit.time.day
+        Present if bit 1 of the Flags field is set to 1
+    - field: Battery Designed Capacity
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        The capacity of the battery in kilowatt-hours at full charge in original (new) condition.
+        Base unit: org.bluetooth.unit.energy.kilowatt_hour
+        Allowed values are all positive real numbers.
+        Present if bit 2 of the Flags field is set to 1
+    - field: Battery Low Energy
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        The battery energy value in kilowatt-hours when the battery is low.
+        Base unit: org.bluetooth.unit.energy.kilowatt_hour
+        Allowed values are all positive real numbers.
+        Present if bit 3 of the Flags field is set to 1
+    - field: Battery Critical Energy
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        The battery energy value in kilowatt-hours when the battery is critical.
+        Base unit: org.bluetooth.unit.energy.kilowatt_hour
+        Allowed values are all positive real numbers.
+        Present if bit 4 of the Flags field is set to 1
+    - field: Battery Chemistry
+      type: uint8
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.battery_information/field/battery_chemistry}.
+        Present if bit 5 of the Flags field is set to 1
+    - field: Nominal Voltage
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Nominal voltage of the battery in units of volts.
+        Base unit: org.bluetooth.unit.electric_potential_difference.volt
+        Allowed values are all real numbers.
+        Present if bit 6 of the Flags field is set to 1
+    - field: Battery Aggregation Group
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Indicates the Battery Aggregation Group to which this instance of the battery service is associated.
+        0: Not in an aggregation group
+        1–254: Battery Aggregation Group Number
+        255: RFU
+        Present if bit 7 of the Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The values of this field are defined below.
+      values:
+        - bit: "0"
+          description: Battery Manufacture Date Present
+        - bit: "1"
+          description: Battery Expiration Date Present
+        - bit: "2"
+          description: Battery Designed Capacity Present
+        - bit: "3"
+          description: Battery Low Energy Present
+        - bit: "4"
+          description: Battery Critical Energy Present
+        - bit: "5"
+          description: Battery Chemistry Present
+        - bit: "6"
+          description: Nominal Voltage Present
+        - bit: "7"
+          description: Battery Aggregation Group Present
+        - bit: 8–15
+          description: RFU
+    - name: Battery Features
+      description: The values of this field are defined below.
+      values:
+        - bit: "0"
+          description: Battery Replaceable
+        - bit: "1"
+          description: Battery Rechargeable
+        - bit: 2–7
+          description: RFU
+    - name: Battery Chemistry
+      description: The values of this field are defined below.
+      values:
+        - value: "0"
+          description: Unknown
+        - value: "1"
+          description: Alkaline (zinc–manganese dioxide)
+        - value: "2"
+          description: Lead Acid
+        - value: "3"
+          description: Lithium (lithium-iron disulfide) LiFeS\textsubscript{2}
+        - value: "4"
+          description: Lithium (lithium-manganese dioxide) LiMnO\textsubscript{2}
+        - value: "5"
+          description: Lithium Ion Li
+        - value: "6"
+          description: Lithium Polymer
+        - value: "7"
+          description: Nickel Oxyhydroxide (zinc-manganese dioxide/oxy nickel hydroxide) NiO\textsubscript{x}
+        - value: "8"
+          description: Nickel Cadmium NiCd
+        - value: "9"
+          description: Nickel-metal Hydride NiMH
+        - value: "10"
+          description: Silver Oxide (silver-zinc) AgZn
+        - value: "11"
+          description: Zinc Chloride
+        - value: "12"
+          description: Zinc Air
+        - value: "13"
+          description: Zinc Carbon
+        - value: 14–254
+          description: RFU
+        - value: "255"
+          description: Other

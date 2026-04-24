@@ -1,0 +1,106 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+uuids:
+ - uuid: 0x2900
+   name: Characteristic Extended Properties
+   id: org.bluetooth.descriptor.gatt.characteristic_extended_properties
+ - uuid: 0x2901
+   name: Characteristic User Description
+   id: org.bluetooth.descriptor.gatt.characteristic_user_description
+ - uuid: 0x2902
+   name: Client Characteristic Configuration
+   id: org.bluetooth.descriptor.gatt.client_characteristic_configuration
+ - uuid: 0x2903
+   name: Server Characteristic Configuration
+   id: org.bluetooth.descriptor.gatt.server_characteristic_configuration
+ - uuid: 0x2904
+   name: Characteristic Presentation Format
+   id: org.bluetooth.descriptor.gatt.characteristic_presentation_format
+ - uuid: 0x2905
+   name: Characteristic Aggregate Format
+   id: org.bluetooth.descriptor.gatt.characteristic_aggregate_format
+ - uuid: 0x2906
+   name: Valid Range
+   id: org.bluetooth.descriptor.valid_range
+ - uuid: 0x2907
+   name: External Report Reference
+   id: org.bluetooth.descriptor.external_report_reference
+ - uuid: 0x2908
+   name: Report Reference
+   id: org.bluetooth.descriptor.report_reference
+ - uuid: 0x2909
+   name: Number of Digitals
+   id: org.bluetooth.descriptor.number_of_digitals
+ - uuid: 0x290A
+   name: Value Trigger Setting
+   id: org.bluetooth.descriptor.value_trigger_setting
+ - uuid: 0x290B
+   name: Environmental Sensing Configuration
+   id: org.bluetooth.descriptor.es_configuration
+ - uuid: 0x290C
+   name: Environmental Sensing Measurement
+   id: org.bluetooth.descriptor.es_measurement
+ - uuid: 0x290D
+   name: Environmental Sensing Trigger Setting
+   id: org.bluetooth.descriptor.es_trigger_setting
+ - uuid: 0x290E
+   name: Time Trigger Setting
+   id: org.bluetooth.descriptor.time_trigger_setting
+ - uuid: 0x290F
+   name: Complete BR-EDR Transport Block Data
+   id: org.bluetooth.descriptor.complete_br_edr_transport_block_data
+ - uuid: 0x2910
+   name: Observation Schedule
+   id: org.bluetooth.descriptor.observation_schedule
+ - uuid: 0x2911
+   name: Valid Range and Accuracy
+   id: org.bluetooth.descriptor.valid_range_accuracy
+ - uuid: 0x2912
+   name: Measurement Description
+   id: org.bluetooth.descriptor.measurement_description
+ - uuid: 0x2913
+   name: Manufacturer Limits
+   id: org.bluetooth.descriptor.manufacturer_limits
+ - uuid: 0x2914
+   name: Process Tolerances
+   id: org.bluetooth.descriptor.process_tolerances
+ - uuid: 0x2915
+   name: IMD Trigger Setting
+   id: org.bluetooth.descriptor.imd_trigger_setting
+ - uuid: 0x2916
+   name: Cooking Sensor Info
+   id: org.bluetooth.descriptor.cooking_sensor_info
+ - uuid: 0x2917
+   name: Cooking Trigger Setting
+   id: org.bluetooth.descriptor.cooking_trigger_setting

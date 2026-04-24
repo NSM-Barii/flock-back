@@ -1,0 +1,92 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.body_composition_feature
+  name: Body Composition Feature
+  description: |-
+    The Body Composition Feature characteristic is used to represent the supported features of a body composition sensor.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Body Composition Feature
+      type: boolean[32]
+      size: "4"
+      description: See \autoref{sec:org.bluetooth.characteristic.body_composition_feature/field/body_composition_feature}
+  fields:
+    - name: Body Composition Feature
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: Time Stamp Supported
+        - bit: "1"
+          description: Multiple Users Supported
+        - bit: "2"
+          description: Basal Metabolism Supported
+        - bit: "3"
+          description: Muscle Percentage Supported
+        - bit: "4"
+          description: Muscle Mass Supported
+        - bit: "5"
+          description: Fat Free Mass Supported
+        - bit: "6"
+          description: Soft Lean Mass Supported
+        - bit: "7"
+          description: Body Water Mass Supported
+        - bit: "8"
+          description: Impedance Supported
+        - bit: "9"
+          description: Weight Supported
+        - bit: "10"
+          description: Height Supported
+        - bit: 11–14
+          description: |-
+            Weight Measurement Resolution
+            0b0000 = Not specified
+            0b0001 = Resolution of 0.5 kg or 1 lb.
+            0b0010 = Resolution of 0.2 kg or 0.5 lb.
+            0b0011 = Resolution of 0.1 kg or 0.2 lb.
+            0b0100 = Resolution of 0.05 kg or 0.1 lb.
+            0b0101 = Resolution of 0.02 kg or 0.05 lb.
+            0b0110 = Resolution of 0.01 kg or 0.02 lb.
+            0b0111 = Resolution of 0.005 kg or 0.01 lb.
+            All other values = Reserved for Future Use
+        - bit: 15–17
+          description: |-
+            Height Measurement Resolution
+            0b000 = Not specified
+            0b001 = Resolution of 0.01 meter or 1 inch
+            0b010 = Resolution of 0.005 meter or 0.5 inch
+            0b011 = Resolution of 0.001 meter or 0.1 inch
+            All other values = Reserved for Future Use
+        - bit: 18–31
+          description: Reserved for Future Use

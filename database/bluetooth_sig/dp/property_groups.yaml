@@ -1,0 +1,109 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+groups:
+
+- identifier: org.bluetooth.property_group.ambient_temperature
+  name: Ambient Temperature
+  description: |-
+    This category contains the property definitions related to the air temperature surrounding a device.
+
+- identifier: org.bluetooth.property_group.device_operating_temperature
+  name: Device Operating Temperature
+  description: |-
+    This category contains the property definitions related to the operating temperature of a device.
+    Example use case: To monitor the temperature of an LED fixture or a refrigerator.
+
+- identifier: org.bluetooth.property_group.electrical_input
+  name: Electrical Input
+  description: |-
+    This category contains the property definitions related to the electrical input of a device such as input voltage and ripple voltage. These properties can be monitored to check whether the device is running at the right input conditions. They also can be used to monitor the performance of the electrical power distribution within a building, or to monitor the performance of the power supplies powering a device.
+
+- identifier: org.bluetooth.property_group.energy_management
+  name: Energy Management
+  description: |-
+    This category contains the property definitions related to the energy management of a device.
+    Example use case: To monitor the energy use of devices such as a heater or a light fixture by enabling building information services to report aggregate energy usage, and report high-energy-use devices. Such information could be used to decide which devices to replace with more efficient devices, or to reduce energy usage by reducing the energy-use level or total operating time for high-energy-use devices.
+
+- identifier: org.bluetooth.property_group.environmental
+  name: Environmental
+  description: |-
+    This category contains property definitions related to environment conditions.
+    Example use case: To monitor the air quality that surrounds a device.
+
+- identifier: org.bluetooth.property_group.general_device_information
+  name: General Device Information
+  description: |-
+    This category contains property definitions related to general device information such as device appearance, manufacturing data, and total runtime.
+
+- identifier: org.bluetooth.property_group.light_control
+  name: Light Control
+  description: |-
+    This category contains the property definitions related to light control and defines, for example, the light control properties set in the Lighting Control Model in the Mesh Model specification \RefRef{msh_mdl}.
+
+- identifier: org.bluetooth.property_group.lighting
+  name: Lighting
+  description: |-
+    This category contains the property definitions related to general lighting, light sources, and light fixtures. It does not define properties related to light control (see Light Control (\autoref{sec:org.bluetooth.property_group.light_control}), Light LC for these properties). It also does not define properties related to detection of light (see Photometry (\autoref{sec:org.bluetooth.property_group.photometry}) for these).
+
+- identifier: org.bluetooth.property_group.occupancy
+  name: Occupancy
+  description: |-
+    This category contains the property definitions related to occupancy of spaces. The occupancy properties are related to people, but also to cars (in parking garages), animals (on farms), and units within a building (e.g., rental units or hotel rooms).
+
+- identifier: org.bluetooth.property_group.photometry
+  name: Photometry
+  description: |-
+    This category contains the property definitions related to photometrics. These typically are measured with photodetectors.
+
+- identifier: org.bluetooth.property_group.power_supply_output
+  name: Power Supply Output
+  description: |-
+    This section contains the property definitions related to the electrical output of a power supply, also known as an LED driver, such as output voltage, output ripple voltage, and output current. These properties can be used to monitor the driver operating conditions and electrical operating history for light sources connected to the driver, such as LED arrays.
+
+- identifier: org.bluetooth.property_group.warranty_and_service
+  name: Warranty and Service
+  description: |-
+    This category contains the property definitions related to warranty and service of a device, for example, the total runtime of a device and the warranty runtime as provided by the manufacturer.
+    The device properties in this category can be used to check whether or not the device is still covered by a runtime warranty and to track aspects of device usage for a runtime warranty.
+
+- identifier: org.bluetooth.property_group.luminaire
+  name: Luminaire
+  description: |-
+    This category contains the property definitions related to luminaires.
+
+- identifier: org.bluetooth.property_group.settings
+  name: Settings
+  description: |-
+    This category contains the property definitions related to the various device settings.
+

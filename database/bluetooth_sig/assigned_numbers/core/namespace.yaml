@@ -1,0 +1,580 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+namespace:
+ - value: 0x0000
+   name: unknown
+ - value: 0x0001
+   name: first
+ - value: 0x0002
+   name: second
+ - value: 0x0003
+   name: third
+ - value: 0x0004
+   name: fourth
+ - value: 0x0005
+   name: fifth
+ - value: 0x0006
+   name: sixth
+ - value: 0x0007
+   name: seventh
+ - value: 0x0008
+   name: eighth
+ - value: 0x0009
+   name: ninth
+ - value: 0x000A
+   name: tenth
+ - value: 0x000B
+   name: eleventh
+ - value: 0x000C
+   name: twelfth
+ - value: 0x000D
+   name: thirteenth
+ - value: 0x000E
+   name: fourteenth
+ - value: 0x000F
+   name: fifteenth
+ - value: 0x0010
+   name: sixteenth
+ - value: 0x0011
+   name: seventeenth
+ - value: 0x0012
+   name: eighteenth
+ - value: 0x0013
+   name: nineteenth
+ - value: 0x0014
+   name: twentieth
+ - value: 0x0015
+   name: twenty-first
+ - value: 0x0016
+   name: twenty-second
+ - value: 0x0017
+   name: twenty-third
+ - value: 0x0018
+   name: twenty-fourth
+ - value: 0x0019
+   name: twenty-fifth
+ - value: 0x001A
+   name: twenty-sixth
+ - value: 0x001B
+   name: twenty-seventh
+ - value: 0x001C
+   name: twenty-eighth
+ - value: 0x001D
+   name: twenty-ninth
+ - value: 0x001E
+   name: thirtieth
+ - value: 0x001F
+   name: thirty-first
+ - value: 0x0020
+   name: thirty-second
+ - value: 0x0021
+   name: thirty-third
+ - value: 0x0022
+   name: thirty-fourth
+ - value: 0x0023
+   name: thirty-fifth
+ - value: 0x0024
+   name: thirty-sixth
+ - value: 0x0025
+   name: thirty-seventh
+ - value: 0x0026
+   name: thirty-eighth
+ - value: 0x0027
+   name: thirty-ninth
+ - value: 0x0028
+   name: fortieth
+ - value: 0x0029
+   name: forty-first
+ - value: 0x002A
+   name: forty-second
+ - value: 0x002B
+   name: forty-third
+ - value: 0x002C
+   name: forty-fourth
+ - value: 0x002D
+   name: forty-fifth
+ - value: 0x002E
+   name: forty-sixth
+ - value: 0x002F
+   name: forty-seventh
+ - value: 0x0030
+   name: forty-eighth
+ - value: 0x0031
+   name: forty-ninth
+ - value: 0x0032
+   name: fiftieth
+ - value: 0x0033
+   name: fifty-first
+ - value: 0x0034
+   name: fifty-second
+ - value: 0x0035
+   name: fifty-third
+ - value: 0x0036
+   name: fifty-fourth
+ - value: 0x0037
+   name: fifty-fifth
+ - value: 0x0038
+   name: fifty-sixth
+ - value: 0x0039
+   name: fifty-seventh
+ - value: 0x003A
+   name: fifty-eighth
+ - value: 0x003B
+   name: fifty-ninth
+ - value: 0x003C
+   name: sixtieth
+ - value: 0x003D
+   name: sixty-first
+ - value: 0x003E
+   name: sixty-second
+ - value: 0x003F
+   name: sixty-third
+ - value: 0x0040
+   name: sixty-fourth
+ - value: 0x0041
+   name: sixty-fifth
+ - value: 0x0042
+   name: sixty-sixth
+ - value: 0x0043
+   name: sixty-seventh
+ - value: 0x0044
+   name: sixty-eighth
+ - value: 0x0045
+   name: sixty-ninth
+ - value: 0x0046
+   name: seventieth
+ - value: 0x0047
+   name: seventy-first
+ - value: 0x0048
+   name: seventy-second
+ - value: 0x0049
+   name: seventy-third
+ - value: 0x004A
+   name: seventy-fourth
+ - value: 0x004B
+   name: seventy-fifth
+ - value: 0x004C
+   name: seventy-sixth
+ - value: 0x004D
+   name: seventy-seventh
+ - value: 0x004E
+   name: seventy-eighth
+ - value: 0x004F
+   name: seventy-ninth
+ - value: 0x0050
+   name: eightieth
+ - value: 0x0051
+   name: eighty-first
+ - value: 0x0052
+   name: eighty-second
+ - value: 0x0053
+   name: eighty-third
+ - value: 0x0054
+   name: eighty-fourth
+ - value: 0x0055
+   name: eighty-fifth
+ - value: 0x0056
+   name: eighty-sixth
+ - value: 0x0057
+   name: eighty-seventh
+ - value: 0x0058
+   name: eighty-eighth
+ - value: 0x0059
+   name: eighty-ninth
+ - value: 0x005A
+   name: ninetieth
+ - value: 0x005B
+   name: ninety-first
+ - value: 0x005C
+   name: ninety-second
+ - value: 0x005D
+   name: ninety-third
+ - value: 0x005E
+   name: ninety-fourth
+ - value: 0x005F
+   name: ninety-fifth
+ - value: 0x0060
+   name: ninety-sixth
+ - value: 0x0061
+   name: ninety-seventh
+ - value: 0x0062
+   name: ninety-eighth
+ - value: 0x0063
+   name: ninety-ninth
+ - value: 0x0064
+   name: one-hundredth
+ - value: 0x0065
+   name: one-hundred-and-first
+ - value: 0x0066
+   name: one-hundred-and-second
+ - value: 0x0067
+   name: one-hundred-and-third
+ - value: 0x0068
+   name: one-hundred-and-fourth
+ - value: 0x0069
+   name: one-hundred-and-fifth
+ - value: 0x006A
+   name: one-hundred-and-sixth
+ - value: 0x006B
+   name: one-hundred-and-seventh
+ - value: 0x006C
+   name: one-hundred-and-eighth
+ - value: 0x006D
+   name: one-hundred-and-ninth
+ - value: 0x006E
+   name: one-hundred-and-tenth
+ - value: 0x006F
+   name: one-hundred-and-eleventh
+ - value: 0x0070
+   name: one-hundred-and-twelfth
+ - value: 0x0071
+   name: one-hundred-and-thirteenth
+ - value: 0x0072
+   name: one-hundred-and-fourteenth
+ - value: 0x0073
+   name: one-hundred-and-fifteenth
+ - value: 0x0074
+   name: one-hundred-and-sixteenth
+ - value: 0x0075
+   name: one-hundred-and-seventeenth
+ - value: 0x0076
+   name: one-hundred-and-eighteenth
+ - value: 0x0077
+   name: one-hundred-and-nineteenth
+ - value: 0x0078
+   name: one-hundred-twentieth
+ - value: 0x0079
+   name: one-hundred-and-twenty-first
+ - value: 0x007A
+   name: one-hundred-and-twenty-second
+ - value: 0x007B
+   name: one-hundred-and-twenty-third
+ - value: 0x007C
+   name: one-hundred-and-twenty-fourth
+ - value: 0x007D
+   name: one-hundred-and-twenty-fifth
+ - value: 0x007E
+   name: one-hundred-and-twenty-sixth
+ - value: 0x007F
+   name: one-hundred-and-twenty-seventh
+ - value: 0x0080
+   name: one-hundred-and-twenty-eighth
+ - value: 0x0081
+   name: one-hundred-and-twenty-ninth
+ - value: 0x0082
+   name: one-hundred-thirtieth
+ - value: 0x0083
+   name: one-hundred-and-thirty-first
+ - value: 0x0084
+   name: one-hundred-and-thirty-second
+ - value: 0x0085
+   name: one-hundred-and-thirty-third
+ - value: 0x0086
+   name: one-hundred-and-thirty-fourth
+ - value: 0x0087
+   name: one-hundred-and-thirty-fifth
+ - value: 0x0088
+   name: one-hundred-and-thirty-sixth
+ - value: 0x0089
+   name: one-hundred-and-thirty-seventh
+ - value: 0x008A
+   name: one-hundred-and-thirty-eighth
+ - value: 0x008B
+   name: one-hundred-and-thirty-ninth
+ - value: 0x008C
+   name: one-hundred-fortieth
+ - value: 0x008D
+   name: one-hundred-and-forty-first
+ - value: 0x008E
+   name: one-hundred-and-forty-second
+ - value: 0x008F
+   name: one-hundred-and-forty-third
+ - value: 0x0090
+   name: one-hundred-and-forty-fourth
+ - value: 0x0091
+   name: one-hundred-and-forty-fifth
+ - value: 0x0092
+   name: one-hundred-and-forty-sixth
+ - value: 0x0093
+   name: one-hundred-and-forty-seventh
+ - value: 0x0094
+   name: one-hundred-and-forty-eighth
+ - value: 0x0095
+   name: one-hundred-and-forty-ninth
+ - value: 0x0096
+   name: one-hundred-fiftieth
+ - value: 0x0097
+   name: one-hundred-and-fifty-first
+ - value: 0x0098
+   name: one-hundred-and-fifty-second
+ - value: 0x0099
+   name: one-hundred-and-fifty-third
+ - value: 0x009A
+   name: one-hundred-and-fifty-fourth
+ - value: 0x009B
+   name: one-hundred-and-fifty-fifth
+ - value: 0x009C
+   name: one-hundred-and-fifty-sixth
+ - value: 0x009D
+   name: one-hundred-and-fifty-seventh
+ - value: 0x009E
+   name: one-hundred-and-fifty-eighth
+ - value: 0x009F
+   name: one-hundred-and-fifty-ninth
+ - value: 0x00A0
+   name: one-hundred-sixtieth
+ - value: 0x00A1
+   name: one-hundred-and-sixty-first
+ - value: 0x00A2
+   name: one-hundred-and-sixty-second
+ - value: 0x00A3
+   name: one-hundred-and-sixty-third
+ - value: 0x00A4
+   name: one-hundred-and-sixty-fourth
+ - value: 0x00A5
+   name: one-hundred-and-sixty-fifth
+ - value: 0x00A6
+   name: one-hundred-and-sixty-sixth
+ - value: 0x00A7
+   name: one-hundred-and-sixty-seventh
+ - value: 0x00A8
+   name: one-hundred-and-sixty-eighth
+ - value: 0x00A9
+   name: one-hundred-and-sixty-ninth
+ - value: 0x00AA
+   name: one-hundred-seventieth
+ - value: 0x00AB
+   name: one-hundred-and-seventy-first
+ - value: 0x00AC
+   name: one-hundred-and-seventy-second
+ - value: 0x00AD
+   name: one-hundred-and-seventy-third
+ - value: 0x00AE
+   name: one-hundred-and-seventy-fourth
+ - value: 0x00AF
+   name: one-hundred-and-seventy-fifth
+ - value: 0x00B0
+   name: one-hundred-and-seventy-sixth
+ - value: 0x00B1
+   name: one-hundred-and-seventy-seventh
+ - value: 0x00B2
+   name: one-hundred-and-seventy-eighth
+ - value: 0x00B3
+   name: one-hundred-and-seventy-ninth
+ - value: 0x00B4
+   name: one-hundred-eightieth
+ - value: 0x00B5
+   name: one-hundred-and-eighty-first
+ - value: 0x00B6
+   name: one-hundred-and-eighty-second
+ - value: 0x00B7
+   name: one-hundred-and-eighty-third
+ - value: 0x00B8
+   name: one-hundred-and-eighty-fourth
+ - value: 0x00B9
+   name: one-hundred-and-eighty-fifth
+ - value: 0x00BA
+   name: one-hundred-and-eighty-sixth
+ - value: 0x00BB
+   name: one-hundred-and-eighty-seventh
+ - value: 0x00BC
+   name: one-hundred-and-eighty-eighth
+ - value: 0x00BD
+   name: one-hundred-and-eighty-ninth
+ - value: 0x00BE
+   name: one-hundred-ninetieth
+ - value: 0x00BF
+   name: one-hundred-and-ninety-first
+ - value: 0x00C0
+   name: one-hundred-and-ninety-second
+ - value: 0x00C1
+   name: one-hundred-and-ninety-third
+ - value: 0x00C2
+   name: one-hundred-and-ninety-fourth
+ - value: 0x00C3
+   name: one-hundred-and-ninety-fifth
+ - value: 0x00C4
+   name: one-hundred-and-ninety-sixth
+ - value: 0x00C5
+   name: one-hundred-and-ninety-seventh
+ - value: 0x00C6
+   name: one-hundred-and-ninety-eighth
+ - value: 0x00C7
+   name: one-hundred-and-ninety-ninth
+ - value: 0x00C8
+   name: two-hundredth
+ - value: 0x00C9
+   name: two-hundred-and-first
+ - value: 0x00CA
+   name: two-hundred-and-second
+ - value: 0x00CB
+   name: two-hundred-and-third
+ - value: 0x00CC
+   name: two-hundred-and-fourth
+ - value: 0x00CD
+   name: two-hundred-and-fifth
+ - value: 0x00CE
+   name: two-hundred-and-sixth
+ - value: 0x00CF
+   name: two-hundred-and-seventh
+ - value: 0x00D0
+   name: two-hundred-and-eighth
+ - value: 0x00D1
+   name: two-hundred-and-ninth
+ - value: 0x00D2
+   name: two-hundred-and-tenth
+ - value: 0x00D3
+   name: two-hundred-and-eleventh
+ - value: 0x00D4
+   name: two-hundred-and-twelfth
+ - value: 0x00D5
+   name: two-hundred-and-thirteenth
+ - value: 0x00D6
+   name: two-hundred-and-fourteenth
+ - value: 0x00D7
+   name: two-hundred-and-fifteenth
+ - value: 0x00D8
+   name: two-hundred-and-sixteenth
+ - value: 0x00D9
+   name: two-hundred-and-seventeenth
+ - value: 0x00DA
+   name: two-hundred-and-eighteenth
+ - value: 0x00DB
+   name: two-hundred-and-nineteenth
+ - value: 0x00DC
+   name: two-hundred-twentieth
+ - value: 0x00DD
+   name: two-hundred-and-twenty-first
+ - value: 0x00DE
+   name: two-hundred-and-twenty-second
+ - value: 0x00DF
+   name: two-hundred-and-twenty-third
+ - value: 0x00E0
+   name: two-hundred-and-twenty-fourth
+ - value: 0x00E1
+   name: two-hundred-and-twenty-fifth
+ - value: 0x00E2
+   name: two-hundred-and-twenty-sixth
+ - value: 0x00E3
+   name: two-hundred-and-twenty-seventh
+ - value: 0x00E4
+   name: two-hundred-and-twenty-eighth
+ - value: 0x00E5
+   name: two-hundred-and-twenty-ninth
+ - value: 0x00E6
+   name: two-hundred-thirtieth
+ - value: 0x00E7
+   name: two-hundred-and-thirty-first
+ - value: 0x00E8
+   name: two-hundred-and-thirty-second
+ - value: 0x00E9
+   name: two-hundred-and-thirty-third
+ - value: 0x00EA
+   name: two-hundred-and-thirty-fourth
+ - value: 0x00EB
+   name: two-hundred-and-thirty-fifth
+ - value: 0x00EC
+   name: two-hundred-and-thirty-sixth
+ - value: 0x00ED
+   name: two-hundred-and-thirty-seventh
+ - value: 0x00EE
+   name: two-hundred-and-thirty-eighth
+ - value: 0x00EF
+   name: two-hundred-and-thirty-ninth
+ - value: 0x00F0
+   name: two-hundred-fortieth
+ - value: 0x00F1
+   name: two-hundred-and-forty-first
+ - value: 0x00F2
+   name: two-hundred-and-forty-second
+ - value: 0x00F3
+   name: two-hundred-and-forty-third
+ - value: 0x00F4
+   name: two-hundred-and-forty-fourth
+ - value: 0x00F5
+   name: two-hundred-and-forty-fifth
+ - value: 0x00F6
+   name: two-hundred-and-forty-sixth
+ - value: 0x00F7
+   name: two-hundred-and-forty-seventh
+ - value: 0x00F8
+   name: two-hundred-and-forty-eighth
+ - value: 0x00F9
+   name: two-hundred-and-forty-ninth
+ - value: 0x00FA
+   name: two-hundred-fiftieth
+ - value: 0x00FB
+   name: two-hundred-and-fifty-first
+ - value: 0x00FC
+   name: two-hundred-and-fifty-second
+ - value: 0x00FD
+   name: two-hundred-and-fifty-third
+ - value: 0x00FE
+   name: two-hundred-and-fifty-fourth
+ - value: 0x00FF
+   name: two-hundred-and-fifty-fifth
+ - value: 0x0100
+   name: front
+ - value: 0x0101
+   name: back
+ - value: 0x0102
+   name: top
+ - value: 0x0103
+   name: bottom
+ - value: 0x0104
+   name: upper
+ - value: 0x0105
+   name: lower
+ - value: 0x0106
+   name: main
+ - value: 0x0107
+   name: backup
+ - value: 0x0108
+   name: auxiliary
+ - value: 0x0109
+   name: supplementary
+ - value: 0x010A
+   name: flash
+ - value: 0x010B
+   name: inside
+ - value: 0x010C
+   name: outside
+ - value: 0x010D
+   name: left
+ - value: 0x010E
+   name: right
+ - value: 0x010F
+   name: internal
+ - value: 0x0110
+   name: external

@@ -1,0 +1,102 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.elapsed_time
+  name: Elapsed Time
+  description: |-
+    The Elapsed Time characteristic is used to represent the current time of a clock or tick counter at the time an event occurred. The Time Value allows easy calculation of time differences and easy comparison of times. The characteristic is a fixed-size structure that provides sufficient information to interpret the reported time in many contexts.
+    \newpage
+    The flags determine if the Time Value represents a tick counter, UTC time or local time. The following formula gives the relation between local time and UTC time{{:}}
+    \hspace{1cm} \textit{Local time} = \textit{UTC time} + \textit{TZ/DST Offset} * \textit{15 minutes}
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.elapsed_time/field/flags}.
+    - field: Time Value
+      type: uint48
+      size: "6"
+      description: |-
+        The actual time value in the resolution as defined by the flags.
+        The Time Value field contains a counter of the number of time units as determined by the time resolution of the clock. The starting point of the timeline is 2000-01-01 00:00:00 when reporting a time of day or is implementation-dependent for a tick counter.
+    - field: Time Sync Source Type
+      type: uint8
+      size: "1"
+      description: |-
+        The type of time source used for synchronization. See \autoref{sec:org.bluetooth.characteristic.time_source} for the supported values.
+        This field has no meaning for a tick counter.
+    - field: TZ/DST Offset
+      type: sint8
+      size: "1"
+      description: |-
+        Combined TZ/DST offset from UTC in 15-minute units.
+        This field has no meaning for a tick counter and is relevant only when the TZ/DST offset used flag is set.
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Time is a tick counter
+            0 = Time Value reports a time of day
+            1 = Time Value reports a counter (also known as "relative time")
+        - bit: "1"
+          description: |-
+            Time is UTC
+            0 = Time Value reports local time
+            1 = Time Value reports UTC 
+            This field has no meaning for a tick counter.
+        - bit: "2-3"
+          description: |-
+            Time resolution
+            00 = 1 second
+            01 = 100 milliseconds
+            10 = 1 millisecond
+            11 = 100 microseconds
+        - bit: "4"
+          description: |-
+            TZ/DST offset is used
+            0 = TZ/DST offset is not used 
+            1 = TZ/DST offset is used
+            This field has no meaning for a tick counter.
+        - bit: "5"
+          description: |-
+            Time stamp is from the current timeline
+            0 = Time stamp is not from the current timeline
+            1 = Time stamp is from the current timeline
+            This bit indicates if the time comes from the current timeline as reported by the clock that is used for keeping track of time.
+        - bit: "6-7"
+          description: Reserved for Future Use

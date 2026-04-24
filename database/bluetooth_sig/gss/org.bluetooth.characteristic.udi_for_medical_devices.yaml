@@ -1,0 +1,85 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.udi_for_medical_devices
+  name: UDI for Medical Devices
+  description: |-
+    This characteristic is used to represent a unique identification assigned to a medical device and the controlling and assigning bodies.
+    A Unique Device Identifier (UDI) is a string that is used to label a medical product in a pre-defined way as defined by a regional authority such as the US FDA. A UDI is linked to a registration of product information in a database and tracks a device in case of medical issues linked to using the device. A UDI consists of a Device Information (DI) part that identifies the device type and a Production Information (PI) part that identifies a specific device instance by the device’s production date, serial number, and similar attributes. The UDI for Medical Devices characteristic contains the full UDI or at least the DI part (see \RefRef{UDI_system} for more information).
+    The UDI Issuer and the UDI Authority fields contain international Object Identifiers (OIDs) as defined by ITU-T \RefRef{OIDS_ITUT_X600} and ISO/IEC \RefRef{OIDS_ISOIEC_9341}. For example, the OID for the US FDA is 2.16.840.1.113883.3.24. Details on an OID are retrievable via directories such as \url{http://www.oid-info.com/}.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: |-
+        Flags reflecting the presence of fields (see \autoref{sec:org.bluetooth.characteristic.udi_for_medical_devices/field/flags}).
+    - field: UDI Label
+      type: utf8s
+      size: "variable"
+      description: |-
+        String value matching the UDI in human readable form as assigned to the product by a recognized UDI Issuer. Zero-terminated.
+        Present if bit 0 of Flags field is set to 1
+    - field: UDI Device Identifier
+      type: utf8s
+      size: "variable"
+      description: |-
+        A fixed portion of a UDI that identifies the labeler and the specific version or model of a device. Zero-terminated.
+        Present if bit 1 of Flags field is set to 1
+    - field: UDI Issuer
+      type: utf8s
+      size: "variable"
+      description: |-
+        OID representing the UDI Issuing Organization, such as GS1. Zero-terminated.
+        Present if bit 2 of Flags field is set to 1
+    - field: UDI Authority
+      type: utf8s
+      size: "variable"
+      description: |-
+        OID representing the regional UDI Authority, such as the US FDA. Zero-terminated.
+        Present if bit 3 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The Flags field contains the flags as defined below.
+      values:
+        - bit: "0"
+          description: UDI Label is present
+        - bit: "1"
+          description: UDI Device Identifier is present
+        - bit: "2"
+          description: UDI Issuer is present
+        - bit: "3"
+          description: UDI Authority is present
+        - bit: 4–7
+          description: RFU

@@ -1,0 +1,92 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+audio_location_definitions:
+ - value: 0x00000000
+   audio_location: Mono Audio (no specified Audio Location)
+ - value: 0x00000001
+   audio_location: Front Left
+ - value: 0x00000002
+   audio_location: Front Right
+ - value: 0x00000004
+   audio_location: Front Center
+ - value: 0x00000008
+   audio_location: Low Frequency Effects 1
+ - value: 0x00000010
+   audio_location: Back Left
+ - value: 0x00000020
+   audio_location: Back Right
+ - value: 0x00000040
+   audio_location: Front Left of Center
+ - value: 0x00000080
+   audio_location: Front Right of Center
+ - value: 0x00000100
+   audio_location: Back Center
+ - value: 0x00000200
+   audio_location: Low Frequency Effects 2
+ - value: 0x00000400
+   audio_location: Side Left
+ - value: 0x00000800
+   audio_location: Side Right
+ - value: 0x00001000
+   audio_location: Top Front Left
+ - value: 0x00002000
+   audio_location: Top Front Right
+ - value: 0x00004000
+   audio_location: Top Front Center
+ - value: 0x00008000
+   audio_location: Top Center
+ - value: 0x00010000
+   audio_location: Top Back Left
+ - value: 0x00020000
+   audio_location: Top Back Right
+ - value: 0x00040000
+   audio_location: Top Side Left
+ - value: 0x00080000
+   audio_location: Top Side Right
+ - value: 0x00100000
+   audio_location: Top Back Center
+ - value: 0x00200000
+   audio_location: Bottom Front Center
+ - value: 0x00400000
+   audio_location: Bottom Front Left
+ - value: 0x00800000
+   audio_location: Bottom Front Right
+ - value: 0x01000000
+   audio_location: Front Left Wide
+ - value: 0x02000000
+   audio_location: Front Right Wide
+ - value: 0x04000000
+   audio_location: Left Surround
+ - value: 0x08000000
+   audio_location: Right Surround

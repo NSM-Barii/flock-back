@@ -1,0 +1,622 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_model_opcodes:
+ - name: Generic OnOff Get
+   opcode: 0x8201
+   type: model
+ - name: Generic OnOff Set
+   opcode: 0x8202
+   type: model
+ - name: Generic OnOff Set Unacknowledged
+   opcode: 0x8203
+   type: model
+ - name: Generic OnOff Status
+   opcode: 0x8204
+   type: model
+ - name: Generic Level Get
+   opcode: 0x8205
+   type: model
+ - name: Generic Level Set
+   opcode: 0x8206
+   type: model
+ - name: Generic Level Set Unacknowledged
+   opcode: 0x8207
+   type: model
+ - name: Generic Level Status
+   opcode: 0x8208
+   type: model
+ - name: Generic Delta Set
+   opcode: 0x8209
+   type: model
+ - name: Generic Delta Set Unacknowledged
+   opcode: 0x820A
+   type: model
+ - name: Generic Move Set
+   opcode: 0x820B
+   type: model
+ - name: Generic Move Set Unacknowledged
+   opcode: 0x820C
+   type: model
+ - name: Generic Default Transition Time Get
+   opcode: 0x820D
+   type: model
+ - name: Generic Default Transition Time Set
+   opcode: 0x820E
+   type: model
+ - name: Generic Default Transition Time Set Unacknowledged
+   opcode: 0x820F
+   type: model
+ - name: Generic Default Transition Time Status
+   opcode: 0x8210
+   type: model
+ - name: Generic OnPowerUp Get
+   opcode: 0x8211
+   type: model
+ - name: Generic OnPowerUp Status
+   opcode: 0x8212
+   type: model
+ - name: Generic OnPowerUp Set
+   opcode: 0x8213
+   type: model
+ - name: Generic OnPowerUp Set Unacknowledged
+   opcode: 0x8214
+   type: model
+ - name: Generic Power Level Get
+   opcode: 0x8215
+   type: model
+ - name: Generic Power Level Set
+   opcode: 0x8216
+   type: model
+ - name: Generic Power Level Set Unacknowledged
+   opcode: 0x8217
+   type: model
+ - name: Generic Power Level Status
+   opcode: 0x8218
+   type: model
+ - name: Generic Power Last Get
+   opcode: 0x8219
+   type: model
+ - name: Generic Power Last Status
+   opcode: 0x821A
+   type: model
+ - name: Generic Power Default Get
+   opcode: 0x821B
+   type: model
+ - name: Generic Power Default Status
+   opcode: 0x821C
+   type: model
+ - name: Generic Power Range Get
+   opcode: 0x821D
+   type: model
+ - name: Generic Power Range Status
+   opcode: 0x821E
+   type: model
+ - name: Generic Power Default Set
+   opcode: 0x821F
+   type: model
+ - name: Generic Power Default Set Unacknowledged
+   opcode: 0x8220
+   type: model
+ - name: Generic Power Range Set
+   opcode: 0x8221
+   type: model
+ - name: Generic Power Range Set Unacknowledged
+   opcode: 0x8222
+   type: model
+ - name: Generic Battery Get
+   opcode: 0x8223
+   type: model
+ - name: Generic Battery Status
+   opcode: 0x8224
+   type: model
+ - name: Generic Location Global Get
+   opcode: 0x8225
+   type: model
+ - name: Generic Location Global Status
+   opcode: 0x40
+   type: model
+ - name: Generic Location Local Get
+   opcode: 0x8226
+   type: model
+ - name: Generic Location Local Status
+   opcode: 0x8227
+   type: model
+ - name: Generic Location Global Set
+   opcode: 0x41
+   type: model
+ - name: Generic Location Global Set Unacknowledged
+   opcode: 0x42
+   type: model
+ - name: Generic Location Local Set
+   opcode: 0x8228
+   type: model
+ - name: Generic Location Local Set Unacknowledged
+   opcode: 0x8229
+   type: model
+ - name: Generic Manufacturer Properties Get
+   opcode: 0x822A
+   type: model
+ - name: Generic Manufacturer Properties Status
+   opcode: 0x43
+   type: model
+ - name: Generic Manufacturer Property Get
+   opcode: 0x822B
+   type: model
+ - name: Generic Manufacturer Property Set
+   opcode: 0x44
+   type: model
+ - name: Generic Manufacturer Property Set Unacknowledged
+   opcode: 0x45
+   type: model
+ - name: Generic Manufacturer Property Status
+   opcode: 0x46
+   type: model
+ - name: Generic Admin Properties Get
+   opcode: 0x822C
+   type: model
+ - name: Generic Admin Properties Status
+   opcode: 0x47
+   type: model
+ - name: Generic Admin Property Get
+   opcode: 0x822D
+   type: model
+ - name: Generic Admin Property Set
+   opcode: 0x48
+   type: model
+ - name: Generic Admin Property Set Unacknowledged
+   opcode: 0x49
+   type: model
+ - name: Generic Admin Property Status
+   opcode: 0x4A
+   type: model
+ - name: Generic User Properties Get
+   opcode: 0x822E
+   type: model
+ - name: Generic User Properties Status
+   opcode: 0x4B
+   type: model
+ - name: Generic User Property Get
+   opcode: 0x822F
+   type: model
+ - name: Generic User Property Set
+   opcode: 0x4C
+   type: model
+ - name: Generic User Property Set Unacknowledged
+   opcode: 0x4D
+   type: model
+ - name: Generic User Property Status
+   opcode: 0x4E
+   type: model
+ - name: Generic Client Properties Get
+   opcode: 0x4F
+   type: model
+ - name: Generic Client Properties Status
+   opcode: 0x50
+   type: model
+ - name: Sensor Descriptor Get
+   opcode: 0x8230
+   type: model
+ - name: Sensor Descriptor Status
+   opcode: 0x51
+   type: model
+ - name: Sensor Get
+   opcode: 0x8231
+   type: model
+ - name: Sensor Status
+   opcode: 0x52
+   type: model
+ - name: Sensor Column Get
+   opcode: 0x8232
+   type: model
+ - name: Sensor Column Status
+   opcode: 0x53
+   type: model
+ - name: Sensor Series Get
+   opcode: 0x8233
+   type: model
+ - name: Sensor Series Status
+   opcode: 0x54
+   type: model
+ - name: Sensor Cadence Get
+   opcode: 0x8234
+   type: model
+ - name: Sensor Cadence Set
+   opcode: 0x55
+   type: model
+ - name: Sensor Cadence Set Unacknowledged
+   opcode: 0x56
+   type: model
+ - name: Sensor Cadence Status
+   opcode: 0x57
+   type: model
+ - name: Sensor Settings Get
+   opcode: 0x8235
+   type: model
+ - name: Sensor Settings Status
+   opcode: 0x58
+   type: model
+ - name: Sensor Setting Get
+   opcode: 0x8236
+   type: model
+ - name: Sensor Setting Set
+   opcode: 0x59
+   type: model
+ - name: Sensor Setting Set Unacknowledged
+   opcode: 0x5A
+   type: model
+ - name: Sensor Setting Status
+   opcode: 0x5B
+   type: model
+ - name: Time Get
+   opcode: 0x8237
+   type: model
+ - name: Time Set
+   opcode: 0x5C
+   type: model
+ - name: Time Status
+   opcode: 0x5D
+   type: model
+ - name: Time Role Get
+   opcode: 0x8238
+   type: model
+ - name: Time Role Set
+   opcode: 0x8239
+   type: model
+ - name: Time Role Status
+   opcode: 0x823A
+   type: model
+ - name: Time Zone Get
+   opcode: 0x823B
+   type: model
+ - name: Time Zone Set
+   opcode: 0x823C
+   type: model
+ - name: Time Zone Status
+   opcode: 0x823D
+   type: model
+ - name: TAI-UTC Delta Get
+   opcode: 0x823E
+   type: model
+ - name: TAI-UTC Delta Set
+   opcode: 0x823F
+   type: model
+ - name: TAI-UTC Delta Status
+   opcode: 0x8240
+   type: model
+ - name: Scene Get
+   opcode: 0x8241
+   type: model
+ - name: Scene Recall
+   opcode: 0x8242
+   type: model
+ - name: Scene Recall Unacknowledged
+   opcode: 0x8243
+   type: model
+ - name: Scene Status
+   opcode: 0x5E
+   type: model
+ - name: Scene Register Get
+   opcode: 0x8244
+   type: model
+ - name: Scene Register Status
+   opcode: 0x8245
+   type: model
+ - name: Scene Store
+   opcode: 0x8246
+   type: model
+ - name: Scene Store Unacknowledged
+   opcode: 0x8247
+   type: model
+ - name: Scene Delete
+   opcode: 0x829E
+   type: model
+ - name: Scene Delete Unacknowledged
+   opcode: 0x829F
+   type: model
+ - name: Scheduler Action Get
+   opcode: 0x8248
+   type: model
+ - name: Scheduler Action Status
+   opcode: 0x5F
+   type: model
+ - name: Scheduler Get
+   opcode: 0x8249
+   type: model
+ - name: Scheduler Status
+   opcode: 0x824A
+   type: model
+ - name: Scheduler Action Set
+   opcode: 0x60
+   type: model
+ - name: Scheduler Action Set Unacknowledged
+   opcode: 0x61
+   type: model
+ - name: Light Lightness Get
+   opcode: 0x824B
+   type: model
+ - name: Light Lightness Set
+   opcode: 0x824C
+   type: model
+ - name: Light Lightness Set Unacknowledged
+   opcode: 0x824D
+   type: model
+ - name: Light Lightness Status
+   opcode: 0x824E
+   type: model
+ - name: Light Lightness Linear Get
+   opcode: 0x824F
+   type: model
+ - name: Light Lightness Linear Set
+   opcode: 0x8250
+   type: model
+ - name: Light Lightness Linear Set Unacknowledged
+   opcode: 0x8251
+   type: model
+ - name: Light Lightness Linear Status
+   opcode: 0x8252
+   type: model
+ - name: Light Lightness Last Get
+   opcode: 0x8253
+   type: model
+ - name: Light Lightness Last Status
+   opcode: 0x8254
+   type: model
+ - name: Light Lightness Default Get
+   opcode: 0x8255
+   type: model
+ - name: Light Lightness Default Status
+   opcode: 0x8256
+   type: model
+ - name: Light Lightness Range Get
+   opcode: 0x8257
+   type: model
+ - name: Light Lightness Range Status
+   opcode: 0x8258
+   type: model
+ - name: Light Lightness Default Set
+   opcode: 0x8259
+   type: model
+ - name: Light Lightness Default Set Unacknowledged
+   opcode: 0x825A
+   type: model
+ - name: Light Lightness Range Set
+   opcode: 0x825B
+   type: model
+ - name: Light Lightness Range Set Unacknowledged
+   opcode: 0x825C
+   type: model
+ - name: Light CTL Get
+   opcode: 0x825D
+   type: model
+ - name: Light CTL Set
+   opcode: 0x825E
+   type: model
+ - name: Light CTL Set Unacknowledged
+   opcode: 0x825F
+   type: model
+ - name: Light CTL Status
+   opcode: 0x8260
+   type: model
+ - name: Light CTL Temperature Get
+   opcode: 0x8261
+   type: model
+ - name: Light CTL Temperature Range Get
+   opcode: 0x8262
+   type: model
+ - name: Light CTL Temperature Range Status
+   opcode: 0x8263
+   type: model
+ - name: Light CTL Temperature Set
+   opcode: 0x8264
+   type: model
+ - name: Light CTL Temperature Set Unacknowledged
+   opcode: 0x8265
+   type: model
+ - name: Light CTL Temperature Status
+   opcode: 0x8266
+   type: model
+ - name: Light CTL Default Get
+   opcode: 0x8267
+   type: model
+ - name: Light CTL Default Status
+   opcode: 0x8268
+   type: model
+ - name: Light CTL Default Set
+   opcode: 0x8269
+   type: model
+ - name: Light CTL Default Set Unacknowledged
+   opcode: 0x826A
+   type: model
+ - name: Light CTL Temperature Range Set
+   opcode: 0x826B
+   type: model
+ - name: Light CTL Temperature Range Set Unacknowledged
+   opcode: 0x826C
+   type: model
+ - name: Light HSL Get
+   opcode: 0x826D
+   type: model
+ - name: Light HSL Hue Get
+   opcode: 0x826E
+   type: model
+ - name: Light HSL Hue Set
+   opcode: 0x826F
+   type: model
+ - name: Light HSL Hue Set Unacknowledged
+   opcode: 0x8270
+   type: model
+ - name: Light HSL Hue Status
+   opcode: 0x8271
+   type: model
+ - name: Light HSL Saturation Get
+   opcode: 0x8272
+   type: model
+ - name: Light HSL Saturation Set
+   opcode: 0x8273
+   type: model
+ - name: Light HSL Saturation Set Unacknowledged
+   opcode: 0x8274
+   type: model
+ - name: Light HSL Saturation Status
+   opcode: 0x8275
+   type: model
+ - name: Light HSL Set
+   opcode: 0x8276
+   type: model
+ - name: Light HSL Set Unacknowledged
+   opcode: 0x8277
+   type: model
+ - name: Light HSL Status
+   opcode: 0x8278
+   type: model
+ - name: Light HSL Target Get
+   opcode: 0x8279
+   type: model
+ - name: Light HSL Target Status
+   opcode: 0x827A
+   type: model
+ - name: Light HSL Default Get
+   opcode: 0x827B
+   type: model
+ - name: Light HSL Default Status
+   opcode: 0x827C
+   type: model
+ - name: Light HSL Range Get
+   opcode: 0x827D
+   type: model
+ - name: Light HSL Range Status
+   opcode: 0x827E
+   type: model
+ - name: Light HSL Default Set
+   opcode: 0x827F
+   type: model
+ - name: Light HSL Default Set Unacknowledged
+   opcode: 0x8280
+   type: model
+ - name: Light HSL Range Set
+   opcode: 0x8281
+   type: model
+ - name: Light HSL Range Set Unacknowledged
+   opcode: 0x8282
+   type: model
+ - name: Light xyL Get
+   opcode: 0x8283
+   type: model
+ - name: Light xyL Set
+   opcode: 0x8284
+   type: model
+ - name: Light xyL Set Unacknowledged
+   opcode: 0x8285
+   type: model
+ - name: Light xyL Status
+   opcode: 0x8286
+   type: model
+ - name: Light xyL Target Get
+   opcode: 0x8287
+   type: model
+ - name: Light xyL Target Status
+   opcode: 0x8288
+   type: model
+ - name: Light xyL Default Get
+   opcode: 0x8289
+   type: model
+ - name: Light xyL Default Status
+   opcode: 0x828A
+   type: model
+ - name: Light xyL Range Get
+   opcode: 0x828B
+   type: model
+ - name: Light xyL Range Status
+   opcode: 0x828C
+   type: model
+ - name: Light xyL Default Set
+   opcode: 0x828D
+   type: model
+ - name: Light xyL Default Set Unacknowledged
+   opcode: 0x828E
+   type: model
+ - name: Light xyL Range Set
+   opcode: 0x828F
+   type: model
+ - name: Light xyL Range Set Unacknowledged
+   opcode: 0x8290
+   type: model
+ - name: Light LC Mode Get
+   opcode: 0x8291
+   type: model
+ - name: Light LC Mode Set
+   opcode: 0x8292
+   type: model
+ - name: Light LC Mode Set Unacknowledged
+   opcode: 0x8293
+   type: model
+ - name: Light LC Mode Status
+   opcode: 0x8294
+   type: model
+ - name: Light LC OM Get
+   opcode: 0x8295
+   type: model
+ - name: Light LC OM Set
+   opcode: 0x8296
+   type: model
+ - name: Light LC OM Set Unacknowledged
+   opcode: 0x8297
+   type: model
+ - name: Light LC OM Status
+   opcode: 0x8298
+   type: model
+ - name: Light LC Light OnOff Get
+   opcode: 0x8299
+   type: model
+ - name: Light LC Light OnOff Set
+   opcode: 0x829A
+   type: model
+ - name: Light LC Light OnOff Set Unacknowledged
+   opcode: 0x829B
+   type: model
+ - name: Light LC Light OnOff Status
+   opcode: 0x829C
+   type: model
+ - name: Light LC Property Get
+   opcode: 0x829D
+   type: model
+ - name: Light LC Property Set
+   opcode: 0x62
+   type: model
+ - name: Light LC Property Set Unacknowledged
+   opcode: 0x63
+   type: model
+ - name: Light LC Property Status
+   opcode: 0x64
+   type: model

@@ -1,0 +1,105 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.glucose_feature
+  name: Glucose Feature
+  description: |-
+    The Glucose Feature characteristic is used to represent the supported features of a glucose sensor.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Glucose Feature
+      type: boolean[16]
+      size: "2"
+      description: See \autoref{sec:org.bluetooth.characteristic.glucose_feature/field/glucose_feature}
+  fields:
+    - name: Glucose Feature
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Low Battery Detection During Measurement support bit:
+            0 = Low Battery Detection During Measurement feature not supported
+            1 = Low Battery Detection During Measurement feature supported
+        - bit: "1"
+          description: |-
+            Sensor Malfunction Detection support bit:
+            0 = Sensor Malfunction Detection feature not supported
+            1 = Sensor Malfunction Detection feature supported
+        - bit: "2"
+          description: |-
+            Sensor Sample Size support bit:
+            0 = Sensor Sample Size feature not supported
+            1 = Sensor Sample Size feature supported
+        - bit: "3"
+          description: |-
+            Sensor Strip Insertion Error Detection support bit:
+            0 = Sensor Strip Insertion Error Detection feature not supported
+            1 = Sensor Strip Insertion Error Detection feature supported
+        - bit: "4"
+          description: |-
+            Sensor Strip Type Error Detection support bit:
+            0 = Sensor Strip Type Error Detection not supported
+            1 = Sensor Strip Type Error Detection supported
+        - bit: "5"
+          description: |-
+            Sensor Result High-Low Detection support bit:
+            0 = Sensor Result High-Low Detection not supported
+            1 = Sensor Result High-Low Detection supported
+        - bit: "6"
+          description: |-
+            Sensor Temperature High-Low Detection support bit:
+            0 = Sensor Temperature High-Low Detection not supported
+            1 = Sensor Temperature High-Low Detection supported
+        - bit: "7"
+          description: |-
+            Sensor Read Interrupt Detection support bit:
+            0 = Sensor Read Interrupt Detection not supported
+            1 = Sensor Read Interrupt Detection supported
+        - bit: "8"
+          description: |-
+            General Device Fault support bit:
+            0 = General Device Fault not supported
+            1 = General Device Fault supported
+        - bit: "9"
+          description: |-
+            Time Fault support bit:
+            0 = Time Fault not supported
+            1 = Time Fault supported
+        - bit: "10"
+          description: |-
+            Multiple Bond support bit:
+            0 = Multiple Bonds not supported
+            1 = Multiple Bonds supported
+        - bit: 11–15
+          description: Reserved for Future Use

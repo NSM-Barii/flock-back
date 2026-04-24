@@ -1,0 +1,181 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.record_access_control_point
+  name: Record Access Control Point
+  description: |-
+    The Record Access Control Point is used to enable service-specific procedures for management of a set of data records.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Op Code
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/op_code}
+    - field: Operator
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/op_code} and \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/operator}
+    - field: Operand
+      type: struct
+      size: "0-18"
+      description: See \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/op_code}, \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/operator}, and \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/operand}
+  fields:
+    - name: Op Code
+      description: The Op Code values and associated Operator and Operand values are defined below.
+      table_caption: Record Access Control Point Op Code Values
+      values:
+        - op_code_value: "0x00"
+          definition: Reserved for Future Use
+          operator: N/A
+          operand: N/A
+          description: N/A
+        - op_code_value: "0x01"
+          definition: Report stored records
+          operator: Value from Operator table
+          operand: Filter parameters (as appropriate to Operator and Service)
+          description: Following record transmission, the response to this control point is Op Code 0x06.
+        - op_code_value: "0x02"
+          definition: Delete stored records
+          operator: Value from Operator table
+          operand: Filter parameters (as appropriate to Operator and Service)
+          description: The response to this control point is Op Code 0x06.
+        - op_code_value: "0x03"
+          definition: Abort operation
+          operator: "Null"
+          operand: Not included
+          description: The response to this control point is Op Code 0x06.
+        - op_code_value: "0x04"
+          definition: Report number of stored records
+          operator: Value from Operator table
+          operand: Filter parameters (as appropriate to Operator and Service)
+          description: The normal response to this control point is Op Code 0x05. For error conditions, the response is Op Code 0x06.
+        - op_code_value: "0x05"
+          definition: Number of stored records response
+          operator: "Null"
+          operand: Number of Records (Field size defined by Service)
+          description: This is the normal response to Op Code 0x04. For error conditions, the response is Op Code 0x06.
+        - op_code_value: "0x06"
+          definition: Response Code
+          operator: "Null"
+          operand: Request Op Code followed by Response Code Value
+          description: Response to Op Codes when there is no response parameter; also used for error responses for all Op Codes (see \autoref{sec:org.bluetooth.characteristic.record_access_control_point/field/response_code_values}).
+        - op_code_value: "0x07"
+          definition: Combined Report
+          operator: Value from Operator table
+          operand: Filter parameters (as appropriate to Operator and Service)
+          description: Following record transmission, the normal response to this control point is Op Code 0x08. For error conditions, the response is Op Code 0x06.
+        - op_code_value: "0x08"
+          definition: Combined Report Response
+          operator: "Null"
+          operand: Number of Records (Field size defined by Service)
+          description: This is the normal response to Op Code 0x07.
+        - op_code_value: "0x09-0xFF"
+          definition: Reserved for Future Use
+          operator: N/A
+          operand: N/A
+          description: N/A
+    - name: Operator
+      description: The values of this field are defined below.
+      value_header: Operator Value
+      description_header: Operand Notes
+      table_caption: Record Access Control Point Operator Values
+      values:
+        - value: "0x00"
+          definition: "Null"
+          description: Varies by Op Code
+        - value: "0x01"
+          definition: All records
+          description: No Operand used
+        - value: "0x02"
+          definition: Less than or equal to
+          description: Operand contains at least a maximum value
+        - value: "0x03"
+          definition: Greater than or equal to
+          description: Operand contains at least a minimum value
+        - value: "0x04"
+          definition: Within range of (inclusive)
+          description: Operand contains at least a minimum value, maximum value pair
+        - value: "0x05"
+          definition: First record (i.e., oldest record)
+          description: No Operand used
+        - value: "0x06"
+          definition: Last record (i.e., most recent record)
+          description: No Operand used
+        - value: "0x07-0xFF"
+          definition: Reserved for Future Use
+          description: N/A
+    - name: Operand
+      description: The format and content of the Operand field is defined by the service using the Record Access Control Point.
+    - name: Response Code Values
+      description: The Response Code Values associated with Op Code 0x06 are defined below.
+      section_title: Response Code Values
+      table_caption: Response Code Values
+      values:
+        - response_code_value: "0x00"
+          definition: Reserved for Future Use
+          description: N/A
+        - response_code_value: "0x01"
+          definition: Success
+          description: Normal response for successful operation.
+        - response_code_value: "0x02"
+          definition: Op Code not supported
+          description: Error response if unsupported Op Code is received.
+        - response_code_value: "0x03"
+          definition: Invalid Operator
+          description: Error response if Operator received does not meet the requirements of the service (e.g., Null was expected).
+        - response_code_value: "0x04"
+          definition: Operator not supported
+          description: Error response if unsupported Operator is received.
+        - response_code_value: "0x05"
+          definition: Invalid Operand
+          description: Error response if Operand received does not meet the requirements of the service.
+        - response_code_value: "0x06"
+          definition: No records found
+          description: Error response if a request for reporting records resulted in no records meeting the criteria.
+                       When using Op Code 0x04 (Report number of stored records), Op Code 0x05 (Number of stored records response) is used with 0 as the Operand to report that zero records are found.
+        - response_code_value: "0x07"
+          definition: Abort unsuccessful
+          description: Error response if request for Abort is unsuccessful.
+        - response_code_value: "0x08"
+          definition: Procedure not completed
+          description: Error response if procedure cannot be completed for any reason.
+        - response_code_value: "0x09"
+          definition: Operand not supported
+          description: Error response if unsupported Operand is received.
+        - response_code_value: "0x0A"
+          definition: Server Busy
+          description: Error response if the server cannot process a requested function because it is busy.
+        - response_code_value: "0x0B-0xFF"
+          definition: Reserved for Future Use
+          description: N/A

@@ -1,0 +1,163 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_model_opcodes:
+ - name: BLOB Partial Block Report
+   opcode: 0x68
+   type: mbt
+ - name: BLOB Chunk Transfer
+   opcode: 0x66
+   type: mbt
+ - name: BLOB Block Status
+   opcode: 0x67
+   type: mbt
+ - name: BLOB Transfer Get
+   opcode: 0x8300
+   type: mbt
+ - name: BLOB Transfer Start
+   opcode: 0x8301
+   type: mbt
+ - name: BLOB Transfer Cancel
+   opcode: 0x8302
+   type: mbt
+ - name: BLOB Transfer Status
+   opcode: 0x8303
+   type: mbt
+ - name: BLOB Block Start
+   opcode: 0x8304
+   type: mbt
+ - name: BLOB Block Get
+   opcode: 0x8305
+   type: mbt
+ - name: BLOB Information Get
+   opcode: 0x8306
+   type: mbt
+ - name: BLOB Information Status
+   opcode: 0x8307
+   type: mbt
+ - name: Firmware Update Information Get
+   opcode: 0x8308
+   type: dfu
+ - name: Firmware Update Information Status
+   opcode: 0x8309
+   type: dfu
+ - name: Firmware Update Firmware Metadata Check
+   opcode: 0x830A
+   type: dfu
+ - name: Firmware Update Firmware Metadata Status
+   opcode: 0x830B
+   type: dfu
+ - name: Firmware Update Get
+   opcode: 0x830C
+   type: dfu
+ - name: Firmware Update Start
+   opcode: 0x830D
+   type: dfu
+ - name: Firmware Update Cancel
+   opcode: 0x830E
+   type: dfu
+ - name: Firmware Update Apply
+   opcode: 0x830F
+   type: dfu
+ - name: Firmware Update Status
+   opcode: 0x8310
+   type: dfu
+ - name: Firmware Distribution Receivers Add
+   opcode: 0x8311
+   type: dfu
+ - name: Firmware Distribution Receivers Delete All
+   opcode: 0x8312
+   type: dfu
+ - name: Firmware Distribution Receivers Status
+   opcode: 0x8313
+   type: dfu
+ - name: Firmware Distribution Receivers Get
+   opcode: 0x8314
+   type: dfu
+ - name: Firmware Distribution Receivers List
+   opcode: 0x8315
+   type: dfu
+ - name: Firmware Distribution Capabilities Get
+   opcode: 0x8316
+   type: dfu
+ - name: Firmware Distribution Capabilities Status
+   opcode: 0x8317
+   type: dfu
+ - name: Firmware Distribution Get
+   opcode: 0x8318
+   type: dfu
+ - name: Firmware Distribution Start
+   opcode: 0x8319
+   type: dfu
+ - name: Firmware Distribution Suspend
+   opcode: 0x831A
+   type: dfu
+ - name: Firmware Distribution Cancel
+   opcode: 0x831B
+   type: dfu
+ - name: Firmware Distribution Apply
+   opcode: 0x831C
+   type: dfu
+ - name: Firmware Distribution Status
+   opcode: 0x831D
+   type: dfu
+ - name: Firmware Distribution Upload Get
+   opcode: 0x831E
+   type: dfu
+ - name: Firmware Distribution Upload Start
+   opcode: 0x831F
+   type: dfu
+ - name: Firmware Distribution Upload OOB Start
+   opcode: 0x8320
+   type: dfu
+ - name: Firmware Distribution Upload Cancel
+   opcode: 0x8321
+   type: dfu
+ - name: Firmware Distribution Upload Status
+   opcode: 0x8322
+   type: dfu
+ - name: Firmware Distribution Firmware Get
+   opcode: 0x8323
+   type: dfu
+ - name: Firmware Distribution Firmware Get By Index
+   opcode: 0x8324
+   type: dfu
+ - name: Firmware Distribution Firmware Delete
+   opcode: 0x8325
+   type: dfu
+ - name: Firmware Distribution Firmware Delete All
+   opcode: 0x8326
+   type: dfu
+ - name: Firmware Distribution Firmware Status
+   opcode: 0x8327
+   type: dfu

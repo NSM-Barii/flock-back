@@ -1,0 +1,176 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+device_data_specializations:
+ - data_type: Hydra
+   MDEP_data_type: 0x1000
+   document_name: "IEEE 11073 Part 10101: Nomenclature; IEEE 11073-20601: Application profile - Optimized Exchange Protocol"
+   document_number: 11073-20601
+ - data_type: Pulse Oximeter
+   MDEP_data_type: 0x1004
+   document_name: Health informatics - Personal health device communication - Device specialization - Pulse oximeter
+   document_number: 11073-10404
+ - data_type: Basic ECG (heart rate)
+   MDEP_data_type: 0x1006
+   document_name: Health informatics - Personal health device communication - Device specialization - Basic ECG (heart rate)
+   document_number: 11073-10406
+ - data_type: Blood Pressure Monitor
+   MDEP_data_type: 0x1007
+   document_name: Health informatics - Personal health device communication - Device specialization - Blood pressure monitor
+   document_number: 11073-10407
+ - data_type: Body Thermometer
+   MDEP_data_type: 0x1008
+   document_name: Health informatics - Personal health device communication - Device specialization - Body thermometer
+   document_number: 11073-10408
+ - data_type: Body Weight Scale
+   MDEP_data_type: 0x100F
+   document_name: Health informatics - Personal health device communication - Device specialization - Body weight scale
+   document_number: 11073-10415
+ - data_type: Glucose Meter
+   MDEP_data_type: 0x1011
+   document_name: Health informatics - Personal health device communication - Device Specialization - Glucose meter
+   document_number: 11073-10417
+ - data_type: International Normalized Ratio (INR) Monitor
+   MDEP_data_type: 0x1012
+   document_name: Health informatics - Personal health device communication - Device Specialization - International Normalized Ratio (INR) Monitor
+   document_number: 11073-10418
+ - data_type: Body Composition Analyzer
+   MDEP_data_type: 0x1014
+   document_name: Health informatics - Personal health device communication - Device specialization - Body composition analyzer
+   document_number: 11073-10420
+ - data_type: Peak Flow Monitor
+   MDEP_data_type: 0x1015
+   document_name: Health informatics - Personal health device communication - Device specialization - Peak flow monitor
+   document_number: 11073-10421
+ - data_type: Cardiovascular Fitness and Activity Monitor
+   MDEP_data_type: 0x1029
+   document_name: Health informatics - Personal health device communication - Device specialization - Cardiovascular Fitness and Activity Monitor
+   document_number: 11073-10441
+   reference: Note 1
+ - data_type: Generic
+   MDEP_data_type: 0x1049
+   document_name: "IEEE 11073 Part 10101: Nomenclature; IEEE 11073-20601: Application profile - Optimized Exchange Protocol"
+   document_number: 11073-20601
+ - data_type: Step Counter based on 10441
+   MDEP_data_type: 0x1068
+   document_name: Health informatics - Personal health device communication - Device specialization - Step Counter based on 10441
+   document_number: 11073-10441
+   reference: Note 2
+ - data_type: Strength Fitness Equipment
+   MDEP_data_type: 0x102A
+   document_name: Health informatics - Personal health device communication - Device specialization - Strength fitness equipment
+   document_number: 11073-10442
+   reference: Note 1
+ - data_type: Independent Living Activity Hub
+   MDEP_data_type: 0x1047
+   document_name: Health informatics - Personal health device communication - Device specialization - Independent Living Activity Hub
+   document_number: 11073-10471
+   reference: Note 1
+ - data_type: Fall Sensor
+   MDEP_data_type: 0x1075
+   document_name: Health informatics - Personal health device communication - Device specialization - Fall Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Personal Emergency Response Sensor
+   MDEP_data_type: 0x1076
+   document_name: Health informatics - Personal health device communication - Device specialization - Personal Emergency Response Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Smoke Sensor
+   MDEP_data_type: 0x1077
+   document_name: Health informatics - Personal health device communication - Device specialization - Smoke Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Carbon Monoxide (CO) Sensor
+   MDEP_data_type: 0x1078
+   document_name: Health informatics - Personal health device communication - Device specialization - Carbon Monoxide (CO) Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Water Sensor
+   MDEP_data_type: 0x1079
+   document_name: Health informatics - Personal health device communication - Device specialization - WaterSensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Gas Sensor
+   MDEP_data_type: 0x107A
+   document_name: Health informatics - Personal health device communication - Device specialization - Gas Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Motion Sensor
+   MDEP_data_type: 0x107B
+   document_name: Health informatics - Personal health device communication - Device specialization - Motion Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Property Exit Sensor
+   MDEP_data_type: 0x107C
+   document_name: Health informatics - Personal health device communication - Device specialization - Property Exit Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Enuresis Sensor
+   MDEP_data_type: 0x107D
+   document_name: Health informatics - Personal health device communication - Device specialization - Enuresis Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Contact Closure Sensor
+   MDEP_data_type: 0x107E
+   document_name: Health informatics - Personal health device communication - Device specialization - Contact Closure Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Usage Sensor
+   MDEP_data_type: 0x107F
+   document_name: Health informatics - Personal health device communication - Device specialization - Usage Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Switch Sensor
+   MDEP_data_type: 0x1080
+   document_name: Health informatics - Personal health device communication - Device specialization - Switch Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Medication Dosing Sensor
+   MDEP_data_type: 0x1081
+   document_name: Health informatics - Personal health device communication - Device specialization - Medication Dosing Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Temperature Sensor
+   MDEP_data_type: 0x1082
+   document_name: Health informatics - Personal health device communication - Device specialization - Temperature Sensor
+   document_number: 11073-10471
+   reference: Note 3
+ - data_type: Medication monitor
+   MDEP_data_type: 0x1048
+   document_name: Health informatics - Personal health device communication - Device specialization - Medication monitor
+   document_number: 11073-10472
+ - data_type: Power Status Monitor
+   MDEP_data_type: 0x101C
+   document_name: "Health infomatics - Personal health device communication - Part 10427: Device specialization - Power Status Monitor of Personal Health Devices"
+   document_number: 11073-10427

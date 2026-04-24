@@ -1,0 +1,201 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.cgm_measurement
+  name: CGM Measurement
+  description: |-
+    The CGM Measurement characteristic is used to represent one or more CGM Measurement Records.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: CGM Measurement Record(s)
+      type: struct
+      size: variable
+      description: |-
+        A sequence of one or more CGM Measurement Records, concatenated as defined by the service.
+        The structure of a CGM Measurement Record is defined in \autoref{sec:org.bluetooth.characteristic.cgm_measurement/field/cgm_measurement_record}.
+  fields:
+    - name: CGM Measurement Record
+      description: The structure of a CGM Measurement Record is defined below.
+      section_title: CGM Measurement Record
+      table_caption: CGM Measurement Record
+      values:
+        - field: Size
+          data_type: uint8
+          size: "1"
+          description: Size of the CGM Measurement Record including this field.
+        - field: Flags
+          data_type: boolean[8]
+          size: "1"
+          description: See \autoref{sec:org.bluetooth.characteristic.cgm_measurement/field/flags}
+        - field: CGM Glucose Concentration
+          data_type: medfloat16
+          size: "2"
+          description: |-
+            Glucose concentration.
+            Unit: org.bluetooth.unit.mass_density.milligram_per_decilitre
+        - field: Time Offset
+          data_type: uint16
+          size: "2"
+          description: |-
+            Minutes since the Session Start Time for the stored glucose concentration value. See \autoref{sec:org.bluetooth.characteristic.cgm_measurement/field/time_offset}.
+            Unit: org.bluetooth.unit.time.minute
+        - field: Sensor Status Annunciation
+          data_type: boolean[8][3]
+          size: 0 to 3
+          description: See \autoref{sec:org.bluetooth.characteristic.cgm_measurement/field/sensor_status_annunciation}
+        - field: CGM Trend Information
+          data_type: medfloat16
+          size: 0 or 2
+          description: |-
+            Glucose trend rate since previous measurement.
+            Unit:
+            org.bluetooth.unit.milligram_per_decilitre_per_minute
+            Present if bit 0 of Flags field is set to 1
+        - field: CGM Quality
+          data_type: medfloat16
+          size: 0 or 2
+          description: |-
+            CGM Quality information in percentage.
+            Unit:
+            org.bluetooth.unit.percentage
+            Present if bit 1 of Flags field is set to 1
+        - field: E2E-CRC
+          data_type: uint16
+          size: 0 or 2
+          description: |-
+            CRC calculated over all fields except the E2E-CRC field itself.
+            Present if E2E-CRC Supported bit in CGM Feature characteristic is set to 1
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: CGM Trend Information present
+        - bit: "1"
+          description: CGM Quality present
+        - bit: "2"
+          description: Reserved for Future Use
+        - bit: "3"
+          description: Reserved for Future Use
+        - bit: "4"
+          description: Reserved for Future Use
+        - bit: "5"
+          description: Sensor Status Annunciation field, Warning-Octet present
+        - bit: "6"
+          description: Sensor Status Annunciation field, Cal/Temp-Octet present
+        - bit: "7"
+          description: Sensor Status Annunciation field, Status-Octet present
+    - name: Time Offset
+      description: The values of this field specify the relative time difference of the single CGM values to the Session Start Time.
+      values:
+        - value: 0x0000–0xFFFF
+          description: Time offset in minutes since the Session Start Time (see \autoref{sec:org.bluetooth.characteristic.cgm_session_start_time})
+    - name: Sensor Status Annunciation
+      description: 'The Sensor Status Annunciation field is composed of up to three octets: one for Status, one for Cal/Temp and one for Warning. An octet is only present if one or more bits are set to "1". The presence of each annunciation octet is indicated by the corresponding Flags field (see \autoref{sec:org.bluetooth.characteristic.cgm_measurement/field/flags}). The Sensor Status Annunciation field is present for every CGM Measurement Record to which the status applies.'
+      values:
+        - field: Status
+          data_type: boolean[8]
+          size: 0 or 1
+          description: |-
+            See \autoref{sec:org.bluetooth.characteristic.cgm_measurement/subfield/status}
+            Present if bit 7 of Flags field is set to 1
+        - field: Cal/Temp
+          data_type: boolean[8]
+          size: 0 or 1
+          description: |-
+            See \autoref{sec:org.bluetooth.characteristic.cgm_measurement/subfield/cal_temp}
+            Present if bit 6 of Flags field is set to 1
+        - field: Warning
+          data_type: boolean[8]
+          size: 0 or 1
+          description: |-
+            See \autoref{sec:org.bluetooth.characteristic.cgm_measurement/subfield/warning}
+            Present if bit 5 of Flags field is set to 1
+      subfields:
+        - name: Status
+          description: The bits of this field are defined below.
+          values:
+            - bit: "0"
+              description: Session stopped
+            - bit: "1"
+              description: Device battery low
+            - bit: "2"
+              description: Sensor type incorrect for device
+            - bit: "3"
+              description: Sensor malfunction
+            - bit: "4"
+              description: Device Specific Alert
+            - bit: "5"
+              description: General device fault has occurred in the sensor
+            - bit: "6"
+              description: Reserved for Future Use
+            - bit: "7"
+              description: Reserved for Future Use
+        - name: Cal/Temp
+          description: The bits of this field are defined below.
+          values:
+            - bit: "8"
+              description: Time synchronization between sensor and collector required
+            - bit: "9"
+              description: Calibration not allowed
+            - bit: "10"
+              description: Calibration recommended
+            - bit: "11"
+              description: Calibration required
+            - bit: "12"
+              description: Sensor temperature too high for valid test/result at time of measurement
+            - bit: "13"
+              description: Sensor temperature too low for valid test/result at time of measurement
+            - bit: "14"
+              description: Calibration Process Pending
+            - bit: "15"
+              description: Reserved for Future Use
+        - name: Warning
+          description: The bits of this field are defined below.
+          values:
+            - bit: "16"
+              description: Sensor result lower than the Patient Low level
+            - bit: "17"
+              description: Sensor result higher than the Patient High level
+            - bit: "18"
+              description: Sensor result lower than the Hypo level
+            - bit: "19"
+              description: Sensor result higher than the Hyper level
+            - bit: "20"
+              description: Sensor Rate of Decrease exceeded
+            - bit: "21"
+              description: Sensor Rate of Increase exceeded
+            - bit: "22"
+              description: Sensor result lower than the device can process
+            - bit: "23"
+              description: Sensor result higher than the device can process

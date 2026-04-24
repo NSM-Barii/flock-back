@@ -1,0 +1,144 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+uniform_caller_identifiers:
+ - client_id: skype
+   client_name: Skype
+   company_name: Microsoft
+ - client_id: lync
+   client_name: Lync
+   company_name: Microsoft
+ - client_id: ftime
+   client_name: Facetime
+   company_name: Apple
+ - client_id: jabr
+   client_name: Jabber
+   company_name: Cisco
+ - client_id: bbv
+   client_name: Blackberry Voice
+   company_name: Blackberry
+ - client_id: bbm
+   client_name: Blackberry Messenger
+   company_name: Blackberry
+ - client_id: eyebm
+   client_name: Eyebeam
+   company_name: Counterpath
+ - client_id: wbrtc
+   client_name: Any WebRTC Enabled Browser
+   company_name: N/A
+   notes: Firefox and Chrome Browsers
+ - client_id: qq
+   client_name: QQ
+   company_name: Tencent Technology
+ - client_id: spika
+   client_name: Spika
+   company_name: Studio Djetelina d.o.o.
+ - client_id: gtalk
+   client_name: Google Talk
+   company_name: Google LLC
+ - client_id: fbch
+   client_name: Facebook Chat
+   company_name: Meta
+ - client_id: tgrm
+   client_name: Telegram
+   company_name: Telegram Messenger LLP
+ - client_id: lne
+   client_name: Line
+   company_name: Line Corporation
+   notes: "https://line.me/en/"
+ - client_id: wtsap
+   client_name: WhatsApp
+   company_name: Meta
+ - client_id: vbr
+   client_name: Viber
+   company_name: Rakuten
+ - client_id: mme
+   client_name: MessageMe
+   company_name: Yahoo
+ - client_id: kkt
+   client_name: KakaoTalk
+   company_name: Daum Communications
+ - client_id: wcht
+   client_name: WeChat
+   company_name: Tencent
+ - client_id: tgo
+   client_name: Tango
+   company_name: TangoMe Inc.
+ - client_id: kik
+   client_name: KIK
+   company_name: KIK Interactive
+ - client_id: nbuz
+   client_name: Nimbuzz
+   company_name: Nimbuzz BV / Nimbuzz Internet India Pvt. Ltd
+ - client_id: hgus
+   client_name: Hangouts
+   company_name: Google LLC
+ - client_id: con
+   client_name: ChatOn
+   company_name: Samsung
+ - client_id: mngr
+   client_name: Messanger
+   company_name: Meta
+ - client_id: chsec
+   client_name: ChatSecure
+   notes: "https://chatsecure.org/about/"
+ - client_id: icht
+   client_name: iChat
+   company_name: Apple
+ - client_id: rnds
+   client_name: Rounds
+   company_name: Rounds Entertainment Ltd.
+ - client_id: imo
+   client_name: imo.im
+   company_name: "PageBites, Inc."
+   notes: "https://imo.im/register"
+ - client_id: qik
+   client_name: Skye Qik
+   company_name: Microsoft
+ - client_id: lbn
+   client_name: Libon
+   company_name: Orange Vallée
+ - client_id: vonm
+   client_name: Vonage Mobile
+   company_name: Vonage
+ - client_id: ov
+   client_name: ooVo
+   company_name: ooVoo LLC
+ - client_id: E.164
+   client_name: Any built-in dialer able to make standard phone calls
+   company_name: N/A
+   notes: "For example, mobile service provider or landline"
+ - client_id: un000 - un999
+   client_name: Unknown
+   company_name: Unknown
+   notes: "If the client is unknown, the host OS should assign a string from the range un000 to un999 inclusive. This string should be assigned to this client for the time it was installed to when it is uninstalled, after which the string can be reused."

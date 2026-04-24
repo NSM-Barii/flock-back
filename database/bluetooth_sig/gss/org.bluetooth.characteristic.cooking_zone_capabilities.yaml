@@ -1,0 +1,140 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.cooking_zone_capabilities
+  name: Cooking Zone Capabilities
+  description: |-
+    The Cooking Zone Capabilities characteristic is used to represent the properties of a cooking zone (e.g., a burner of a stove, or a chamber of an oven). 
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[16]
+      size: "2"
+      description: See \autoref{sec:org.bluetooth.characteristic.cooking_zone_capabilities/field/flags}.
+    - field: Power Technology
+      type: uint8 
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.cooking_zone_capabilities/field/power_technology}.
+    - field: Number of Cooking Steps
+      type: uint16
+      size: "2"
+      description: Number of cooking steps that can be programmed for the execution in the cooking zone. Value 0 indicates that the cooking zone does not support execution of the control loop.
+    - field: Nominal Power
+      type: struct
+      size: 0 or 3
+      description: |-
+        Maximum power level that the cooking zone can deliver to the cookware device on a constant basis (i.e., boost mode power is excluded). 
+        Structure of the field matches the Power characteristic in \autoref{sec:org.bluetooth.characteristic.power}.
+        Present if bit 1 of Flags field is set to 1
+    - field: Boost Level
+      type: uint8
+      size: 0 or 1
+      description: |-
+        The Boost Level identifies the increase in power as percentage of Nominal Power that can be delivered during a finite period.
+        Minimum: 0
+        Maximum: 255
+        Unit: org.bluetooth.unit.percentage
+        Value 0 means that the cooking zone has no boost capability.
+        Value 100 means that the cooking zone can supply an additional 100% on top of the nominal power.
+        Present if bit 1 of Flags field is set to 1
+    - field: Minimum Available Power
+      type: struct
+      size: 0 or 2
+      description: |-
+        In some implementations, there is a limit on the total amount of power that a cooking appliance can deliver to all the cooking zones. This field specifies the percentage of nominal power that the cooking appliance can deliver to this cooking zone regardless of other conditions.
+        Structure of the field matches the Cooking Zone Perceived Power characteristic in \autoref{sec:org.bluetooth.characteristic.cooking_zone_perceived_power}. 
+        Present if bit 1 of Flags field is set to 1
+    - field: Maximum Temperature
+      type: struct
+      size: 0 or 2
+      description: |-
+        In devices controlled by the temperature settings (e.g., ovens or refrigerators), this value indicates the maximum temperature that can be set.
+        Structure of the field matches the Cooking Temperature characteristic in \autoref{sec:org.bluetooth.characteristic.cooking_temperature}.
+        Present if bit 2 of Flags field is set to 1
+    - field: Minimum Temperature
+      type: struct
+      size: 0 or 2
+      description: |-
+        In devices controlled by the temperature settings (e.g., ovens or refrigerators), this value indicates the minimum temperature that can be set.
+        Structure of the field matches the Cooking Temperature characteristic in \autoref{sec:org.bluetooth.characteristic.cooking_temperature}.
+        Present if bit 2 of Flags field is set to 1
+    - field: Maximum Blower Fan Airflow
+      type: struct
+      size: 0 or 2
+      description: |-
+        Maximum blower fan airflow for the cooking zone.
+        Structure of the field matches the Kitchen Appliance Airflow characteristic in \autoref{sec:org.bluetooth.characteristic.kitchen_appliance_airflow}.
+        Present if bit 4 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The values of this field are defined below.
+      value_header: Bit
+      description_header: Description      
+      values:
+        - value: "0"
+          description: If set to 1, then the cooking appliance supports aggregation, and this cooking zone can be aggregated with another cooking zone
+        - value: "1"
+          description: If set to 1, then the cooking zone can be controlled by setting a power level (e.g., in cooktops)
+        - value: "2"
+          description: If set to 1, then the cooking zone can be controlled by setting a target temperature (e.g., in ovens)
+        - value: "3"
+          description: If set to 1, then the cooking zone supports setting the humidity (steam) level
+        - value: "4"
+          description: If set to 1, then the cooking zone supports setting the blower fan airflow
+        - value: "5"
+          description: If set to 1, then the cooking zone can be controlled by setting manufacturer specific data
+        - value: 6–15
+          description: Reserved for Future Use
+    - name: Power Technology
+      description: |-
+        The Power Technology field is used to represent the type of power source the cooking zone will use with the cookware device. 
+        The values of this field are defined below.
+      description_header: Description        
+      values:
+        - value: "0x00"
+          description: Heating Unknown / Other
+        - value: "0x01"
+          description: Heating Induction
+        - value: "0x02"
+          description: Heating Gas
+        - value: "0x03"
+          description: Heating Radiant
+        - value: "0x04"
+          description: Cooling Refrigeration
+        - value: "0x05"
+          description: Cooling Freezer
+        - value: 0x06-0xFE
+          description: Reserved for Future Use
+        - value: "0xFF"
+          description: Manufacturer Specific

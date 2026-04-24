@@ -1,0 +1,70 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+context_type:
+ - label: Unspecified
+   description: "Identifies audio where the use case context does not match any other defined value, or where the context is unknown or cannot be determined."
+   value: 0x0001
+ - label: Conversational
+   description: "Conversation between humans, for example, in telephony or video calls, including traditional cellular as well as VoIP and Push-to-Talk"
+   value: 0x0002
+ - label: Media
+   description: "Media, for example, music playback, radio, podcast or movie soundtrack, or tv audio"
+   value: 0x0004
+ - label: Game
+   description: "Audio associated with video gaming, for example gaming media; gaming effects; music and in-game voice chat between participants; or a mix of all the above"
+   value: 0x0008
+ - label: Instructional
+   description: "Instructional audio, for example, in navigation, announcements, or user guidance"
+   value: 0x0010
+ - label: Voice Assistants
+   description: "Man-machine communication, for example, with voice recognition or virtual assistants"
+   value: 0x0020
+ - label: Live
+   description: "Live audio, for example, from a microphone where audio is perceived both through a direct acoustic path and through an LE Audio Stream"
+   value: 0x0040
+ - label: Sound Effects
+   description: Sound effects including keyboard and touch feedback; menu and user interface sounds; and other system sounds
+   value: 0x0080
+ - label: Notifications
+   description: "Notification and reminder sounds; attention-seeking audio, for example, in beeps signaling the arrival of a message"
+   value: 0x0100
+ - label: Ringtone
+   description: "Alerts the user to an incoming call, for example, an incoming telephony or video call, including traditional cellular as well as VoIP and Push-to-Talk"
+   value: 0x0200
+ - label: Alerts
+   description: "Alarms and timers; immediate alerts, for example, in a critical battery alarm, timer expiry or alarm clock, toaster, cooker, kettle, microwave, etc."
+   value: 0x0400
+ - label: Emergency Alarm
+   description: "Emergency alarm Emergency sounds, for example, fire alarms or other urgent alerts"
+   value: 0x0800

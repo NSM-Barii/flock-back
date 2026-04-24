@@ -1,0 +1,170 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+formattypes:
+ - value: 0x01
+   short_name: boolean
+   description: "unsigned 1-bit; 0 = false; 1 = true"
+   exponent: False
+   size: 1
+ - value: 0x02
+   short_name: uint2
+   description: unsigned 2-bit integer
+   exponent: False
+   size: 1
+ - value: 0x03
+   short_name: uint4
+   description: unsigned 4-bit integer
+   exponent: False
+   size: 1
+ - value: 0x04
+   short_name: uint8
+   description: unsigned 8-bit integer
+   exponent: True
+   size: 1
+ - value: 0x05
+   short_name: uint12
+   description: unsigned 12-bit integer
+   exponent: True
+   size: 2
+ - value: 0x06
+   short_name: uint16
+   description: unsigned 16-bit integer
+   exponent: True
+   size: 2
+ - value: 0x07
+   short_name: uint24
+   description: unsigned 24-bit integer
+   exponent: True
+   size: 3
+ - value: 0x08
+   short_name: uint32
+   description: unsigned 32-bit integer
+   exponent: True
+   size: 4
+ - value: 0x09
+   short_name: uint48
+   description: unsigned 48-bit integer
+   exponent: True
+   size: 6
+ - value: 0x0A
+   short_name: uint64
+   description: unsigned 64-bit integer
+   exponent: True
+   size: 8
+ - value: 0x0B
+   short_name: uint128
+   description: unsigned 128-bit integer
+   exponent: True
+   size: 16
+ - value: 0x0C
+   short_name: sint8
+   description: signed 8-bit integer
+   exponent: True
+   size: 1
+ - value: 0x0D
+   short_name: sint12
+   description: signed 12-bit integer
+   exponent: True
+   size: 2
+ - value: 0x0E
+   short_name: sint16
+   description: signed 16-bit integer
+   exponent: True
+   size: 2
+ - value: 0x0F
+   short_name: sint24
+   description: signed 24-bit integer
+   exponent: True
+   size: 3
+ - value: 0x10
+   short_name: sint32
+   description: signed 32-bit integer
+   exponent: True
+   size: 4
+ - value: 0x11
+   short_name: sint48
+   description: signed 48-bit integer
+   exponent: True
+   size: 6
+ - value: 0x12
+   short_name: sint64
+   description: signed 64-bit integer
+   exponent: True
+   size: 8
+ - value: 0x13
+   short_name: sint128
+   description: signed 128-bit integer
+   exponent: True
+   size: 16
+ - value: 0x14
+   short_name: float32
+   description: IEEE-754 32-bit floating point
+   exponent: False
+   size: 4
+ - value: 0x15
+   short_name: float64
+   description: IEEE-754 64-bit floating point
+   exponent: False
+   size: 8
+ - value: 0x16
+   short_name: medfloat16
+   description: IEEE 11073-20601 16-bit SFLOAT
+   exponent: False
+   size: 2
+ - value: 0x17
+   short_name: medfloat32
+   description: IEEE 11073-20601 32-bit FLOAT
+   exponent: False
+   size: 4
+ - value: 0x18
+   short_name: "uint16[2]"
+   description: IEEE 11073-20601 nomenclature code
+   exponent: False
+   size: 4
+ - value: 0x19
+   short_name: utf8s
+   description: UTF-8 string
+   exponent: False
+ - value: 0x1A
+   short_name: utf16s
+   description: UTF-16 string
+   exponent: False
+ - value: 0x1B
+   short_name: struct
+   description: opaque structure
+   exponent: False
+ - value: 0x1C
+   short_name: medASN1
+   description: IEEE-11073 ASN.1/MDER structure
+   exponent: False

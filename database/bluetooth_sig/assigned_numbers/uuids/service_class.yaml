@@ -1,0 +1,262 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+uuids:
+ - uuid: 0x1000
+   name: ServiceDiscoveryServerServiceClassID
+   id: org.bluetooth.service_class.service_discovery_server
+ - uuid: 0x1001
+   name: BrowseGroupDescriptorServiceClassID
+   id: org.bluetooth.service_class.browse_group_descriptor
+ - uuid: 0x1101
+   name: SerialPort
+   id: org.bluetooth.profile.serial_port
+ - uuid: 0x1102
+   name: LANAccessUsingPPP
+   id: org.bluetooth.profile.lan_access
+ - uuid: 0x1103
+   name: Dial-Up Networking
+   id: org.bluetooth.profile.dial_up_networking
+ - uuid: 0x1104
+   name: IrMCSync
+   id: org.bluetooth.profile.synchronization_profile
+ - uuid: 0x1105
+   name: OBEXObjectPush
+   id: org.bluetooth.profile.object_push
+ - uuid: 0x1106
+   name: OBEX File Transfer
+   id: org.bluetooth.profile.file_transfer_profile
+ - uuid: 0x1107
+   name: IrMCSyncCommand
+   id: org.bluetooth.profile.synchronization_command
+ - uuid: 0x1108
+   name: Headset
+   id: org.bluetooth.profile.headset
+ - uuid: 0x1109
+   name: CordlessTelephony
+   id: org.bluetooth.profile.cordless_telephony
+ - uuid: 0x110A
+   name: Audio Source
+   id: org.bluetooth.profile.a2dp_audio_source
+ - uuid: 0x110B
+   name: Audio Sink
+   id: org.bluetooth.profile.a2dp_audio_sink
+ - uuid: 0x110C
+   name: A/V Remote Control Target
+   id: org.bluetooth.profile.avrcp_remote_control_target
+ - uuid: 0x110D
+   name: Advanced Audio Distribution
+   id: org.bluetooth.profile.a2dp
+ - uuid: 0x110E
+   name: A/V Remote Control
+   id: org.bluetooth.profile.avrcp_remote_control_remote_control
+ - uuid: 0x110F
+   name: A/V Remote Control Controller
+   id: org.bluetooth.profile.avrcp_remote_control_remote_control_controller
+ - uuid: 0x1110
+   name: Intercom
+   id: org.bluetooth.profile.intercom
+ - uuid: 0x1111
+   name: Fax
+   id: org.bluetooth.profile.fax
+ - uuid: 0x1112
+   name: Headset Audio Gateway
+   id: org.bluetooth.profile.headset_audio_gateway
+ - uuid: 0x1113
+   name: WAP
+   id: org.bluetooth.profile.wap
+ - uuid: 0x1114
+   name: WAP_CLIENT
+   id: org.bluetooth.profile.wap_client
+ - uuid: 0x1115
+   name: PANU
+   id: org.bluetooth.profile.pan_user
+ - uuid: 0x1116
+   name: NAP
+   id: org.bluetooth.profile.pan_network_access_point
+ - uuid: 0x1117
+   name: GN
+   id: org.bluetooth.profile.pan_gn
+ - uuid: 0x1118
+   name: DirectPrinting
+   id: org.bluetooth.profile.bpp_direct_printing
+ - uuid: 0x1119
+   name: ReferencePrinting
+   id: org.bluetooth.profile.bpp_reference_printing
+ - uuid: 0x111A
+   name: Imaging
+   id: org.bluetooth.profile.bip_imaging
+ - uuid: 0x111B
+   name: Imaging Responder
+   id: org.bluetooth.profile.bip_imaging_responder
+ - uuid: 0x111C
+   name: Imaging Automatic Archive
+   id: org.bluetooth.profile.bip_imaging_automatic_archive
+ - uuid: 0x111D
+   name: Imaging Referenced Objects
+   id: org.bluetooth.profile.bip_imaging_referenced_objects
+ - uuid: 0x111E
+   name: Hands-Free
+   id: org.bluetooth.profile.hands_free
+ - uuid: 0x111F
+   name: AG Hands-Free
+   id: org.bluetooth.service_class.ag_hands_free
+ - uuid: 0x1120
+   name: DirectPrintingReferencedObjectsService
+   id: org.bluetooth.service_class.bpp_direct_printing_referenced_objects
+ - uuid: 0x1121
+   name: ReflectedUI
+   id: org.bluetooth.service_class.bpp_reflected_ui
+ - uuid: 0x1122
+   name: BasicPrinting
+   id: org.bluetooth.profile.bpp
+ - uuid: 0x1123
+   name: PrintingStatus
+   id: org.bluetooth.service_class.bpp_printing_status
+ - uuid: 0x1124
+   name: HID
+   id: org.bluetooth.profile.hid
+ - uuid: 0x1125
+   name: HardcopyCableReplacement
+   id: org.bluetooth.profile.hcrp
+ - uuid: 0x1126
+   name: HCR_Print
+   id: org.bluetooth.service_class.hcr_print
+ - uuid: 0x1127
+   name: HCR_Scan
+   id: org.bluetooth.service_class.hcr_scan
+ - uuid: 0x1128
+   name: Common_ISDN_Access
+   id: org.bluetooth.service_class.isdn
+ - uuid: 0x112D
+   name: SIM Access
+   id: org.bluetooth.profile.sap
+ - uuid: 0x112E
+   name: Phonebook Access Client
+   id: org.bluetooth.service_class.phone_book_access_client
+ - uuid: 0x112F
+   name: Phonebook Access Server
+   id: org.bluetooth.service_class.phone_book_access_server
+ - uuid: 0x1130
+   name: Phonebook Access Profile
+   id: org.bluetooth.profile.phone_book_access_profile
+ - uuid: 0x1131
+   name: Headset - HS
+   id: org.bluetooth.service_class.headset_hs
+ - uuid: 0x1132
+   name: Message Access Server
+   id: org.bluetooth.service_class.map_server
+ - uuid: 0x1133
+   name: Message Notification Server
+   id: org.bluetooth.service_class.map_notification_server
+ - uuid: 0x1134
+   name: Message Access Profile
+   id: org.bluetooth.profile.message_access_profile
+ - uuid: 0x1135
+   name: GNSS
+   id: org.bluetooth.profile.global_navigiation_satellite_system
+ - uuid: 0x1136
+   name: GNSS_Server
+   id: org.bluetooth.service_class.global_navigiation_satellite_system_server
+ - uuid: 0x1137
+   name: 3D Display
+   id: org.bluetooth.service_class.3d_display
+ - uuid: 0x1138
+   name: 3D Glasses
+   id: org.bluetooth.service_class.3d_glasses
+ - uuid: 0x1139
+   name: 3D Synch Profile
+   id: org.bluetooth.profile.3d_synch_profile
+ - uuid: 0x113A
+   name: Multi Profile Specification
+   id: org.bluetooth.profile.multi_profile_specification
+ - uuid: 0x113B
+   name: MPS
+   id: org.bluetooth.service_class.multi_profile_service
+ - uuid: 0x113C
+   name: CTN Access Service
+   id: org.bluetooth.service_class.calendar_task_note_access
+ - uuid: 0x113D
+   name: CTN Notification Service
+   id: org.bluetooth.service_class.calendar_task_note_notification
+ - uuid: 0x113E
+   name: Calendar Tasks and Notes Profile
+   id: org.bluetooth.profile.calendar_task_notes_profile
+ - uuid: 0x1200
+   name: PnPInformation
+   id: org.bluetooth.service_class.device_identification
+ - uuid: 0x1201
+   name: Generic Networking
+   id: org.bluetooth.service_class.generic_networking
+ - uuid: 0x1202
+   name: GenericFileTransfer
+   id: org.bluetooth.service_class.generic_file_transfer
+ - uuid: 0x1203
+   name: Generic Audio
+   id: org.bluetooth.service_class.generic_audio
+ - uuid: 0x1204
+   name: GenericTelephony
+   id: org.bluetooth.service_class.generic_telephony
+ - uuid: 0x1205
+   name: UPNP_Service
+   id: org.bluetooth.service_class.enhanced_service_discovery_service
+ - uuid: 0x1206
+   name: UPNP_IP_Service
+   id: org.bluetooth.service_class.enhanced_service_discovery_ip_service
+ - uuid: 0x1300
+   name: ESDP_UPNP_IP_PAN
+   id: org.bluetooth.service_class.enhanced_service_discovery_ip_pan_service
+ - uuid: 0x1301
+   name: ESDP_UPNP_IP_LAP
+   id: org.bluetooth.service_class.enhanced_service_discovery_ip_lap_service
+ - uuid: 0x1302
+   name: ESDP_UPNP_L2CAP
+   id: org.bluetooth.service_class.enhanced_service_discovery_l2cap_service
+ - uuid: 0x1303
+   name: Video Source
+   id: org.bluetooth.service_class.video_distribution_source
+ - uuid: 0x1304
+   name: Video Sink
+   id: org.bluetooth.service_class.video_distribution_sink
+ - uuid: 0x1305
+   name: Video Distribution
+   id: org.bluetooth.profile.video_distribution
+ - uuid: 0x1400
+   name: HDP
+   id: org.bluetooth.profile.health_device
+ - uuid: 0x1401
+   name: HDP Source
+   id: org.bluetooth.service_class.health_device_source
+ - uuid: 0x1402
+   name: HDP Sink
+   id: org.bluetooth.service_class.health_device_sink

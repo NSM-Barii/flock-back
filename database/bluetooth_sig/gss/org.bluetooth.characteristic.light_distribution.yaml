@@ -1,0 +1,63 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.light_distribution
+  name: Light Distribution
+  description: |-
+    The Light Distribution characteristic is used to represent the projected pattern of outdoor light that a fixture disperses onto a surface. This type of lighting is used in the middle of a pathway and is great for narrow pathways. Type II is commonly used on larger walkways and in roadway lighting because it is good for a larger but still narrow areas. This type is often used on side streets or jogging paths. Type III is very commonly used in roadway lighting, because it gives a bit more coverage further from the point source outward. Type III lighting needs to be placed to the side of the area, allowing the light to project outward and fill the area. Type IV light distribution produces a semicircular light that is intended to be used on the sides of buildings and walls. This type also does a great job lighting up a parking area perimeter.
+    Type V, the widest distribution pattern, is excellent for illuminating the inside portions of a parking lot, or for a 4-way intersection.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Light Distribution
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.light_distribution/field/light_distribution}
+  fields:
+    - name: Light Distribution
+      description: The values of this field are defined below.
+      values:
+        - value: "0x00"
+          description: Type not specified
+        - value: "0x01"
+          description: Type I
+        - value: "0x02"
+          description: Type II
+        - value: "0x03"
+          description: Type III
+        - value: "0x04"
+          description: Type IV
+        - value: "0x05"
+          description: Type V
+        - value: All other values
+          description: Reserved for Future Use.

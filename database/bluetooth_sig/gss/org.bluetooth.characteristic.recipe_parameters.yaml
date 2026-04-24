@@ -1,0 +1,190 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.recipe_parameters
+  name: Recipe Parameters
+  description: |-
+    The Recipe Parameters characteristic is used to represent the parameters associated with a cooking step that are exchanged between a cooking appliance, a cookware device, and/or a cooking controller for control and monitoring. 
+    The structure of this characteristic is defined below. 
+  structure:
+    - field: Flags
+      type: boolean[16]
+      size: "2"
+      description: See \autoref{sec:org.bluetooth.characteristic.recipe_parameters/field/flags}.
+    - field: Cooking Step Index
+      type: uint16
+      size: "2" 
+      description: See \autoref{sec:org.bluetooth.characteristic.recipe_parameters/field/cooking_step_index}.
+    - field: Cooking Process Type
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.recipe_parameters/field/cooking_process_type}.
+    - field: Duration
+      type: uint16
+      size: 0 or 2
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.recipe_parameters/field/duration}.
+        Present if Cooking Process Type field is not 0 (No Cooking).
+    - field: Temperature
+      type: struct
+      size: 0 or 2
+      description: |-
+        If the Termination Condition field is present, then the Temperature represents the temperature to reach during the cooking step.
+        Otherwise, the Temperature represents the temperature to maintain during the cooking step.
+        Structure of the field matches the Cooking Temperature characteristic in \autoref{sec:org.bluetooth.characteristic.cooking_temperature}.
+        Present if bit 3 of Flags field is set to 1
+    - field: Temperature Gradient
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Temperature gradient of the cooking step.
+        Unit is Kelvin/second with a resolution of 0.1
+        Minimum: -12.8
+        Maximum: 12.7
+        Represented values: M = 1, d = -1, b = 0
+        Base Unit: org.bluetooth.unit.kelvin_per_second
+        Present if bits 3 and 4 of Flags field are set to 1
+    - field: Humidity
+      type: struct
+      size: 0 or 2
+      description: |-
+        If the Termination Condition field is present, then the Humidity represents the relative humidity to reach during the cooking step.
+        Otherwise, the Humidity represents the relative humidity to maintain during the cooking step.
+        Structure of the field matches the Humidity characteristic (see \autoref{sec:org.bluetooth.characteristic.humidity}).
+        Present if bit 5 of Flags field is set to 1
+    - field: Termination Condition
+      type: boolean[16]
+      size: 0 or 2
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.recipe_parameters/field/termination_condition}.
+        Present if bit 6 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The values of this field are defined below.
+      value_header: Bit
+      description_header: Description      
+      values:
+        - value: "0"
+          description: Overshoot Prevention flag
+        - value: "1"
+          description: Last Cooking Step flag
+        - value: "2"
+          description: User Action Required flag
+        - value: "3"
+          description: Temperature Field Present flag
+        - value: "4"
+          description: Temperature Gradient Field Present flag
+        - value: "5"
+          description: Humidity Field Present flag
+        - value: "6"
+          description: Termination Condition Field Present flag
+        - value: 7–15
+          description: Reserved for Future Use
+    - name: Cooking Step Index
+      description: The values of this field are defined below.
+      values:
+        - value: "0"
+          description: Unknown 
+        - value: 1–65535
+          description: Index of the cooking step in the recipe
+    - name: Cooking Process Type
+      description: |-
+        The Cooking Process Type field is a 1-octet field specifying the type of cooking process used in the recipe. 
+        The values of this field are defined below.
+      description_header: Description           
+      values:
+        - value: "0x00"
+          description: No cooking
+        - value: "0x01"
+          description: Preheating
+        - value: "0x02"
+          description: Baking
+        - value: "0x03"
+          description: Boiling
+        - value: "0x04"
+          description: Braising
+        - value: "0x05"
+          description: Broiling
+        - value: "0x06"
+          description: Cooling
+        - value: "0x07"
+          description: Freezing
+        - value: "0x08"
+          description: Frying
+        - value: "0x09"
+          description: Grilling
+        - value: "0x0A"
+          description: Melting
+        - value: "0x0B"
+          description: Poaching
+        - value: "0x0C"
+          description: Roasting
+        - value: "0x0D"
+          description: Sauteing
+        - value: "0x0E"
+          description: Simmering
+        - value: "0x0F"
+          description: Sous Vide
+        - value: "0x10"
+          description: Steaming
+        - value: "0x11"
+          description: Stewing
+        - value: 0x12–0xFE
+          description: Reserved for Future Use
+        - value: "0xFF"
+          description: Other / Unknown
+    - name: Duration
+      description: |-
+        If the Recipe Parameters characteristic does not include the Termination Condition field, then the Duration field represents the duration of the cooking step in seconds. 
+        If the Termination Condition field specifies when the cooking step is completed, then the Duration field represents the maximum time the cooking step can continue. This can be used as a safety feature. 
+    - name: Termination Condition
+      description: The Termination Condition field represents the condition under which the cooking step is considered completed. The values of this field are defined below.
+      value_header: Bit
+      description_header: Description         
+      values:
+        - value: "0"
+          description: Temperature Increase Condition. Cooking step is completed when the temperature is above or increases to the value specified in the Temperature field.
+        - value: "1"
+          description: Temperature Decrease Condition. Cooking step is completed when the temperature is below or decreases to the value specified in the Temperature field. This bit can only be set if bit 0 is cleared.
+        - value: "2"
+          description: Humidity Increase Condition. Cooking step is completed when the relative humidity is above or increases to the value specified in the Humidity field.
+        - value: "3"
+          description: Humidity Decrease Condition. Cooking step is completed when the relative humidity is below or decreases to the value specified in the Humidity field. This bit can only be set if bit 0 is cleared.
+        - value: 4–14
+          description: Reserved for Future Use
+        - value: "15"
+          description: |-
+            Logical AND. 
+            If set to 1, then the cooking step is completed when conditions specified by bits 0 to 3 of the Termination Condition field are satisfied.
+            If set to 0, then the cooking step is completed when at least one of the conditions specified by bits 0 to 3 of the Termination Condition field are satisfied.

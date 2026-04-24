@@ -1,0 +1,215 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.cycling_power_control_point
+  name: Cycling Power Control Point
+  description: |-
+    The Cycling Power Control Point characteristic is used to enable device-specific procedures related to a cycling power sensor.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Op Code
+      type: uint8
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.cycling_power_control_point/field/op_code_and_parameter}
+    - field: Parameter
+      type: struct
+      size: 0–18
+      description: See \autoref{sec:org.bluetooth.characteristic.cycling_power_control_point/field/op_code_and_parameter}
+  fields:
+    - name: Op Code and Parameter
+      description: The values of these fields are defined below.
+      section_title: Op Code and Parameter fields
+      table_caption: Op Code and Parameter fields
+      values:
+        - op_code_value: "0x00"
+          definition: Reserved for Future Use
+          parameter: N/A
+          parameter_type: N/A
+          description: N/A
+        - op_code_value: "0x01"
+          definition: Set Cumulative Value
+          parameter: Cumulative Value (defined per service)
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set a cumulative value. The new value is sent as parameter following op code (parameter defined per service).
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x02"
+          definition: Update Sensor Location
+          parameter: Sensor Location Value (defined per service)
+          parameter_type: uint8
+          description: |-
+            Update to the location of the sensor with the value sent as parameter to this op code.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x03"
+          definition: Request Supported Sensor Locations
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request a list of supported locations for sensor attachment.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including a list of supported sensor locations in the Response Parameter.
+        - op_code_value: "0x04"
+          definition: Set Crank Length
+          parameter: Crank Length Value (defined per service)
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the crank length value to Sensor. The new value is sent as a parameter with preceding Op Code 0x04 operand.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x05"
+          definition: Request Crank Length
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request the current crank length value set in the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the crank length in the Response Parameter.
+        - op_code_value: "0x06"
+          definition: Set Chain Length
+          parameter: Chain Length Value (defined per service)
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the chain length value to Sensor. The new value is sent as a parameter with preceding Op Code 0x06 operand.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x07"
+          definition: Request Chain Length
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request the current chain length value set in the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the chain length in the Response Parameter.
+        - op_code_value: "0x08"
+          definition: Set Chain Weight
+          parameter: Chain Weight Value (defined per service)
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the chain weight value to Sensor. The new value is sent as a parameter with preceding Op Code 0x08 operand.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x09"
+          definition: Request Chain Weight
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request the current chain weight value set in the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the chain weight in the Response Parameter.
+        - op_code_value: "0x0A"
+          definition: Set Span Length
+          parameter: Span Length Value (defined per service)
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the span length value to Sensor. The new value is sent as a parameter with preceding Op Code 0x0A operand.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x0B"
+          definition: Request Span Length
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request the current span length value set in the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the span length in the Response Parameter.
+        - op_code_value: "0x0C"
+          definition: Start Offset Compensation
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Starts the offset compensation process of the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the raw force or a raw torque in the Response Parameter (defined per service).
+        - op_code_value: "0x0D"
+          definition: Mask Cycling Power Measurement Characteristic Content
+          parameter: Content Mask (defined per service)
+          parameter_type: Defined per service
+          description: |-
+            Initiate the procedure to set the content of the Cycling Power Measurement characteristic.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value.
+        - op_code_value: "0x0E"
+          definition: Request Sampling Rate
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request the sampling rate value set in the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the sampling rate in the Response Parameter.
+        - op_code_value: "0x0F"
+          definition: Request Factory Calibration Date
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Request the Factory calibration date set in the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the Factory calibration date in the Response Parameter.
+        - op_code_value: "0x10"
+          definition: Start Enhanced Offset Compensation
+          parameter: N/A
+          parameter_type: N/A
+          description: |-
+            Starts the offset compensation process of the Sensor.
+            The response to this control point is Op Code 0x20 followed by the appropriate Response Value, including the value of the raw force or a raw torque in the Response Parameter and an option for a manufacturer specific value (defined per service).
+        - op_code_value: 0x11–0x1F
+          definition: Reserved for Future Use
+          parameter: N/A
+          parameter_type: N/A
+          description: N/A
+        - op_code_value: "0x20"
+          definition: Response Code
+          parameter: Request Op Code, Response Code Value, Response Parameter
+          parameter_type: N/A
+          description: See \autoref{sec:org.bluetooth.characteristic.cycling_power_control_point/field/response_code_values}
+        - op_code_value: 0x21–0xFF
+          definition: Reserved for Future Use
+          parameter: N/A
+          parameter_type: N/A
+          description: N/A
+    - name: Response Code Values
+      description: The Response Code Values associated with the Cycling Power Control Point are defined below.
+      section_title: Response Code Values
+      table_caption: Response Code Values
+      values:
+        - response_code_value: "0x00"
+          definition: Reserved For Future Use
+          response_parameter: N/A
+          description: N/A
+        - response_code_value: "0x01"
+          definition: Success
+          response_parameter: Defined per service
+          description: Normal response for successful operation.
+        - response_code_value: "0x02"
+          definition: Op Code not supported
+          response_parameter: N/A
+          description: Response if unsupported Op Code is received
+        - response_code_value: "0x03"
+          definition: Invalid Operand
+          response_parameter: N/A
+          description: Response if Parameter received does not meet the requirements of the service.
+        - response_code_value: "0x04"
+          definition: Operation Failed
+          response_parameter: Defined per service
+          description: Response if the requested procedure failed.
+        - response_code_value: 0x05–0xFF
+          definition: Reserved for Future Use
+          response_parameter: N/A
+          description: N/A

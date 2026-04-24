@@ -1,0 +1,76 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+mesh_provisioning_pdu_types:
+ - name: Provisioning Invite
+   value: 0x00
+   description: Invites an unprovisioned device (the intended Provisionee) to join a mesh network
+ - name: Provisioning Capabilities
+   value: 0x01
+   description: Indicates the capabilities of the Provisionee
+ - name: Provisioning Start
+   value: 0x02
+   description: Indicates the provisioning method selected by the Provisioner based on the capabilities of the Provisionee
+ - name: Provisioning Public Key
+   value: 0x03
+   description: Contains the Public Key of the Provisionee or the Provisioner
+ - name: Provisioning Input Complete
+   value: 0x04
+   description: Indicates that the user has completed inputting a value
+ - name: Provisioning Confirmation
+   value: 0x05
+   description: Contains the provisioning confirmation value of the Provisionee or the Provisioner
+ - name: Provisioning Random
+   value: 0x06
+   description: Contains the provisioning random value of the Provisionee or the Provisioner
+ - name: Provisioning Data
+   value: 0x07
+   description: "Includes the assigned unicast address of the primary element, a network key, NetKey Index, Flags, and the IV Index"
+ - name: Provisioning Complete
+   value: 0x08
+   description: Indicates that provisioning is complete
+ - name: Provisioning Failed
+   value: 0x09
+   description: Indicates that provisioning was unsuccessful
+ - name: Provisioning Record Request
+   value: 0x0A
+   description: Indicates a request to retrieve a provisioning record fragment from the Provisionee
+ - name: Provisioning Record Response
+   value: 0x0B
+   description: "Contains a provisioning record fragment or an error status, sent in response to a Provisioning Record Request"
+ - name: Provisioning Records Get
+   value: 0x0C
+   description: Indicates a request to retrieve the list of IDs of the provisioning records that the Provisionee supports.
+ - name: Provisioning Records List
+   value: 0x0D
+   description: Contains the list of IDs of the provisioning records that the Provisionee supports.

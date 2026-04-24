@@ -7,6 +7,7 @@ import json, os, threading; from pathlib import Path
 
 
 # NSM IMPORTS
+from vars import Variables
 from flock_finder import Main_Thread
 
 
@@ -26,7 +27,7 @@ class CameraHTTPRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
 
             # Send the camera data as JSON
-            self.wfile.write(json.dumps(Main_Thread.ai_cameras_all).encode())
+            self.wfile.write(json.dumps(Variables.ai_cameras_all).encode())
 
 
         else: super().do_GET()

@@ -1,0 +1,274 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.glucose_measurement_context
+  name: Glucose Measurement Context
+  description: |-
+    The Glucose Measurement Context characteristic is used to represent context information associated with a glucose measurement record.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Flags
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/flags}
+    - field: Sequence Number
+      type: uint16
+      size: "2"
+      description: Contains the sequence number of the corresponding Glucose Measurement as defined by the service.
+    - field: Extended Flags
+      type: boolean[8]
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/extended_flags}
+        Present if bit 7 of Flags field is set to 1
+    - field: Carbohydrate ID
+      type: uint8
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/carbohydrate_id}
+        Present if bit 0 of Flags field is set to 1
+    - field: Carbohydrate
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.mass.kilogram
+        Present if bit 0 of Flags field is set to 1
+    - field: Meal
+      type: uint8
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/meal}
+        Present if bit 1 of Flags field is set to 1
+    - field: Tester-Health
+      type: struct
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/tester-health}
+        Present if bit 2 of Flags field is set to 1
+    - field: Exercise Duration
+      type: uint16
+      size: 0 or 2
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/exercise_duration}
+        Unit: org.bluetooth.unit.time.second
+        Present if bit 3 of Flags field is set to 1
+    - field: Exercise Intensity
+      type: uint8
+      size: 0 or 1
+      description: |-
+        Unit: org.bluetooth.unit.percentage
+        Present if bit 3 of Flags field is set to 1
+    - field: Medication ID
+      type: uint8
+      size: 0 or 1
+      description: |-
+        See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/field/medication_id}
+        Present if bit 4 of Flags field is set to 1
+    - field: Medication
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        If bit 5 of Flags field is set to 0,
+        Unit: org.bluetooth.unit.mass.kilogram
+        If bit 5 of Flags field is set to 1,
+        Unit: org.bluetooth.unit.volume.litre
+        Present if bit 4 of Flags field is set to 1
+    - field: HbA1c
+      type: medfloat16
+      size: 0 or 2
+      description: |-
+        Unit: org.bluetooth.unit.percentage
+        Present if bit 6 of Flags field is set to 1
+  fields:
+    - name: Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            Carbohydrates Flag:
+            0 = Carbohydrate ID and Carbohydrate fields not present
+            1 = Carbohydrate ID and Carbohydrate fields present
+        - bit: "1"
+          description: |-
+            Meal Flag:
+            0 = Meal field not present
+            1 = Meal field present
+        - bit: "2"
+          description: |-
+            Tester-Health Flag:
+            0 = Tester-Health field not present
+            1 = Tester-Health field present
+        - bit: "3"
+          description: |-
+            Exercise Flag:
+            0 = Exercise Duration and Exercise Intensity fields not present
+            1 = Exercise Duration and Exercise Intensity fields present
+        - bit: "4"
+          description: |-
+            Medication Flag:
+            0 = Medication ID and Medication fields not present
+            1 = Medication ID and Medication fields present
+        - bit: "5"
+          description: |-
+            Medication Units Flag:
+            0 = Medication value in units of milligrams
+            1 = Medication value in units of milliliters
+        - bit: "6"
+          description: |-
+            HbA1c Flag:
+            0 = HbA1c field not present
+            1 = HbA1c field present
+        - bit: "7"
+          description: |-
+            Extended Flags:
+            0 = Extended Flags field not present
+            1 = Extended Flags field present
+    - name: Extended Flags
+      description: The bits of this field are defined below.
+      values:
+        - bit: 0–7
+          description: Reserved for Future Use
+    - name: Carbohydrate ID
+      description: The values of this field are defined below.
+      values:
+        - value: "0x00"
+          description: Reserved for Future Use
+        - value: "0x01"
+          description: Breakfast
+        - value: "0x02"
+          description: Lunch
+        - value: "0x03"
+          description: Dinner
+        - value: "0x04"
+          description: Snack
+        - value: "0x05"
+          description: Drink
+        - value: "0x06"
+          description: Supper
+        - value: "0x07"
+          description: Brunch
+        - value: 0x08–0xFF
+          description: Reserved for Future Use
+    - name: Meal
+      description: The values of this field are defined below.
+      values:
+        - value: "0x00"
+          description: Reserved for Future Use
+        - value: "0x01"
+          description: Preprandial (before meal)
+        - value: "0x02"
+          description: Postprandial (after meal)
+        - value: "0x03"
+          description: Fasting
+        - value: "0x04"
+          description: Casual (snacks, drinks, etc.)
+        - value: "0x05"
+          description: Bedtime
+        - value: 0x06–0xFF
+          description: Reserved for Future Use
+    - name: Tester-Health
+      description: The structure of this field is defined below.
+      size_in_bits: true
+      values:
+        - field: Tester
+          data_type: uint4
+          size: "4"
+          description: |-
+            Unit: org.bluetooth.unit.unitless
+            See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/subfield/tester}
+        - field: Health
+          data_type: uint4
+          size: "4"
+          description: |-
+            Unit: org.bluetooth.unit.unitless
+            See \autoref{sec:org.bluetooth.characteristic.glucose_measurement_context/subfield/health}
+      subfields:
+        - name: Tester
+          description: The values of this field are defined below.
+          values:
+            - value: "0x0"
+              description: Reserved for Future Use
+            - value: "0x1"
+              description: Self
+            - value: "0x2"
+              description: Health Care Professional
+            - value: "0x3"
+              description: Lab test
+            - value: 0x4–0xE
+              description: Reserved for Future Use
+            - value: "0xF"
+              description: Tester value not available
+        - name: Health
+          description: The values of this field are defined below.
+          values:
+            - value: "0x0"
+              description: Reserved for Future Use
+            - value: "0x1"
+              description: Minor health issues
+            - value: "0x2"
+              description: Major health issues
+            - value: "0x3"
+              description: During menses
+            - value: "0x4"
+              description: Under stress
+            - value: "0x5"
+              description: No health issues
+            - value: 0x6–0xE
+              description: Reserved for Future Use
+            - value: "0xF"
+              description: Health value not available
+    - name: Exercise Duration
+      description: The values of this field are defined below.
+      values:
+        - value: 0x0000–0xFFFE
+          description: Exercise Duration in seconds
+        - value: "0xFFFF"
+          description: Overrun
+    - name: Medication ID
+      description: The values of this field are defined below.
+      values:
+        - value: "0x00"
+          description: Reserved for Future Use
+        - value: "0x01"
+          description: Rapid acting insulin
+        - value: "0x02"
+          description: Short acting insulin
+        - value: "0x03"
+          description: Intermediate acting insulin
+        - value: "0x04"
+          description: Long acting insulin
+        - value: "0x05"
+          description: Pre-mixed insulin
+        - value: 0x06–0xFF
+          description: Reserved for Future Use

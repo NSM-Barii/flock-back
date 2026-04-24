@@ -1,0 +1,97 @@
+# This document, regardless of its title or content, is not a Bluetooth
+# Specification as defined in the Bluetooth Patent/Copyright License Agreement
+# (“PCLA”) and Bluetooth Trademark License Agreement. Use of this document by
+# members of Bluetooth SIG is governed by the membership and other related
+# agreements between Bluetooth SIG Inc. (“Bluetooth SIG”) and its members,
+# including the PCLA and other agreements posted on Bluetooth SIG’s website
+# located at www.bluetooth.com.
+# 
+# THIS DOCUMENT IS PROVIDED “AS IS” AND BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES MAKE NO REPRESENTATIONS OR WARRANTIES AND DISCLAIM ALL WARRANTIES,
+# EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE,
+# NON-INFRINGEMENT, FITNESS FOR ANY PARTICULAR PURPOSE, THAT THE CONTENT OF THIS
+# DOCUMENT IS FREE OF ERRORS.
+# 
+# TO THE EXTENT NOT PROHIBITED BY LAW, BLUETOOTH SIG, ITS MEMBERS, AND THEIR
+# AFFILIATES DISCLAIM ALL LIABILITY ARISING OUT OF OR RELATING TO USE OF THIS
+# DOCUMENT AND ANY INFORMATION CONTAINED IN THIS DOCUMENT, INCLUDING LOST REVENUE,
+# PROFITS, DATA OR PROGRAMS, OR BUSINESS INTERRUPTION, OR FOR SPECIAL, INDIRECT,
+# CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER CAUSED AND REGARDLESS OF
+# THE THEORY OF LIABILITY, AND EVEN IF BLUETOOTH SIG, ITS MEMBERS, OR THEIR
+# AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+# 
+# This document is proprietary to Bluetooth SIG. This document may contain or
+# cover subject matter that is intellectual property of Bluetooth SIG and its
+# members. The furnishing of this document does not grant any license to any
+# intellectual property of Bluetooth SIG or its members.
+# 
+# This document is subject to change without notice.
+# 
+# Copyright © 2020–2025 by Bluetooth SIG, Inc. The Bluetooth word mark and logos
+# are owned by Bluetooth SIG, Inc. Other third-party brands and names are the
+# property of their respective owners.
+
+characteristic:
+  identifier: org.bluetooth.characteristic.blood_pressure_record
+  name: Blood Pressure Record
+  description: |-
+    The Blood Pressure Record characteristic is a container that represents a stored value of a blood pressure measurement or of any other characteristic as specified by the service using the characteristic.
+    The structure of this characteristic is defined below.
+  structure:
+    - field: Segmentation Header
+      type: boolean[8]
+      size: "1"
+      description: See \autoref{sec:org.bluetooth.characteristic.blood_pressure_record/field/segmentation_header}.
+    - field: Sequence Number
+      type: uint16
+      size: "2"
+      description: |-
+        Contains a sequence number of the record. The sequence number starts at 0 and loops back to 0 after 65536 records (per user).
+        See \autoref{sec:org.bluetooth.characteristic.blood_pressure_record/field/sequence_number}.
+    - field: UUID
+      type: uint16
+      size: "2"
+      description: |-
+        Contains the UUID of the contained characteristic value.
+        See \autoref{sec:org.bluetooth.characteristic.blood_pressure_record/field/uuid}.
+    - field: Recorded Characteristic
+      type: Determined by UUID
+      size: Variable
+      description: |-
+        Contains a part of or a complete characteristic value.
+        See \autoref{sec:org.bluetooth.characteristic.blood_pressure_record/field/recorded_characteristic}.
+    - field: E2E-CRC
+      type: uint16
+      size: 0 or 2
+      description: |-
+        Contains the CRC over all the data of a complete single or multi-message record.
+        See \autoref{sec:org.bluetooth.characteristic.blood_pressure_record/field/e2e-crc}.
+        The presence of this field is defined by the service using this characteristic.
+  fields:
+    - name: Segmentation Header
+      description: |-
+        The Segmentation Header field provides information about which segments to concatenate to get a complete Blood Pressure Record value.
+        The bits of this field are defined below.
+      values:
+        - bit: "0"
+          description: |-
+            First Segment: the characteristic contains the first segment of a record
+            0 = False
+            1 = True
+        - bit: "1"
+          description: |-
+            Last Segment: The characteristic contains the last segment of a record
+            0 = False
+            1 = True
+        - bit: 2–7
+          description: |-
+            Rolling Segment Counter: 0 to 63
+            If the Rolling Segment Counter is equal to 63, it rolls over to 0 when it is next incremented.
+    - name: Sequence Number
+      description: The sequence number field contains the sequence number of a record. The sequence number starts at 0 and loops back to 0 after 65536 records and is used to number a sequence of records as defined by the service.
+    - name: UUID
+      description: The UUID field contains the 16-bit Bluetooth SIG assigned number for a Bluetooth SIG defined characteristic. Supported values are typically constrained by the service. See \RefRef{assigned_numbers} for the list of SIG Assigned Numbers for GATT characteristic UUIDs.
+    - name: Recorded Characteristic
+      description: The Recorded Characteristic field contains a partial or a complete characteristic value. The characteristic value is identified by the UUID field. For most UUID values, the definition of the corresponding characteristic value is included in this document.
+    - name: E2E-CRC
+      description: If the service using the Blood Pressure Record characteristic supports E2E-CRC, the status of the recorded characteristic is secured by a CRC calculated over all fields of all parts of a multi-message record not including the E2E-CRC-field itself. See \autoref{sec:crc_calculation} for further information about the CRC calculation.
