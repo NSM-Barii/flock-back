@@ -48,6 +48,77 @@ class DataBase():
         """This is for WiFi for sub class"""
 
 
+        encryption_cache = {}
+
+
+        @staticmethod
+        def get_encryption_tshark(protected, rsn, akm, wep):
+            """Parse tshark fields into encryption type"""
+
+            try:
+                if wep == "1":
+                    return "WEP"
+
+                if rsn:
+                    if akm:
+                        
+                        if "8" in akm or "9" in akm:
+                            return "WPA3"
+                        return "WPA2"
+                    return "WPA2"
+
+                if protected == "1":
+                    return "WPA"
+
+                return "OPEN"
+
+            except Exception:
+                return "UNKNOWN"
+        
+
+        @classmethod
+        def update_encryption(cls, mac, new_enc):
+            """Track best known encryption per device"""
+
+            if mac not in cls.encryption_cache:
+                cls.encryption_cache[mac] = new_enc
+                return new_enc
+
+            current = cls.encryption_cache[mac]
+
+            priority = {
+                "OPEN": 0,
+                "WEP": 1,
+                "WPA": 2,
+                "WPA2": 3,
+                "WPA3": 4,
+                "UNKNOWN": -1
+            }
+
+            if priority.get(new_enc, -1) > priority.get(current, -1):
+                cls.encryption_cache[mac] = new_enc
+
+            return cls.encryption_cache[mac]
+                    
+        
+        
+        @classmethod
+        def get_ssid(cls, raw_ssid):
+            """This will return ssid"""
+
+
+            if raw_ssid:
+                try:
+                    ssid = bytes.fromhex(raw_ssid).decode("utf-8", errors="ignore")
+                except:
+                    ssid = raw_ssid
+            else:
+                ssid = False
+
+            
+            return ssid
+
+    
         @classmethod
         def _get_vendor(cls, mac: str, verbose=True) -> str:
             """MAC --> Vendor | lookup"""
@@ -372,63 +443,6 @@ class DataBase():
 
 
 
-class Recon_Pusher():
-    """This class will be used to push data from recon mode"""
-
-
-
-    @classmethod
-    def push_results(cls, devices:any, verbose=True) -> None:
-        """This will save ble wardriving results"""
-        
-
-        with LOCK:
-
-            data  = {}
-            num = 0
-            macs = []
-
-            file_saving = Variables.file_saving
-
-            if not file_saving: return False
-            
-
-
-            path = Path(__file__).parent.parent / "database" 
-
-
-            try:
-
-                drive = path / "database.json"
-
-
-                if drive.exists():
-
-                    with open(drive, "r") as file: data = json.load(file)
-
-                    for _, value in data.items(): macs.append(value["addr"]); num+=1
-
-                for _, device in devices.items(): 
-
-                    if device["addr"] not in macs:
-
-                        num += 1; macs.append(device["addr"]); data[num] = device
-            
-
-                with open(drive, "w") as file: json.dump(data, file, indent=4)
-                if verbose: console.print("[bold green][+] Wardrive pushed!")
-
-
-            except json.JSONDecodeError as e:
-                console.print(f"[bold red][!] JSON Error:[bold yellow] {e}")
-                with open(drive, "w") as file: json.dump(data, file, indent=4)
-                console.print("[bold green][+] json file created!")
-
-                        
-            except Exception as e: console.print(f"[bold red][!] Exception Error:[bold yellow] {e}")
-
-        
-
 
 
 class Utilities():
@@ -608,82 +622,7 @@ class Background_Threads():
 
 
     @classmethod
-    def get_channel(cls, pkt):
-        """This will be used to get the ssid channel"""
-
-
-        elt = pkt[Dot11Elt]
-        channel = 0
-
-
-        while isinstance(elt, Dot11Elt):
-
-            if elt.ID == 3:
-                channel = elt.info[0]
-                return channel
-            
-            elt = elt.payload
-        
-        return False
-
-    
-    @classmethod
-    def get_freq(cls, freq):
-        """This will return frequency"""
-
-
-        if freq in range(2412, 2472): return "2.4 GHz"
-        elif freq in range(5180, 5825): return "5 GHz"
-        else: return "6 GHz"
-
-
-    @staticmethod
-    def get_rssi(pkt, format=False):
-        """This method will be responsible for pulling signal strength"""
-
-        signal = ""; signal = f"[bold red]Signal:[/bold red] {signal}"  
-
-        if pkt.haslayer(RadioTap):
-            
-            rssi = getattr(pkt, "dBm_AntSignal", False)
-            
-            if rssi:
-
-                if format:
-                    return f"{rssi} dBm"
-                
-                return rssi
-
-
-    @classmethod
-    def get_encryption(cls, pkt):
-        """Get this encryption"""
-
-        if pkt.haslayer(Dot11Beacon):
-
-            cap = pkt.sprintf("{Dot11Beacon:%Dot11Beacon.cap%}")
-
-            if pkt.haslayer(Dot11Elt):
-                elt = pkt[Dot11Elt]
-                while isinstance(elt, Dot11Elt):
-
-                    if elt.ID == 48:
-                        rsn_info = elt.info
-        
-                        if b'\x00\x0f\xac\x08' in rsn_info: return "WPA3"
-                        else: return "WPA2"
-
-                    elif elt.ID == 221 and len(elt.info) >= 4 and elt.info[:4] == b'\x00\x50\xf2\x01':  return "WPA"
-                    elt = elt.payload
-
-            if "privacy" in cap.lower(): return "WEP"
-            else: return "Open"
-
-        return None
-
-
-    @classmethod
-    def channel_hopper(cls, iface,set_channel=False, verbose=False):
+    def channel_hopper(cls, iface, set_channel=False, verbose=False):
         """This method will be responsible for automatically hopping channels"""
 
 
