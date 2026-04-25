@@ -28,10 +28,10 @@ from database import Utilities, Background_Threads, DataBase
 
 
 
-# CONSTANTS
+# CONSTANTS 
 console = Variables.console
 LOCK    = Variables.LOCK
-
+#
 
 
 class PDU_Inspector():
@@ -370,7 +370,7 @@ class WiFi_Sniffer():
         ))
 
 
-        if ssid in ["Flock", "flock", "FLOCK"]: console.print("hiiiiiiiiiiiiiiiii")
+        #if ssid in ["Flock", "flock", "FLOCK"]: console.print("hiiiiiiiiiiiiiiiii")
         if (ssid and ssid not in cls.ssids) or (src and src not in cls.macs):
 
             cls.ssids.append(ssid)
