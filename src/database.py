@@ -629,7 +629,7 @@ class Background_Threads():
 
         def hopper():
 
-            delay = 0.25
+            delay = 0.125
             all_hops = [1, 6, 11, 36, 40, 44, 48, 149, 153, 157, 161]
 
 
