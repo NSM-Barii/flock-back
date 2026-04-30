@@ -11,10 +11,6 @@ from rich.panel import Panel
 from bleak import BleakScanner
 
 
-# WIFI IMPORTS
-from scapy.all import sniff, Ether, RadioTap
-from scapy.layers.dot11 import Dot11, Dot11Elt, Dot11Beacon, Dot11ProbeResp, Dot11ProbeReq, Dot11Deauth
-
 
 # ETC IMPORTS
 import time, asyncio, threading, subprocess
@@ -137,20 +133,21 @@ class PDU_Inspector():
 
                 for raven_uuid in cls.raven_service_uuids:
 
-                    if raven_uuid == uuid:
-                        
+                    if raven_uuid == uuid[0]:
+
                         if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
                         services.append(raven_uuid); uuids.append(uuid)
-                    
-                            
-                
+
+
+
                 if len(services) > 0: return True, services
-                    
+
                 return False, False
-        
+
 
         except Exception as e:
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+            return False, False
             
 
     @classmethod
@@ -240,7 +237,7 @@ class BLE_Sniffer():
 
 
 
-                if not devices: return
+                if not devices: continue
    
 
                 for mac, (device, adv) in devices.items():
@@ -280,13 +277,12 @@ class BLE_Sniffer():
                         txt = '  '.join(txt)
 
 
-                        # ARE YOU FLOCK or AI ???       
-                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid): 
+                        # ARE YOU FLOCK or AI ???
+                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid):
                             DataBase.push_device(save_data=txt)
                             Variables.ai_cameras_all["ble"].append(data)
-                            
-                        
-                        if cls.verbose: console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
+                        elif cls.verbose:
+                            console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
                     
                         
         except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
@@ -396,6 +392,7 @@ class WiFi_Sniffer():
             "tshark",
             "-i", iface,
             "-l",
+            "-Y", "wlan.fc.type_subtype == 0x04 || wlan.fc.type_subtype == 0x08",
             "-T", "fields",
             "-e", "frame.time_epoch",
             "-e", "wlan.ta",
