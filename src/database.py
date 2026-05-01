@@ -436,10 +436,27 @@ class DataBase():
             
 
         except Exception as e: console.print(f"[bold red]Exception Error:[bold yellow] {e}")
-    
 
 
-  
+    @classmethod
+    def push_packet(cls, save_data, verbose=False):
+        """This method saves packet mode hits to packets.txt"""
+
+        path = Path(__file__).parent.parent / "database" / "packets.txt"
+
+        try:
+
+            if not path.exists():
+                with open(str(path), "w") as file: file.write("===  FLOCK Packets  ===\n\n"); console.print(f"[bold green][+] packets.txt successfully made")
+
+            with open(str(path), "a") as file: file.write(f"\n{save_data}")
+
+            if verbose: console.print(f"[+] Packet pushed to: {path}", style="bold green")
+
+        except Exception as e: console.print(f"[bold red]Exception Error:[bold yellow] {e}")
+
+
+
 
 
 
@@ -629,54 +646,44 @@ class Background_Threads():
 
         def hopper():
 
-            delay = 0.125
-            all_hops = [1, 6, 11, 36, 40, 44, 48, 149, 153, 157, 161]
+            delay    = Variables.delay
+            all_hops = Variables.hops
 
 
             if set_channel:
 
-
-                cls.hop = False; time.sleep(2)
-
+                cls.hop = False
 
                 try:
-
-                    subprocess.Popen(
-                    ["sudo", "iw", "dev", iface, "set", "channel", str(set_channel)],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    stdin=subprocess.DEVNULL,
-                    start_new_session=True
-                )
+                    subprocess.run(
+                        ["sudo", "iw", "dev", iface, "set", "channel", str(set_channel)],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL
+                    )
 
                 except Exception as e: console.print(f"[bold red]Exception Error:[bold yellow] {e}")
-                
 
-                return False
+                return
 
             while cls.hop:
 
                 for channel in all_hops:
 
+                    if not cls.hop: break
 
                     try:
-                    
-                        subprocess.Popen(
+                        subprocess.run(
                             ["sudo", "iw", "dev", iface, "set", "channel", str(channel)],
                             stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL,
-                            stdin=subprocess.DEVNULL,
-                            start_new_session=True
+                            stderr=subprocess.DEVNULL
                         )
                         cls.channel = channel
-                        if verbose:
-                            console.print(f"[bold green]Hopping on Channel:[bold yellow] {channel}")
-
+                        if verbose: console.print(f"[bold green]Hopping on Channel:[bold yellow] {channel}")
                         time.sleep(delay)
-                    
+
                     except Exception as e: console.print(f"[bold red]Exception Error:[bold yellow] {e}")
 
 
-        threading.Thread(target=hopper, args=(), daemon=True).start()
         cls.hop = True
+        threading.Thread(target=hopper, args=(), daemon=True).start()
 

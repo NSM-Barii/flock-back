@@ -26,22 +26,28 @@ class Main_UI():
         description="Flockback: Detect BLE & Wi-Fi LPR surveillance devices.",
         add_help=False 
         )
-        parser.add_argument("-h", action="store_true", help="Display help, usage info, and project banner")
-        parser.add_argument("-b", required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
-        parser.add_argument("-i", required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
-        parser.add_argument("-g", required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)" )      
-        parser.add_argument("-p", required=False, help="This will be used to continuousely print packets from flock cameras even if already found")
-        parser.add_argument("-v", required=False, action="store_true",help="Verbose mode, where more information is shown on non AI Cameras the devices in your surround.")
+        parser.add_argument("-h",     action="store_true", help="Display help, usage info, and project banner")
+        parser.add_argument("-b",     required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
+        parser.add_argument("-i",     required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
+        parser.add_argument("-g",     required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)")
+        parser.add_argument("-p",     required=False, help="Continuously print packets from flock cameras even if already found")
+        parser.add_argument("-v",     required=False, action="store_true", help="Verbose mode, shows info on non-AI cameras in your surroundings")
+        parser.add_argument("-delay",  required=False, type=float, help="Channel hop dwell time in seconds (default: 0.125)")
+        parser.add_argument("-hops",   required=False, nargs="+", type=int, help="List of channels to hop (default: 1 6 11 36 40 44 48 149 153 157 161)")
+        parser.add_argument("-preset", required=False, choices=["2.4", "5", "all"], help="Channel hop preset: 2.4 (1-11), 5 (36-161), all (default list)")
 
 
         args = parser.parse_args()
 
         help              = args.h or False
-        Variables.bface   = args.b or "hci0"
-        Variables.iface   = args.i or False
-        Variables.gps     = args.g or False
-        Variables.packet  = args.p or False
-        Variables.verbose = args.v or False
+        Variables.bface   = args.b   or "hci0"
+        Variables.iface   = args.i   or False
+        Variables.gps     = args.g   or False
+        Variables.packet  = args.p   or False
+        Variables.verbose = args.v   or False
+        Variables.delay   = args.delay  if args.delay  is not None else Variables.delay
+        Variables.hops    = args.hops   if args.hops   is not None else Variables.hops
+        if args.preset: Variables.hops = Variables.presets[args.preset]
 
 
 

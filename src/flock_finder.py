@@ -241,47 +241,48 @@ class BLE_Sniffer():
 
                 for mac, (device, adv) in devices.items():
 
-                    if mac not in cls.macs and adv:
+                    if not adv: continue
+
+                    local_name = adv.local_name
+                    rssi = adv.rssi
+                    uuid = adv.service_uuids or False
+
+                    manufacturer = BLE_Sniffer._get_manuf(manuf=adv.manufacturer_data)
+                    a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
+                    time_stamp = Utilities.get_timestamp()
+
+                    data = {
+                        "type": "ble",
+                        "rssi": rssi,
+                        "mac": mac,
+                        "local_name": local_name,
+                        "manufacturer": manufacturer,
+                        "uuids": valid_uuid,
+                        "time_stamp": time_stamp
+                    }
+
+                    txt = '  '.join((
+                        time_stamp,
+                        "type: ble",
+                        f"rssi: {rssi}",
+                        f"mac: {mac}",
+                        f"local_name: {local_name}",
+                        f"manufacturer: {manufacturer}"
+                    ))
+
+                    if mac not in cls.macs:
 
                         cls.macs.append(mac)
-
-                        local_name = adv.local_name
-                        rssi = adv.rssi
-                        uuid = adv.service_uuids or False
-
-                        manufacturer = BLE_Sniffer._get_manuf(manuf=adv.manufacturer_data)
-                        a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
-                        time_stamp = Utilities.get_timestamp()
-
-                        data = {
-                            "type": "ble",
-                            "rssi": rssi,
-                            "mac": mac,
-                            "local_name": local_name,
-                            "manufacturer": manufacturer,
-                            "uuids": valid_uuid,
-                            "time_stamp": time_stamp
-                        }
-
-                        txt = '  '.join((
-                            time_stamp,
-                            "type: ble",
-                            f"rssi: {rssi}",
-                            f"mac: {mac}",
-                            f"local_name: {local_name}",
-                            f"manufacturer: {manufacturer}"
-                        ))
 
                         # ARE YOU FLOCK or AI ???
                         if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid):
                             cls.flock_macs.append(mac)
                             DataBase.push_device(save_data=txt)
                             Variables.ai_cameras_all["ble"].append(data)
-                            
-                
-                        elif cls.verbose:console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
-                    
-                    elif (Variables.packet) and (mac in cls.flock_macs):  console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}")
+
+                        elif cls.verbose: console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")
+
+                    elif (Variables.packet) and (mac in cls.flock_macs): console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}"); DataBase.push_packet(save_data=txt)
                         
 
         except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
@@ -377,13 +378,12 @@ class WiFi_Sniffer():
                 cls.flock_macs.append(src)
                 DataBase.push_device(save_data=txt)
                 Variables.ai_cameras_all["wifi"].append(data)
-                if Variables.packet: console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}")
                 return
 
             if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
 
 
-        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}")
+        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=txt)
 
 
     @classmethod
