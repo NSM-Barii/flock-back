@@ -17,6 +17,7 @@ class Variables():
     iface   = False
     gps     = False
     help    = False
+    packet  = False
     verbose = False
 
 

@@ -30,6 +30,7 @@ class Main_UI():
         parser.add_argument("-b", required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
         parser.add_argument("-i", required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
         parser.add_argument("-g", required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)" )      
+        parser.add_argument("-p", required=False, help="This will be used to continuousely print packets from flock cameras even if already found")
         parser.add_argument("-v", required=False, action="store_true",help="Verbose mode, where more information is shown on non AI Cameras the devices in your surround.")
 
 
@@ -39,6 +40,7 @@ class Main_UI():
         Variables.bface   = args.b or "hci0"
         Variables.iface   = args.i or False
         Variables.gps     = args.g or False
+        Variables.packet  = args.p or False
         Variables.verbose = args.v or False
 
 

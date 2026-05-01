@@ -11,9 +11,13 @@ from rich.panel import Panel
 from bleak import BleakScanner
 
 
+# WIFI IMPORTS
+from scapy.all import sniff, Ether, RadioTap
+from scapy.layers.dot11 import Dot11, Dot11Elt, Dot11Beacon, Dot11ProbeResp, Dot11ProbeReq, Dot11Deauth
+
 
 # ETC IMPORTS
-import time, asyncio, threading, subprocess
+import time, asyncio,  , subprocess
 from datetime import datetime
 
 
@@ -133,21 +137,20 @@ class PDU_Inspector():
 
                 for raven_uuid in cls.raven_service_uuids:
 
-                    if raven_uuid == uuid[0]:
-
+                    if raven_uuid == uuid:
+                        
                         if cls.verbose: console.print(f"[bold red][+] Found Raven UUID:[bold yellow] {uuid}")
                         services.append(raven_uuid); uuids.append(uuid)
-
-
-
+                    
+                            
+                
                 if len(services) > 0: return True, services
-
+                    
                 return False, False
-
+        
 
         except Exception as e:
             console.print(f"[bold red]Exception Error:[bold yellow] {e}")
-            return False, False
             
 
     @classmethod
@@ -237,53 +240,54 @@ class BLE_Sniffer():
 
 
 
-                if not devices: continue
+                if not devices: return
    
 
                 for mac, (device, adv) in devices.items():
 
+                    if mac not in cls.macs and adv: cls.macs.append(mac)
 
-                    if mac not in cls.ble_devices and adv:
+                    local_name = adv.local_name
+                    rssi = adv.rssi
+                    uuid = adv.service_uuids or False
 
-                        cls.ble_devices.append(mac)
+                    manufacturer = BLE_Sniffer._get_manuf(manuf=adv.manufacturer_data)
+                    a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
+                    time_stamp = Utilities.get_timestamp()
+    
+                    data = {
+                        "type": "ble",
+                        "rssi": rssi,
+                        "mac": mac,
+                        "local_name": local_name,
+                        "manufacturer": manufacturer,
+                        "uuids": valid_uuid,
+                        "time_stamp": time_stamp
+                    }
 
-                        local_name = adv.local_name
-                        rssi = adv.rssi
-                        uuid = adv.service_uuids or False
+                    txt = (
+                        time_stamp,
+                        f"type: ble",
+                        f"rssi: {rssi}",
+                        f"mac: {mac}",
+                        f"local_name: {local_name}",
+                        f"manufacturer: {manufacturer}"
+                    )
 
-                        manufacturer = BLE_Sniffer._get_manuf(manuf=adv.manufacturer_data)
-                        a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
-                        time_stamp = Utilities.get_timestamp()
-        
-                        data = {
-                            "type": "ble",
-                            "rssi": rssi,
-                            "mac": mac,
-                            "local_name": local_name,
-                            "manufacturer": manufacturer,
-                            "uuids": valid_uuid,
-                            "time_stamp": time_stamp
-                        }
-
-                        txt = (
-                            time_stamp,
-                            f"type: ble",
-                            f"rssi: {rssi}",
-                            f"mac: {mac}",
-                            f"local_name: {local_name}",
-                            f"manufacturer: {manufacturer}"
-                        )
-
-                        txt = '  '.join(txt)
+                    txt = '  '.join(txt)
 
 
-                        # ARE YOU FLOCK or AI ???
-                        if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid):
-                            DataBase.push_device(save_data=txt)
-                            Variables.ai_cameras_all["ble"].append(data)
-                        elif cls.verbose:
-                            console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
+                    # ARE YOU FLOCK or AI ???       
+                    if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid): 
+                        DataBase.push_device(save_data=txt)
+                        Variables.ai_cameras_all["ble"].append(data)
+
+                        if Variables.packet: console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}")
+                        return
+                        
                     
+                    if (cls.verbose) and (mac not in cls.macs): console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
+                
                         
         except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
         except Exception as e:console.print(f"[bold red] BLE Exception Error:[bold yellow] {e}"); return
@@ -300,7 +304,7 @@ class BLE_Sniffer():
         # VARS
         cls.verbose = verbose
         scans = 1
-        cls.ble_devices = []
+        cls.macs = []
 
 
 
@@ -362,25 +366,31 @@ class WiFi_Sniffer():
             f"rssi: {rssi}",
             f"mac: {src}",
             f"ssid: {ssid}",
+            f"channel: {channel}",
+            f"frequency: {freq}"
             f"vendor: {vendor}"
         ))
 
 
         #if ssid in ["Flock", "flock", "FLOCK"]: console.print("hiiiiiiiiiiiiiiiii")
-        if (ssid and ssid not in cls.ssids) or (src and src not in cls.macs):
+        #if (ssid and ssid not in cls.ssids) or (src and src not in cls.macs):
+        if (ssid) or (src):
 
-            cls.ssids.append(ssid)
-            cls.macs.append(src)
+            if (ssid not in cls.ssids) or (src not in cls.macs):
+                if (ssid): cls.ssids.append(ssid)
+                cls.macs.append(src)
 
 
             
             if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=src, ble_name=False, uuid=False):
                 DataBase.push_device(save_data=txt)
                 Variables.ai_cameras_all["wifi"].append(data)
+
+                if Variables.packet: console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}")
                 return
 
 
-        if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
+        if (cls.verbose) and (src not in cls.macs): console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
 
 
     @classmethod
@@ -392,7 +402,6 @@ class WiFi_Sniffer():
             "tshark",
             "-i", iface,
             "-l",
-            "-Y", "wlan.fc.type_subtype == 0x04 || wlan.fc.type_subtype == 0x08",
             "-T", "fields",
             "-e", "frame.time_epoch",
             "-e", "wlan.ta",
@@ -412,7 +421,6 @@ class WiFi_Sniffer():
             text=True
         )
 
-        if cls.verbose: console.print("[bold green][+] Tshark WiFi scanner started")
 
         try:
 
