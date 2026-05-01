@@ -37,7 +37,7 @@ class Main_UI():
         parser.add_argument("-b",     required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
         parser.add_argument("-i",     required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
         parser.add_argument("-g",     required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)")
-        parser.add_argument("-p",     required=False, help="Continuously print packets from flock cameras even if already found")
+        parser.add_argument("-p",     action="store_true", required=False, help="Continuously print packets from flock cameras even if already found")
         parser.add_argument("-v",     required=False, action="store_true", help="Verbose mode, shows info on non-AI cameras in your surroundings")
         parser.add_argument("-delay",  required=False, type=float, help="Channel hop dwell time in seconds (default: 0.125)")
         parser.add_argument("-hops",   required=False, nargs="+", type=int, help="List of channels to hop (default: 1 6 11 36 40 44 48 149 153 157 161)")
