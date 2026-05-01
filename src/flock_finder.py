@@ -252,13 +252,13 @@ class BLE_Sniffer():
                     time_stamp = Utilities.get_timestamp()
 
                     data = {
+                        "time_stamp": time_stamp,
                         "type": "ble",
                         "rssi": rssi,
                         "mac": mac,
                         "local_name": local_name,
                         "manufacturer": manufacturer,
-                        "uuids": valid_uuid,
-                        "time_stamp": time_stamp
+                        "uuids": valid_uuid
                     }
 
                     txt = '  '.join((
@@ -277,12 +277,12 @@ class BLE_Sniffer():
                         # ARE YOU FLOCK or AI ???
                         if PDU_Inspector.controller(type=1, data=data, ssid=False, mac=mac, ble_name=local_name, uuid=uuid):
                             cls.flock_macs.append(mac)
-                            DataBase.push_device(save_data=txt)
+                            DataBase.push_device(save_data=data)
                             Variables.ai_cameras_all["ble"].append(data)
 
                         elif cls.verbose: console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")
 
-                    elif (Variables.packet) and (mac in cls.flock_macs): console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}"); DataBase.push_packet(save_data=txt)
+                    elif (Variables.packet) and (mac in cls.flock_macs): console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}"); DataBase.push_packet(save_data=data)
                         
 
         except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
@@ -346,6 +346,7 @@ class WiFi_Sniffer():
         time_stamp = Utilities.get_timestamp()
 
         data = {
+            "time_stamp": time_stamp,
             "type": "wifi",
             "rssi": rssi,
             "mac": src,
@@ -353,8 +354,7 @@ class WiFi_Sniffer():
             "vendor": vendor,
             "frequency": freq,
             "encryption": encryption,
-            "channel": channel,
-            "time_stamp": time_stamp
+            "channel": channel
         }
 
         txt = '  '.join((
@@ -376,14 +376,14 @@ class WiFi_Sniffer():
 
             if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=src, ble_name=False, uuid=False):
                 cls.flock_macs.append(src)
-                DataBase.push_device(save_data=txt)
+                DataBase.push_device(save_data=data)
                 Variables.ai_cameras_all["wifi"].append(data)
                 return
 
             if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
 
 
-        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=txt)
+        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=data)
 
 
     @classmethod

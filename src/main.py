@@ -4,11 +4,17 @@
 # IMPORTS
 import argparse
 
-
 # NSM MODULES
 from vars import Variables
 from database import Utilities
 from flock_finder import Main_Thread
+
+# CONSTANTS
+console  = Variables.console
+c1 = "bold green"
+c2 = "bold yellow"
+c3 = "bold red"
+c4 = "bold blue"
 
 
 class Main_UI():
@@ -57,6 +63,23 @@ class Main_UI():
 
         Utilities.clear_screen()
         Utilities.welcome_message(); print('\n\n')
+
+
+        stats = (
+            f"[{c1}] [+] WiFi Interface:[{c4}] {Variables.iface}"
+            f"\n[{c1}] [+] BT Interface:[{c4}] {Variables.bface}"
+            f"\n[{c1}] [+] Channels:[{c4}] {Variables.hops}"
+            f"\n[{c1}] [+] Hop Delay:[{c4}] {Variables.delay}s"
+            f"\n[{c1}] [+] Packet Mode:[{c4}] {bool(Variables.packet)}"
+            f"\n[{c1}] [+] Verbose:[{c4}] {Variables.verbose}"
+            f"\n[{c1}] [+] GPS:[{c4}] {Variables.gps}"
+        )
+
+        console.print(
+            f"\n[{c1}]=========   CONSTANTS   =========\n",
+            stats,
+            f"\n[{c1}]=================================\n"
+        )
 
 
         Main_Thread.main()

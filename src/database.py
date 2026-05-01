@@ -420,36 +420,32 @@ class DataBase():
     def push_device(cls, save_data, verbose=True):
         """This method live war results to front end gui"""
 
-       
-        path = Path(__file__).parent.parent / "database" / "flocks.txt"  
+        path = Path(__file__).parent.parent / "database" / "flocks.json"
 
-        
         try:
-                
-            if not path.exists():
-                with open(str(path), "w") as file:file.write("===  FLOCK Captures  ===\n\n"); console.print(f"[bold green][+]  flocks.txt successfully made")
 
-        
-            with open(str(path), "a") as file: file.write(f"\n{save_data}")
+            if not path.exists():
+                with open(str(path), "w") as file: file.write(""); console.print(f"[bold green][+] flocks.json successfully made")
+
+            with open(str(path), "a") as file: file.write(json.dumps(save_data) + "\n")
 
             if verbose: console.print(f"[+] War Results Successfully pushed to: {path}", style="bold green")
-            
 
         except Exception as e: console.print(f"[bold red]Exception Error:[bold yellow] {e}")
 
 
     @classmethod
     def push_packet(cls, save_data, verbose=False):
-        """This method saves packet mode hits to packets.txt"""
+        """This method saves packet mode hits to packets.json"""
 
-        path = Path(__file__).parent.parent / "database" / "packets.txt"
+        path = Path(__file__).parent.parent / "database" / "packets.json"
 
         try:
 
             if not path.exists():
-                with open(str(path), "w") as file: file.write("===  FLOCK Packets  ===\n\n"); console.print(f"[bold green][+] packets.txt successfully made")
+                with open(str(path), "w") as file: file.write(""); console.print(f"[bold green][+] packets.json successfully made")
 
-            with open(str(path), "a") as file: file.write(f"\n{save_data}")
+            with open(str(path), "a") as file: file.write(json.dumps(save_data) + "\n")
 
             if verbose: console.print(f"[+] Packet pushed to: {path}", style="bold green")
 
