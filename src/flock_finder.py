@@ -282,7 +282,7 @@ class BLE_Sniffer():
 
                         elif cls.verbose: console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")
 
-                    elif (Variables.packet) and (mac in cls.flock_macs): console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}"); DataBase.push_packet(save_data=data)
+                    elif (Variables.packet) and (mac in cls.flock_macs): console.print(f"[bold cyan][PKT] AI Camera (BLE):[yellow] {data}"); DataBase.push_packet(save_data=data)
                         
 
         except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
@@ -383,7 +383,7 @@ class WiFi_Sniffer():
             if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
 
 
-        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=data)
+        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold cyan][PKT] AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=data)
 
 
     @classmethod

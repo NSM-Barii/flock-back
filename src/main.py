@@ -66,7 +66,7 @@ class Main_UI():
         Utilities.welcome_message(); print('\n\n')
 
 
-        db_path     = Path(__file__).parent.parent / "database"
+        db_path      = Path(__file__).parent.parent / "database"
         flocks_path  = db_path / "flocks.json"
         packets_path = db_path / "packets.json"
 
