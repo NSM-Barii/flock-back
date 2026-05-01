@@ -492,18 +492,18 @@ class Main_Thread():
         except KeyboardInterrupt as e:
 
             Variables.BACKGROUND = False
-            time_duration = time.time() - time_start
-            #TIME = datetime
-            
-            time.sleep(0.1); console.print(f"\n[bold red][-] Killing Background Threads.....\n")
-            
-            total = len(Variables.ble_ai_cameras); total += len(Variables.wifi_ai_cameras)
-            console.print('[bold red] =====  Found AI Cameras  ===== \n')
-            console.print(f"[bold yellow]BLE:[/bold yellow] {len(Variables.ble_ai_cameras)}\n[bold yellow]WiFi:[/bold yellow] {len(Variables.wifi_ai_cameras)}\n[bold green]Total AI Cameras:[/bold green] {total}")
-            console.print(f"\n[bold yellow]BLE_Sniffer:[/bold yellow] {Variables.ble_ai_cameras}", f"\n\n[bold yellow]WiFi_Sniffer:[/bold yellow] {Variables.wifi_ai_cameras}")
-             
+            time_duration = time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - time_start))
 
-            console.print(f"\n\n[bold green]Program Duration:[bold yellow] {time_duration}") # - {minutes} minutes\n[bold green]Timestamp:[bold yellow] {time_stamp}")
+            time.sleep(0.1); console.print(f"\n[bold red][-] Killing Background Threads.....\n")
+
+            total = len(Variables.ble_ai_cameras) + len(Variables.wifi_ai_cameras)
+
+            console.print("[bold red] =====  Found AI Cameras  ===== \n")
+            console.print(f"[bold yellow]BLE:[/bold yellow]   {len(Variables.ble_ai_cameras)}")
+            console.print(f"[bold yellow]WiFi:[/bold yellow]  {len(Variables.wifi_ai_cameras)}")
+            console.print(f"[bold green]Total:[/bold green] {total}\n")
+
+            console.print(f"[bold green]Program Duration:[bold yellow] {time_duration}")
 
 
 

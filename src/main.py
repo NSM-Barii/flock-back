@@ -3,6 +3,7 @@
 
 # IMPORTS
 import argparse
+from pathlib import Path
 
 # NSM MODULES
 from vars import Variables
@@ -65,6 +66,10 @@ class Main_UI():
         Utilities.welcome_message(); print('\n\n')
 
 
+        db_path     = Path(__file__).parent.parent / "database"
+        flocks_path  = db_path / "flocks.json"
+        packets_path = db_path / "packets.json"
+
         stats = (
             f"[{c1}] [+] WiFi Interface:[{c4}] {Variables.iface}"
             f"\n[{c1}] [+] BT Interface:[{c4}] {Variables.bface}"
@@ -73,6 +78,8 @@ class Main_UI():
             f"\n[{c1}] [+] Packet Mode:[{c4}] {bool(Variables.packet)}"
             f"\n[{c1}] [+] Verbose:[{c4}] {Variables.verbose}"
             f"\n[{c1}] [+] GPS:[{c4}] {Variables.gps}"
+            f"\n[{c1}] [+] Flocks Save:[{c4}] {flocks_path}"
+            f"\n[{c1}] [+] Packets Save:[{c4}] {packets_path}"
         )
 
         console.print(

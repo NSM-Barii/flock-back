@@ -417,7 +417,7 @@ class DataBase():
 
 
     @classmethod
-    def push_device(cls, save_data, verbose=True):
+    def push_device(cls, save_data, verbose=False):
         """This method live war results to front end gui"""
 
         path = Path(__file__).parent.parent / "database" / "flocks.json"
