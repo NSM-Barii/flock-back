@@ -1,11 +1,15 @@
 # FlockBack — AI Camera Detection Toolkit
 ![Flock-Back Banner](https://github.com/user-attachments/assets/81829f0c-b241-4099-addd-c09e106f187a)
 
-Lightweight Python tool for detecting **AI-powered license plate reader (LPR) cameras** (Flock Safety, Raven, Penguin, PigVision, etc.) using **BLE + Wi-Fi signature scanning**. Detect surveillance cameras before you can visually see them.
+> **v2.0** — Newer Flock cameras no longer advertise via BLE. They now reveal themselves through **WiFi probe requests**. FlockBack detects both, running BLE and WiFi sniffers in parallel so no camera gets missed regardless of firmware version.
+
+Python tool for detecting **AI-powered license plate reader (LPR) cameras** (Flock Safety, Raven, Penguin, PigVision, etc.) while wardriving. Cameras are detected passively — they announce themselves, you just need to be listening.
 
 **Features:**
-- Passive BLE + Wi-Fi monitor mode scanning with signature matching
-- Probe request and beacon capture with channel hopping, frame count, and sequence logging
+- **WiFi probe request + beacon capture** — primary detection method for newer Flock firmware
+- **BLE scanning** — catches older units still advertising
+- Channel hopping with configurable delay, hop list, and presets
+- Frame count, sequence number, and subtype logging per device
 - All finds saved to `flocks.json`, packet mode hits to `packets.json`
 
 ---
