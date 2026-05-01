@@ -40,6 +40,7 @@ class Main_UI():
         parser.add_argument("-p",     action="store_true", required=False, help="Continuously print packets from flock cameras even if already found")
         parser.add_argument("-v",     required=False, action="store_true", help="Verbose mode, shows info on non-AI cameras in your surroundings")
         parser.add_argument("-delay",  required=False, type=float, help="Channel hop dwell time in seconds (default: 0.125)")
+        parser.add_argument("-bs",     required=False, type=float, help="BLE scan window duration in seconds (default: 5)")
         parser.add_argument("-hops",   required=False, nargs="+", type=int, help="List of channels to hop (default: 1 6 11 36 40 44 48 149 153 157 161)")
         parser.add_argument("-preset", required=False, choices=["2.4", "5", "all"], help="Channel hop preset: 2.4 (1-11), 5 (36-161), all (default list)")
 
@@ -52,7 +53,8 @@ class Main_UI():
         Variables.gps     = args.g   or False
         Variables.packet  = args.p   or False
         Variables.verbose = args.v   or False
-        Variables.delay   = args.delay  if args.delay  is not None else Variables.delay
+        Variables.delay            = args.delay if args.delay is not None else Variables.delay
+        Variables.ble_scan_duration = args.bs    if args.bs    is not None else Variables.ble_scan_duration
         Variables.hops    = args.hops   if args.hops   is not None else Variables.hops
         if args.preset: Variables.hops = Variables.presets[args.preset]
 
@@ -73,6 +75,7 @@ class Main_UI():
         stats = (
             f"[{c1}] [+] WiFi Interface:[{c4}] {Variables.iface}"
             f"\n[{c1}] [+] BT Interface:[{c4}] {Variables.bface}"
+            f"\n[{c1}] [+] BLE Scan Window:[{c4}] {Variables.ble_scan_duration}s"
             f"\n[{c1}] [+] Channels:[{c4}] {Variables.hops}"
             f"\n[{c1}] [+] Hop Delay:[{c4}] {Variables.delay}s"
             f"\n[{c1}] [+] Packet Mode:[{c4}] {bool(Variables.packet)}"

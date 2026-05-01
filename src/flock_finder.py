@@ -229,7 +229,7 @@ class BLE_Sniffer():
             while Variables.BACKGROUND:
 
                 await scanner.start()
-                await asyncio.sleep(5)
+                await asyncio.sleep(Variables.ble_scan_duration)
                 await scanner.stop()
                 devices = scanner.discovered_devices_and_advertisement_data
 
@@ -332,7 +332,7 @@ class WiFi_Sniffer():
         src        = parts[1]
         dst        = parts[2]
         raw_ssid   = parts[3].strip() or False
-        rssi       = parts[4]
+        rssi       = max((int(x) for x in parts[4].split(",") if x), default=0)
         channel    = parts[5]
         freq       = parts[6]
         subtype    = parts[7]
