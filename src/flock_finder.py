@@ -277,11 +277,13 @@ class BLE_Sniffer():
                             cls.flock_macs.append(mac)
                             DataBase.push_device(save_data=txt)
                             Variables.ai_cameras_all["ble"].append(data)
-                            if Variables.packet: console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}")
-                        elif cls.verbose:
-                            console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
+                            
                 
+                        elif cls.verbose:console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")     
+                    
+                    elif (Variables.packet) and (mac in cls.flock_macs):  console.print(f"[bold green][+]AI Camera (BLE):[yellow] {data}")
                         
+
         except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
         except Exception as e:console.print(f"[bold red] BLE Exception Error:[bold yellow] {e}"); return
 
@@ -380,8 +382,8 @@ class WiFi_Sniffer():
 
             if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
 
-        elif Variables.packet and src in cls.flock_macs:
-            console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}")
+
+        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold green][+]AI Camera (WiFi):[yellow] {data}")
 
 
     @classmethod
