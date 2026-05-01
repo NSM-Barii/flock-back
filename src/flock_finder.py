@@ -325,7 +325,7 @@ class WiFi_Sniffer():
 
         parts = line.strip().split("\t")
 
-        if len(parts) < 8: return
+        if len(parts) < 9: return
 
 
         time_epoch = parts[0]
@@ -336,8 +336,11 @@ class WiFi_Sniffer():
         channel    = parts[5]
         freq       = parts[6]
         subtype    = parts[7]
+        seq        = parts[8]
 
         if not src or src == "ff:ff:ff:ff:ff:ff": return
+
+        cls.frame_counts[src] = cls.frame_counts.get(src, 0) + 1
         
 
         ssid       = cls.DataBase.get_ssid(raw_ssid=raw_ssid)
@@ -354,7 +357,10 @@ class WiFi_Sniffer():
             "vendor": vendor,
             "frequency": freq,
             "encryption": encryption,
-            "channel": channel
+            "channel": channel,
+            "subtype": subtype,
+            "seq": seq,
+            "frame_count": cls.frame_counts[src]
         }
 
         txt = '  '.join((
@@ -404,7 +410,8 @@ class WiFi_Sniffer():
             "-e", "radiotap.dbm_antsignal",
             "-e", "wlan_radio.channel",
             "-e", "wlan_radio.frequency",
-            "-e", "wlan.fc.type_subtype"
+            "-e", "wlan.fc.type_subtype",
+            "-e", "wlan.seq"
         ]
 
 
@@ -437,6 +444,7 @@ class WiFi_Sniffer():
         cls.macs = []
         cls.ssids = []
         cls.flock_macs = []
+        cls.frame_counts = {}
         cls.verbose = verbose
         cls.ai_cameras = []
 
