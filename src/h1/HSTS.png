@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Shodan Search Engine</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Search Engine for the Internet of Things">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://wire.shodan.io/v2.5.0/default/css/wire.css" media="(prefers-color-scheme: light)" rel="stylesheet"/>
+<link href="https://wire.shodan.io/v2.5.0/dark/css/wire.css" media="(prefers-color-scheme: dark)" rel="stylesheet"/>
+    <link rel="shortcut icon" href="https://www.shodan.io/static/img/favicon-60c1b1cd.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://www.shodan.io/static/img/apple-touch-icon-192-4eb04af5.png">
+    <link rel="search" href="https://www.shodan.io/static/opensearch-07a9aa48.xml" type="application/opensearchdescription+xml" title="Shodan">
+    <script defer src="https://kit.fontawesome.com/b7e79643d9.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+<div class="quickbar">
+  <ul>
+    <li><a href="https://www.shodan.io">Shodan</a>
+    </li>
+    <li><a href="https://maps.shodan.io">Maps</a>
+    </li>
+    <li><a href="https://images.shodan.io">Images</a>
+    </li>
+    <li><a href="https://monitor.shodan.io">Monitor</a>
+    </li>
+    <li><a href="https://developer.shodan.io">Developer</a>
+    </li>
+    <li><a href="https://www.shodan.io/about/products">More...</a>
+    </li>
+  </ul>
+</div>
+    <div class="container u-full-width">
+      <div class="row">
+        <div class="twelve columns">
+<style>.searchbox {
+    font-family: Arial;
+}
+
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+@media (max-width: 900px) {
+    .right-menu .menu-item-account {
+        display: none
+    }
+}
+</style>
+
+<div class="navbar">
+  <input id="menu-btn" type="checkbox" class="menu-btn"/>
+  <label for="menu-btn" class="menu-icon"><span class="navicon"><i class="fa fa-bars  fa-fw "></i></span>
+  </label><a href="/" class="title"><img src="https://www.shodan.io/static/img/logo-6abcc86b.png" alt="Shodan" width="112" height="32"/></a>
+  <ul class="menu sub-menu">
+    <li><a href="/explore"><i class="fas fa-globe  fa-fw "></i>Explore</a>
+    </li>
+
+    <li><a href="https://account.shodan.io/billing" target="_blank" rel="noopener noreferrer"><i class="fas fa-briefcase  fa-fw "></i>Pricing
+<i style="font-size: 1.1rem" class="fa fa-external-link  fa-fw "></i></a>
+    </li>
+  </ul>
+  <form action="/search" method="GET">
+    <div class="searchbox">
+      <div class="input-wrapper">
+        <label for="search-query" value="Enter search query" class="visually-hidden"></label>
+        <input id="search-query" type="text" name="query" placeholder="Type / to search" autocapitalize="none" spellcheck="false" data-focus-placeholder="Search" data-blur-placeholder="Type / to search"/>
+      </div>
+      <button type="submit" aria-label="Submit search query" data-balloon-disable="data-balloon-disable" class="button-red"><i class="fas fa-search  fa-fw "></i>
+      </button>
+    </div>
+  </form>
+  <ul class="menu main-menu right-menu">
+    <li><a href="/dashboard" class="highlight-success">Login</a>
+    </li>
+  </ul>
+</div>
+          <div class="container">
+          </div>
+        </div>
+      </div>
+    </div><br/><br/>
+<div class="container">
+  <div class="row">
+    <div class="twelve columns">
+      <h3 class="heading-highlight"><span>Error: 404</span>
+      </h3>
+    </div>
+  </div>
+<div class="alert alert-error">
+  <div><i class="far fa-exclamation-circle  fa-fw "></i>
+  </div><em>Error:</em>
+  <p>Page not found. Please make sure you are visiting the correct URL.</p>
+</div>
+</div>
+<br/>
+<div class="container u-full-width bg-solid"><br/><br/>
+  <div class="container">
+    <div class="row">
+      <div class="three columns">
+        <h6 class="grid-heading">Products</h6>
+        <ul>
+          <li><a href="https://monitor.shodan.io" class="light">Monitor</a>
+          </li>
+          <li><a href="https://beta.shodan.io" class="light">Search Engine</a>
+          </li>
+          <li><a href="https://developer.shodan.io" class="light">Developer API</a>
+          </li>
+          <li><a href="https://maps.shodan.io" class="light">Maps</a>
+          </li>
+        </ul>
+      </div>
+      <div class="three columns">
+        <h6 style="visibility:hidden" class="grid-heading">&nbsp;</h6>
+        <ul>
+          <li><a href="https://enterprise.shodan.io" class="light">Bulk Data</a>
+          </li>
+          <li><a href="https://images.shodan.io" class="light">Images</a>
+          </li>
+          <li><a href="https://snippets.shodan.io" class="light">Snippets</a>
+          </li>
+        </ul>
+      </div>
+      <div class="three columns">
+        <h6 class="grid-heading">Pricing</h6>
+        <ul>
+          <li><a href="https://www.shodan.io/store/member" class="light">Membership</a>
+          </li>
+          <li><a href="https://developer.shodan.io/pricing" class="light">API Subscriptions</a>
+          </li>
+          <li><a href="https://enterprise.shodan.io" class="light">Enterprise</a>
+          </li>
+        </ul>
+      </div>
+      <div class="three columns">
+        <h6 class="grid-heading">Contact Us</h6>
+        <ul>
+          <li><a href="mailto:support@shodan.io" class="light">support@shodan.io</a>
+          </li>
+          <li>
+            <h5><a href="https://www.linkedin.com/company/shodan" aria-label="Linkedin" data-balloon-disable="data-balloon-disable" class="text-secondary"><i class="fab fa-linkedin   "></i></a>&nbsp;&nbsp;<a href="https://mastodon.shodan.io/@shodan" aria-label="Mastodon" data-balloon-disable="data-balloon-disable" class="text-secondary"><i class="fab fa-mastodon   "></i></a>&nbsp;&nbsp;<a href="https://twitter.com/shodanhq" aria-label="Twitter" data-balloon-disable="data-balloon-disable" class="text-secondary"><i class="fab fa-twitter   "></i></a>&nbsp;&nbsp;<a href="https://www.facebook.com/shodan.io" aria-label="Facebook" data-balloon-disable="data-balloon-disable" class="text-secondary"><i class="fab fa-facebook   "></i></a>
+            </h5>
+          </li>
+        </ul>
+        <p class="light">Shodan &reg; - All rights reserved</p>
+      </div>
+    </div>
+  </div>
+</div>
+    <script src="https://www.shodan.io/static/scripts/main-5f52b6a3.js"></script>
+  </body>
+</html>

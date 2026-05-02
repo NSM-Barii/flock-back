@@ -1,0 +1,186 @@
+.tile-ssl ul {
+    margin: 0 0 0 5px;
+    padding: 0;
+}
+
+.tile-ssl li > span {
+    display: block;
+}
+
+/* Disable map zooming */
+.jvectormap-zoomout,
+.jvectormap-zoomin {
+    display: none;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.l-search-results {
+    font-family: Arial;
+    overflow: hidden;
+}
+
+.l-search-results .result {
+    padding-bottom: 30px;
+}
+
+.l-search-results .result .heading {
+    align-items: center;
+    line-height: 1rem;
+}
+
+.l-search-results .result .title {
+    line-height: 1.6;
+}
+
+.l-search-results .result .timestamp {
+    flex: 1;
+    text-align: right;
+    margin-left: 10px;
+}
+
+.l-search-results .result .heading .favicon img, .l-search-results .result .heading svg {
+    vertical-align: initial !important;
+    line-height: initial;
+}
+
+.l-search-results .result .container {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: min(20px, 4%);
+    row-gap: 10px;
+}
+
+.l-search-results .result .container > div {
+    flex: 1;
+    min-width: max(180px, 13.33%);
+}
+
+.l-search-results .result .container > div:last-of-type {
+    flex-grow: 10;
+    min-width: 350px;
+}
+
+/* Minecraft column */
+.l-search-results .result .tile.minecraft {
+    text-align: center;
+}
+
+.l-search-results .result-details {
+    line-height: 1.2;
+    font-size: 1.1rem;
+}
+
+.l-search-results .result-details ul {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.l-search-results .result-details li {
+    margin-bottom: 3px;
+}
+
+.l-search-results .result-details li.components {
+    padding-top: 6px;
+}
+
+.l-search-results .tile-ssl {
+    font-size: 1.1rem;
+}
+
+.l-search-results .result .columns {
+    padding: 0;
+}
+
+.l-search-results .result .hostnames{
+    word-break: break-all;
+}
+
+.l-search-results .result pre {
+    margin: 0;
+}
+
+.l-search-results .result .flag {
+    margin-right: 4px;
+    vertical-align: text-bottom;
+}
+
+.l-search-results .favicon {
+    flex-shrink: 0;
+}
+
+.pagination {
+    margin: 20px 0 0 0;
+}
+
+.http-tech {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+img.screenshot {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.tile {
+    font-size: 1.1rem;
+}
+
+.tile h1 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+#worldmap {
+    height: 120px;
+    padding: 8px 0;
+}
+
+#shodan-links {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#shodan-links a {
+    padding: 4px 2px;
+}
+
+.facet-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    column-gap: 10px;
+    align-items: center;
+}
+
+.facet-list li a {
+    font-size: 1.4rem;
+    white-space: wrap;
+}
+
+@media (max-width: 1200px) {
+    #shodan-links {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 550px) {
+    .total-results {
+        font-size: 2.4rem;
+    }
+
+    .facet-list li {
+        flex-direction: column;
+        align-items: unset;
+    }
+}
+
+#historical-link[data-cached=true]::after {
+    content: ' (Cached)';
+}
