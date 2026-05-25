@@ -635,7 +635,7 @@ class Background_Threads():
 
 
     @classmethod
-    def channel_hopper(cls, iface, set_channel=False, verbose=False):
+    def channel_hopper(cls, iface, channels=None, set_channel=False, verbose=False):
         """This method will be responsible for automatically hopping channels"""
 
 
@@ -643,7 +643,7 @@ class Background_Threads():
         def hopper():
 
             delay    = Variables.delay
-            all_hops = Variables.hops
+            all_hops = channels if channels is not None else Variables.hops
 
 
             if set_channel:

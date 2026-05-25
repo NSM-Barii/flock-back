@@ -9,6 +9,7 @@ from pathlib import Path
 from vars import Variables
 from database import Utilities
 from flock_finder import Main_Thread
+from wardriver import Wardriver
 
 # CONSTANTS
 console  = Variables.console
@@ -43,6 +44,7 @@ class Main_UI():
         parser.add_argument("-bs",     required=False, type=float, help="BLE scan window duration in seconds (default: 5)")
         parser.add_argument("-hops",   required=False, nargs="+", type=int, help="List of channels to hop (default: 1 6 11 36 40 44 48 149 153 157 161)")
         parser.add_argument("-preset", required=False, choices=["2.4", "5", "all"], help="Channel hop preset: 2.4 (1-11), 5 (36-161), all (default list)")
+        parser.add_argument("-w",      action="store_true", help="Wardriver mode — auto detect all monitor adapters and split channels by band")
 
 
         args = parser.parse_args()
@@ -61,7 +63,8 @@ class Main_UI():
 
 
         if help: Utilities.help_menu();  parser.print_help(); exit()
-        if Variables.iface: Utilities.get_monitor_mode(iface=Variables.iface)
+        if args.w: Wardriver.main()
+        elif Variables.iface: Utilities.get_monitor_mode(iface=Variables.iface)
 
 
         Utilities.clear_screen()
@@ -73,7 +76,7 @@ class Main_UI():
         packets_path = db_path / "packets.json"
 
         stats = (
-            f"[{c1}] [+] WiFi Interface:[{c4}] {Variables.iface}"
+            f"[{c1}] [+] WiFi Interface:[{c4}] {Variables.iface or Variables.ifaces}"
             f"\n[{c1}] [+] BT Interface:[{c4}] {Variables.bface}"
             f"\n[{c1}] [+] BLE Scan Window:[{c4}] {Variables.ble_scan_duration}s"
             f"\n[{c1}] [+] Channels:[{c4}] {Variables.hops}"

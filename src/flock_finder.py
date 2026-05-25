@@ -315,7 +315,7 @@ class BLE_Sniffer():
 
 class WiFi_Sniffer():
 
-    done = False
+    done     = False
     DataBase = DataBase.WiFi
 
     @classmethod
@@ -375,21 +375,22 @@ class WiFi_Sniffer():
         ))
 
 
-        if src not in cls.macs:
+        with Variables.LOCK:
 
-            if ssid: cls.ssids.append(ssid)
-            cls.macs.append(src)
+            if src not in cls.macs:
 
-            if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=src, ble_name=False, uuid=False):
-                cls.flock_macs.append(src)
-                DataBase.push_device(save_data=data)
-                Variables.ai_cameras_all["wifi"].append(data)
-                return
+                if ssid: cls.ssids.append(ssid)
+                cls.macs.append(src)
 
-            if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
+                if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=src, ble_name=False, uuid=False):
+                    cls.flock_macs.append(src)
+                    DataBase.push_device(save_data=data)
+                    Variables.ai_cameras_all["wifi"].append(data)
+                    return
 
+                if cls.verbose: console.print(f"[bold red][-] Non AI Camera (WiFi): [yellow]{data}")
 
-        elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold cyan][PKT] AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=data)
+            elif (Variables.packet) and (src in cls.flock_macs): console.print(f"[bold cyan][PKT] AI Camera (WiFi):[yellow] {data}"); DataBase.push_packet(save_data=data)
 
 
     @classmethod
@@ -437,23 +438,29 @@ class WiFi_Sniffer():
 
 
     @classmethod
+    def _init(cls, verbose):
+        """Initialize shared state once before scanning"""
+
+        cls.macs         = []
+        cls.ssids        = []
+        cls.flock_macs   = []
+        cls.frame_counts = {}
+        cls.verbose      = verbose
+        cls.ai_cameras   = []
+
+
+    @classmethod
     def main(cls, iface, verbose):
         """This will run class wide logic"""
 
 
-        cls.macs = []
-        cls.ssids = []
-        cls.flock_macs = []
-        cls.frame_counts = {}
-        cls.verbose = verbose
-        cls.ai_cameras = []
-
+        cls._init(verbose=verbose)
 
         if not iface: console.print("[bold red][+] Cancelling WiFi_Sniffer"); return
         console.print("[bold green][+] Starting WiFi_Sniffer"); time.sleep(1)
 
-
-        Background_Threads.channel_hopper(iface=iface)
+        if not Variables.ifaces:
+            Background_Threads.channel_hopper(iface=iface)
 
         cls._wifi_scanner(iface=iface)
 
@@ -480,8 +487,14 @@ class Main_Thread():
         
         
 
-        # WIFI SNIFFER 
-        threading.Thread(target=WiFi_Sniffer.main, args=(iface, verbose), daemon=True).start()
+        # WIFI SNIFFER
+        if Variables.ifaces:
+            WiFi_Sniffer._init(verbose=verbose)
+            console.print("[bold green][+] Starting WiFi_Sniffer")
+            for _iface in Variables.ifaces:
+                threading.Thread(target=WiFi_Sniffer._wifi_scanner, args=(_iface,), daemon=True).start()
+        else:
+            threading.Thread(target=WiFi_Sniffer.main, args=(iface, verbose), daemon=True).start()
         
 
         # BLE SNIFFER

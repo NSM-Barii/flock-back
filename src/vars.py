@@ -40,6 +40,7 @@ class Variables():
     ble_ai_cameras = []
     
 
+    ifaces  = {}
+
     LOCK = threading.RLock()
     console = Console()
-    verbose = False
