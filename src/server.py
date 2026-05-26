@@ -32,6 +32,8 @@ class CameraHTTPRequestHandler(SimpleHTTPRequestHandler):
 
         else: super().do_GET()
 
+    def log_message(self, format, *args): pass
+
 
 class Web_Server():
     """This will control the web server"""

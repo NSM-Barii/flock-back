@@ -505,10 +505,12 @@ class Main_Thread():
 
 
         try:
-            # WEB SERVER
-            from server import Web_Server; time.sleep(.4)
-            Web_Server.start()            
-            
+
+            if Variables.ifaces:
+                while Variables.BACKGROUND: time.sleep(1)
+            else:
+                from server import Web_Server; time.sleep(.4)
+                Web_Server.start()
 
         except KeyboardInterrupt as e:
 
