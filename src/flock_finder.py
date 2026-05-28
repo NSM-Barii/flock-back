@@ -501,7 +501,7 @@ class Main_Thread():
         
 
         # BLE SNIFFER
-        threading.Thread(target=BLE_Sniffer.main, args=(verbose,), daemon=True).start()
+        if Variables.ble: threading.Thread(target=BLE_Sniffer.main, args=(verbose,), daemon=True).start()
 
 
      

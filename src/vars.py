@@ -40,6 +40,7 @@ class Variables():
     ble_ai_cameras = []
     
 
+    ble     = True
     ifaces  = {}
 
     LOCK = threading.RLock()

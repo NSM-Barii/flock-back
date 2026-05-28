@@ -45,6 +45,7 @@ class Main_UI():
         parser.add_argument("-hops",   required=False, nargs="+", type=int, help="List of channels to hop (default: 1 6 11 36 40 44 48 149 153 157 161)")
         parser.add_argument("-preset", required=False, choices=["2.4", "5", "all"], help="Channel hop preset: 2.4 (1-11), 5 (36-161), all (default list)")
         parser.add_argument("-w",      action="store_true", help="Wardriver mode — auto detect all monitor adapters and split channels by band")
+        parser.add_argument("-nb",     action="store_true", help="Disable BLE scanner")
 
 
         args = parser.parse_args()
@@ -59,6 +60,7 @@ class Main_UI():
         Variables.ble_scan_duration = args.bs    if args.bs    is not None else Variables.ble_scan_duration
         Variables.hops    = args.hops   if args.hops   is not None else Variables.hops
         if args.preset: Variables.hops = Variables.presets[args.preset]
+        if args.nb: Variables.ble = False
 
 
 
