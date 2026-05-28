@@ -380,10 +380,10 @@ class WiFi_Sniffer():
             if src not in cls.macs:
 
                 if ssid: cls.ssids.append(ssid)
-                cls.macs.append(src)
+                cls.macs.add(src)
 
                 if PDU_Inspector.controller(type=2, data=data, ssid=ssid, mac=src, ble_name=False, uuid=False):
-                    cls.flock_macs.append(src)
+                    cls.flock_macs.add(src)
                     DataBase.push_device(save_data=data)
                     Variables.ai_cameras_all["wifi"].append(data)
                     return
@@ -394,13 +394,15 @@ class WiFi_Sniffer():
 
 
     @classmethod
-    def _wifi_scanner(cls, iface):
-        """Tshark-based scanner"""
+    def _wifi_scanner(cls, ifaces):
+        """Tshark-based scanner — accepts a single iface string or list of ifaces"""
 
 
-        cmd = [
-            "tshark",
-            "-i", iface,
+        if isinstance(ifaces, str): ifaces = [ifaces]
+
+        cmd = ["tshark"]
+        for iface in ifaces: cmd += ["-i", iface]
+        cmd += [
             "-l",
             "-Y", "wlan.fc.type_subtype == 0x04 || wlan.fc.type_subtype == 0x08",
             "-T", "fields",
@@ -441,9 +443,9 @@ class WiFi_Sniffer():
     def _init(cls, verbose):
         """Initialize shared state once before scanning"""
 
-        cls.macs         = []
+        cls.macs         = set()
         cls.ssids        = []
-        cls.flock_macs   = []
+        cls.flock_macs   = set()
         cls.frame_counts = {}
         cls.verbose      = verbose
         cls.ai_cameras   = []
@@ -462,7 +464,7 @@ class WiFi_Sniffer():
         if not Variables.ifaces:
             Background_Threads.channel_hopper(iface=iface)
 
-        cls._wifi_scanner(iface=iface)
+        cls._wifi_scanner(ifaces=iface)
 
 
 
@@ -491,8 +493,7 @@ class Main_Thread():
         if Variables.ifaces:
             WiFi_Sniffer._init(verbose=verbose)
             console.print("[bold green][+] Starting WiFi_Sniffer")
-            for _iface in Variables.ifaces:
-                threading.Thread(target=WiFi_Sniffer._wifi_scanner, args=(_iface,), daemon=True).start()
+            threading.Thread(target=WiFi_Sniffer._wifi_scanner, args=(list(Variables.ifaces.keys()),), daemon=True).start()
         else:
             threading.Thread(target=WiFi_Sniffer.main, args=(iface, verbose), daemon=True).start()
         

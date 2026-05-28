@@ -668,8 +668,8 @@ class Background_Threads():
                     if not cls.hop: break
 
                     try:
-                        subprocess.run(
-                            ["sudo", "iw", "dev", iface, "set", "channel", str(channel)],
+                        subprocess.Popen(
+                            ["iw", "dev", iface, "set", "channel", str(channel)],
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL
                         )
