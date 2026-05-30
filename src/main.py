@@ -10,6 +10,7 @@ from vars import Variables
 from database import Utilities
 from flock_finder import Main_Thread, Inject_Test
 from wardriver import Wardriver
+from kismet_watcher import Kismet_Watcher
 
 # CONSTANTS
 console  = Variables.console
@@ -34,7 +35,7 @@ class Main_UI():
         description="Flockback: Detect BLE & Wi-Fi LPR surveillance devices.",
         add_help=False 
         )
-        parser.add_argument("-h",     action="store_true", help="Display help, usage info, and project banner")
+        parser.add_argument("-h","--helpx`x`",     action="store_true", help="Display help, usage info, and project banner")
         parser.add_argument("-b",     required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
         parser.add_argument("-i",     required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
         parser.add_argument("-g",     required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)")
@@ -45,6 +46,7 @@ class Main_UI():
         parser.add_argument("-hops",   required=False, nargs="+", type=int, help="List of channels to hop (default: 1 6 11 36 40 44 48 149 153 157 161)")
         parser.add_argument("-preset", required=False, choices=["2.4", "5", "all"], help="Channel hop preset: 2.4 (1-11), 5 (36-161), all (default list)")
         parser.add_argument("-w",      action="store_true", help="Wardriver mode — auto detect all monitor adapters and split channels by band")
+        parser.add_argument("-k",      action="store_true", help="Kismet mode — poll Kismet REST API and run sig matching against seen devices")
         parser.add_argument("-nb",     action="store_true", help="Disable BLE scanner")
         parser.add_argument("-test",   action="store_true", help="Listen on -i for probe requests to verify injection is working")
 
@@ -61,14 +63,15 @@ class Main_UI():
         Variables.ble_scan_duration = args.bs    if args.bs    is not None else Variables.ble_scan_duration
         Variables.hops    = args.hops   if args.hops   is not None else Variables.hops
         if args.preset: Variables.hops = Variables.presets[args.preset]
-        if args.nb:   Variables.ble         = False
-        if args.test: Variables.inject_test = True
+        Variables.ble         = not args.nb
+        Variables.inject_test = args.test or False
+        Variables.kismet      = args.k    or False
 
 
 
         if help: Utilities.help_menu();  parser.print_help(); exit()
-        if args.w: Wardriver.main()
-        elif Variables.iface: Utilities.get_monitor_mode(iface=Variables.iface)
+        if args.w:   Wardriver.main()
+        if not args.w and Variables.iface: Utilities.get_monitor_mode(iface=Variables.iface)
 
 
         Utilities.clear_screen()
@@ -99,6 +102,7 @@ class Main_UI():
         )
 
 
+        Kismet_Watcher.main()
         Inject_Test.main()
         Main_Thread.main()
 

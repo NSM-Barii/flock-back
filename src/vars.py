@@ -42,6 +42,7 @@ class Variables():
 
     ble         = True
     ifaces      = {}
+    kismet      = False
     inject_test = False
 
     LOCK = threading.RLock()

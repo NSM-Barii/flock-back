@@ -495,11 +495,13 @@ class Main_Thread():
         verbose = Variables.verbose
 
 
+        if Variables.kismet: return False
+
+
         #Recon_Pusher.main() 
         time_start = time.time()
         time_stamp = datetime.now().strftime("%m/%d/%Y - %H:%M:%S")
         console.print(f"[bold green]Timestamp:[bold yellow] {time_stamp}\n")
-        
         
 
         # WIFI SNIFFER
@@ -555,7 +557,7 @@ class Inject_Test():
     def main(cls):
         """Entry point"""
 
-        if not Variables.inject_test: return
+        if not Variables.inject_test: return False
 
         iface = Variables.iface
         if not iface: console.print("[bold red][-] -test requires -i <interface>"); return
