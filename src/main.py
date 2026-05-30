@@ -35,7 +35,7 @@ class Main_UI():
         description="Flockback: Detect BLE & Wi-Fi LPR surveillance devices.",
         add_help=False 
         )
-        parser.add_argument("-h","--help",     action="store_true", help="Display help, usage info, and project banner")
+        parser.add_argument("-h",              action="store_true", help="Display help, usage info, and project banner")
         parser.add_argument("-b",     required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
         parser.add_argument("-i",     required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
         parser.add_argument("-g",     required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)")
