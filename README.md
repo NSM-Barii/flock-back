@@ -127,9 +127,9 @@ Packet mode repeat hits are saved to `database/packets.json` in the same format.
 
 ## Research
 
-Probe request discovery by:
+Probe request discovery by: @jakeswiz
 
-Signatures by:
+Signatures by: @colonel_panic_hacks
 
 Program: GitHub.com/nsm-barii/flock-back
 
