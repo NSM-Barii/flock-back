@@ -221,12 +221,11 @@ class BLE_Sniffer():
         """This will sniff for ble advertisements traversing our surroundings"""
 
 
-        try:
+        scanner = BleakScanner()
 
-            scanner = BleakScanner()
-            
+        while Variables.BACKGROUND:
 
-            while Variables.BACKGROUND:
+            try:
 
                 await scanner.start()
                 await asyncio.sleep(Variables.ble_scan_duration)
@@ -237,7 +236,7 @@ class BLE_Sniffer():
 
 
                 if not devices: continue
-   
+
 
                 for mac, (device, adv) in devices.items():
 
@@ -283,10 +282,11 @@ class BLE_Sniffer():
                         elif cls.verbose: console.print(f"[bold red][-] Non AI Camera (BLE):[bold yellow] {data}")
 
                     elif (Variables.packet) and (mac in cls.flock_macs): console.print(f"[bold cyan][PKT] AI Camera (BLE):[yellow] {data}"); DataBase.push_packet(save_data=data)
-                        
 
-        except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}")
-        except Exception as e:console.print(f"[bold red] BLE Exception Error:[bold yellow] {e}"); return
+            except KeyboardInterrupt as e: console.print(f"[bold red] Keyboard Exception Error:[bold yellow] {e}"); return
+            except Exception as e:
+                console.print(f"[bold red] BLE Exception Error, restarting scan in 2s:[bold yellow] {e}")
+                await asyncio.sleep(2)
 
             
 
@@ -428,27 +428,32 @@ class WiFi_Sniffer():
         ]
 
 
-        process = subprocess.Popen(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
-            text=True,
-            bufsize=1
-        )
+        while Variables.BACKGROUND:
 
+            process = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                text=True,
+                bufsize=1
+            )
 
-        try:
+            try:
 
-            for line in process.stdout:
+                for line in process.stdout:
 
-                if not Variables.BACKGROUND: break
+                    if not Variables.BACKGROUND: break
 
-                cls._line_parser(line)
+                    cls._line_parser(line)
 
-        except Exception as e: console.print(f"[bold red][-] Tshark Error: {e}")
-        finally:
-            process.kill()
-            process.wait()
+            except Exception as e: console.print(f"[bold red][-] Tshark Error: {e}")
+            finally:
+                process.kill()
+                process.wait()
+
+            if Variables.BACKGROUND:
+                console.print("[bold red][-] WiFi_Sniffer stopped unexpectedly, restarting in 2s...")
+                time.sleep(2)
 
 
 

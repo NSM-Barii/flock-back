@@ -669,7 +669,7 @@ class Background_Threads():
 
                     try:
                         subprocess.Popen(
-                            ["iw", "dev", iface, "set", "channel", str(channel)],
+                            ["sudo", "iw", "dev", iface, "set", "channel", str(channel)],
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL
                         )

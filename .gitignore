@@ -1,3 +1,12 @@
 venv/
 *.pyc
 *.pycache
+
+.claude/
+.agents/
+skills-lock.json
+
+# runtime capture output — real location/device data, never commit
+database/flocks.json
+database/packets.json
+database/wigle.csv
