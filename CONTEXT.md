@@ -210,6 +210,18 @@ User was preparing a real trial run (single-adapter, plain `-i` mode, offline, p
 
 All changes smoke-tested via `timeout N python3 -u main.py -bs 2 [-g]` (BLE-only, no hardware needed) — clean startup, no exceptions, GPS retry loop confirmed non-fatal against a refused connection. Live WiFi capture, real gpsd/phone GPS fix, and long-duration/unattended behavior remain unverified in this environment for the same reasons as §4 (single WiFi adapter currently on the network, no GPS hardware here).
 
+## 9. Session log — 2026-08-18 (second pre-trial pass, found the real showstopper)
+
+User asked for one more pass before their real-world test. This one found something more severe than anything in §6 or §8:
+
+- **`DataBase.WiFi._get_vendor` re-parsed the entire 2.8MB `manuf_old.txt` (Wireshark OUI database) from scratch on every single call** (`database.py`) — `manuf.MacParser(manuf_path)` was constructed fresh inside the function body instead of once. Measured at **~0.33s per call**. This function runs from `WiFi_Sniffer._line_parser` unconditionally on *every captured WiFi frame*, before the MAC dedup check — not once per device, once per frame (beacons alone repeat every ~100ms per AP). In any real environment with normal ambient WiFi traffic, this would make the sniffer fall behind tshark's output within seconds: growing detection lag, pegged CPU, and likely dropped frames once the pipe backs up. This was the single biggest risk to the planned in-depth/parked trial — worse than any of the reliability issues fixed in §8, and none of §8's retry logic would have masked it (it doesn't throw, it's just slow).
+  - **Fixed**: `manuf.MacParser` is now built once and cached as `DataBase.WiFi._mac_parser` (lazy singleton). Re-measured: ~0.0055ms/call after the one-time ~0.4s build cost — roughly a 60,000x speedup on repeat lookups. Verified correctness against a known OUI (unchanged result pre/post fix).
+  - `_get_vendor_new` (the `manuf_ring_mast4r.txt` fallback path) had the same shape of bug — re-opened and linearly scanned the file on every call. Fixed the same way: parsed once into `DataBase.WiFi._mac_prefix_map` (a dict), reused thereafter.
+  - Both functions' `except Exception: exit()` (and `except FileNotFoundError: exit()`) changed to `return False` + log. `exit()`/`sys.exit()` inside a daemon thread only kills that thread (verified empirically, doesn't take down the whole process), but it silently and permanently ends WiFi detection with **no chance for the §8 retry logic to catch it** — `SystemExit` isn't a subclass of `Exception`, so `_wifi_scanner`'s `except Exception` wrapper never sees it. Now a lookup failure just logs and moves on, consistent with the resilience pattern established in §8.
+- Checked the equivalent BLE path (`DataBase.Bluetooth.get_manufacturer`, re-`json.load`s a 294KB file per call) for the same pattern — measured ~4ms/call, not restructured. Real but much smaller cost (BLE scan cycles are 5s apart by default vs. WiFi frames arriving continuously), left as-is to avoid churn beyond what the trial actually needs.
+
+Verified via `python3 -m py_compile` on all touched files and the same BLE-only smoke test pattern as §8 (clean start, no exceptions). Vendor lookup timing was measured directly (`time.time()` around repeated `get_vendor_main` calls, before and after the fix) rather than inferred — see this session's transcript if the exact numbers matter later.
+
 ---
 
 ## 7. Suggested Priorities (if picking up work here)

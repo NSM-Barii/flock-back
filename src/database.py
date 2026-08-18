@@ -119,66 +119,68 @@ class DataBase():
             return ssid
 
     
+        _mac_parser = None
+        _mac_prefix_map = None
+
+
         @classmethod
         def _get_vendor(cls, mac: str, verbose=True) -> str:
-            """MAC --> Vendor | lookup"""
-            
+            """MAC --> Vendor | lookup — manuf.MacParser is built once and cached (parsing the
+            ~2.8MB manuf_old.txt on every call took ~0.3s/lookup, too slow to keep up with a
+            live capture where this runs on every frame, not just new MACs)"""
+
             try:
 
-                manuf_path = str(Path(__file__).parent.parent / "database" / "manuf_old.txt")
+                if cls._mac_parser is None:
+                    manuf_path = str(Path(__file__).parent.parent / "database" / "manuf_old.txt")
+                    cls._mac_parser = manuf.MacParser(manuf_path)
+                    if verbose: console.print(f"Manuf.txt pulled -> {manuf_path}")
 
-                vendor = manuf.MacParser(manuf_path).get_manuf_long(mac=mac)
-                
-                if verbose:
-                    console.print(f"Manuf.txt pulled -> {manuf_path}")            
-                    console.print(f"[bold green][+] Vendor Lookup:[/bold green] {vendor} -> {mac}")
-                
+                vendor = cls._mac_parser.get_manuf_long(mac=mac)
+
+                if verbose: console.print(f"[bold green][+] Vendor Lookup:[/bold green] {vendor} -> {mac}")
 
                 return vendor
-                    
-            
+
 
             except FileNotFoundError:
-                console.print(f"[bold red][-] Failed to pull manuf.txt:[bold yellow] File not Found!"); exit()
-        
-            
-            except Exception as e:
-                console.print(f"[bold red][-] Exception Error:[bold yellow] {e}"); exit()
-        
+                console.print(f"[bold red][-] Failed to pull manuf.txt:[bold yellow] File not Found!"); return False
 
-        @staticmethod
-        def _get_vendor_new(mac: str, verbose=True) -> str:
-            """MAC Prefixes --> Vendor"""
-            
+            except Exception as e:
+                console.print(f"[bold red][-] Vendor Lookup Exception Error:[bold yellow] {e}"); return False
+
+
+        @classmethod
+        def _get_vendor_new(cls, mac: str, verbose=True) -> str:
+            """MAC Prefixes --> Vendor — fallback table loaded into memory once instead of
+            re-scanning the file line-by-line on every call"""
 
             try:
 
-                manuf_path = str(Path(__file__).parent.parent / "database" / "manuf_ring_mast4r.txt")
+                if cls._mac_prefix_map is None:
+
+                    manuf_path = str(Path(__file__).parent.parent / "database" / "manuf_ring_mast4r.txt")
+                    cls._mac_prefix_map = {}
+
+                    with open(manuf_path, "r") as file:
+                        for line in file:
+                            parts = line.strip().split('\t')
+                            if len(parts) >= 2: cls._mac_prefix_map[parts[0]] = parts[1]
 
                 mac_prefix = mac.split(':'); prefix = mac_prefix[0] + mac_prefix[1] + mac_prefix[2]
+                vendor = cls._mac_prefix_map.get(prefix)
 
+                if vendor and verbose: console.print(f"[bold green][+] {prefix} --> {vendor}")
 
-                with open(manuf_path, "r") as file:
-
-                    for line in file:
-                        parts = line.strip().split('\t')
-                        
-                        if parts[0] == prefix:
-
-                            vendor = parts[1]
-
-                            if verbose: console.print(f"[bold green][+] {parts[0]} --> {vendor}" )
-                            
-                            return vendor
+                return vendor
 
 
             except FileNotFoundError:
-                console.print(f"[bold red][-] Failed to pull manuf.txt:[bold yellow] File not Found!"); exit()
-        
+                console.print(f"[bold red][-] Failed to pull manuf.txt:[bold yellow] File not Found!"); return False
 
             except Exception as e:
-                console.print(f"[bold red][-] Exception Error:[bold yellow] {e}")
-        
+                console.print(f"[bold red][-] Vendor Lookup Exception Error:[bold yellow] {e}"); return False
+
 
         @staticmethod
         def get_vendor_main(mac: str, verbose=False) -> str:
