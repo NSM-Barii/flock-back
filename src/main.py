@@ -7,7 +7,7 @@ from pathlib import Path
 
 # NSM MODULES
 from vars import Variables
-from database import Utilities
+from database import Utilities, Background_Threads
 from flock_finder import Main_Thread, Inject_Test
 from wardriver import Wardriver
 from kismet_watcher import Kismet_Watcher
@@ -38,7 +38,7 @@ class Main_UI():
         parser.add_argument("-h",              action="store_true", help="Display help, usage info, and project banner")
         parser.add_argument("-b",     required=False, help="Bluetooth adapter to use for ble scanning (hci0)")
         parser.add_argument("-i",     required=False, help="Monitor-mode wireless interface to use for scanning (e.g., wlan1)")
-        parser.add_argument("-g",     required=False, help="(Optional) Serial port path for GPS module (e.g., /dev/ttyUSB0)")
+        parser.add_argument("-g",     required=False, nargs="?", const="127.0.0.1:2947", default=None, help="Enable GPS tagging of hits via gpsd. Optional 'host:port' to point at a non-default gpsd (default 127.0.0.1:2947). Requires gpsd running with a GPS source configured — see setup/*_gps_setup.txt")
         parser.add_argument("-p",     action="store_true", required=False, help="Continuously print packets from flock cameras even if already found")
         parser.add_argument("-v",     required=False, action="store_true", help="Verbose mode, shows info on non-AI cameras in your surroundings")
         parser.add_argument("-delay",  required=False, type=float, help="Channel hop dwell time in seconds (default: 0.125)")
@@ -72,6 +72,10 @@ class Main_UI():
         if help: Utilities.help_menu();  parser.print_help(); exit()
         if args.w:   Wardriver.main()
         if not args.w and Variables.iface: Utilities.get_monitor_mode(iface=Variables.iface)
+
+        if Variables.gps:
+            gps_host, _, gps_port = Variables.gps.partition(":")
+            Background_Threads.gps_tracker(host=gps_host or "127.0.0.1", port=int(gps_port) if gps_port else 2947, verbose=Variables.verbose)
 
 
         Utilities.clear_screen()

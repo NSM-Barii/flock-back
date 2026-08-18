@@ -79,7 +79,7 @@ sudo venv/bin/python main.py -i wlan1 -p
 | `-nb` | Disable BLE scanner | Off |
 | `-p` | Packet mode — keep printing/saving repeat Flock hits | Off |
 | `-v` | Verbose — show non-Flock devices | Off |
-| `-g` | GPS serial port — **not implemented yet, do not use** | None |
+| `-g` | Enable GPS tagging of hits via gpsd. Optional `host:port` if gpsd isn't local (default `127.0.0.1:2947`). Requires gpsd running with a GPS source — see `setup/*_gps_setup.txt` (including `android_gps_setup.txt` for using a phone, no dongle needed) | Off |
 | `-bs` | BLE scan window in seconds | `5` |
 | `-delay` | Channel hop dwell time in seconds | `0.125` |
 | `-hops` | Custom channel list (e.g. `-hops 1 6 11`) | See below |

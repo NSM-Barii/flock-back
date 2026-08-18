@@ -591,37 +591,6 @@ class Utilities():
         subprocess.run('iwconfig', shell=True); time.sleep(1.5)
 
     
-    @classmethod
-    def _get_gps_cords(cls, timeout=10, verbose=False):
-        """This will be used to get live gps cords"""
-
-
-        gps_socket = gps3.GPSDSocket()
-        data_stream = gps3.DataStream()
-        gps_socket.connect()
-        gps_socket.watch()
-
-
-        for new_data in gps_socket:
-
-            try:
-
-                if new_data:
-                    data_stream.unpack(new_data)
-                    print('Altitude = ', data_stream.TPV['alt'])
-                    print('Latitude = ', data_stream.TPV['lat'])
-                        
-            except StopIteration: break
-
-            except Exception as e:
-                if verbose:
-                    console.print(f"[bold red]GPS Exception Error: {e}")
-                time.sleep(0.5)
-                continue
-                    
-
-
-        return None, None
 
 
 
@@ -682,4 +651,51 @@ class Background_Threads():
 
         cls.hop = True
         threading.Thread(target=hopper, args=(), daemon=True).start()
+
+
+    @classmethod
+    def gps_tracker(cls, host="127.0.0.1", port=2947, verbose=False):
+        """Keeps Variables.gps_fix updated with the latest gpsd fix — reconnects on any error
+        so a dropped phone/gpsd link doesn't permanently kill GPS tagging for the rest of the run"""
+
+
+        def tracker():
+
+            while Variables.BACKGROUND:
+
+                try:
+
+                    gps_socket = gps3.GPSDSocket()
+                    data_stream = gps3.DataStream()
+                    gps_socket.connect(host=host, port=port)
+                    gps_socket.watch()
+
+                    got_fix = False
+
+                    for new_data in gps_socket:
+
+                        if not Variables.BACKGROUND: break
+                        if not new_data: continue
+
+                        data_stream.unpack(new_data)
+                        lat = data_stream.TPV.get("lat")
+                        lon = data_stream.TPV.get("lon")
+                        alt = data_stream.TPV.get("alt")
+
+                        if lat in (None, "n/a") or lon in (None, "n/a"): continue
+
+                        with Variables.LOCK:
+                            Variables.gps_fix = {"lat": lat, "lon": lon, "alt": alt, "time": Utilities.get_timestamp()}
+
+                        if not got_fix:
+                            got_fix = True
+                            console.print(f"[bold green][+] GPS tracker got first fix via gpsd {host}:{port}:[bold yellow] {lat}, {lon}")
+                        elif verbose: console.print(f"[bold green][+] GPS Fix:[bold yellow] {lat}, {lon}")
+
+                except Exception as e:
+                    console.print(f"[bold red][-] GPS Error, retrying in 3s:[bold yellow] {e}")
+                    time.sleep(3)
+
+
+        threading.Thread(target=tracker, args=(), daemon=True).start()
 

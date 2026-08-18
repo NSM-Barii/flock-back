@@ -1,0 +1,60 @@
+# Android GPS Setup — using a phone as flock-back's GPS source (no dongle needed)
+
+flock-back doesn't talk to a GPS device directly — it talks to a running `gpsd` daemon
+over gpsd's own JSON protocol (127.0.0.1:2947 by default). gpsd is the thing that owns
+the actual GPS source, and gpsd can consume NMEA sentences over UDP just as happily as
+a USB dongle. That means your phone can BE the GPS source with zero flock-back code
+changes — this file just covers getting gpsd fed from the phone.
+
+Recommended app: Android-GPSd-Forwarder (open source)
+  https://github.com/tiagoshibata/Android-GPSd-Forwarder
+  Forwards NMEA sentences from the phone's GPS to a host:port you specify, over UDP.
+
+## Why USB tethering, not WiFi or Bluetooth
+
+- Your WiFi adapter will be in monitor mode during a scan — it can't simultaneously hold
+  a managed-mode link to the phone's hotspot (one radio, one mode at a time).
+- Bluetooth-based bridges (e.g. ShareGPS over rfcomm) are also possible, but they'd share
+  hci0 with flock-back's own BLE scanner — untested whether concurrent BLE scanning and a
+  Bluetooth SPP link cause contention. USB tethering sidesteps the question entirely.
+
+## Setup steps
+
+1. Install gpsd on the laptop if you haven't already — see arch_gps_setup.txt or
+   debian_kali_gps_setup.txt in this folder for package names (you only need gpsd
+   itself here, not the udev/serial-device steps in those files).
+
+2. Install "Android-GPSd-Forwarder" from the GitHub repo above. Check the repo's README
+   for current install instructions (availability on F-Droid/Play Store varies — you may
+   need to sideload the APK).
+
+3. Plug the phone in via USB and enable USB tethering
+   (Settings -> Network & internet -> Hotspot & tethering -> USB tethering).
+   This creates a new interface on the laptop (commonly usb0) with a private IP.
+   Mobile data does NOT need to be on — this is just a point-to-point link.
+
+4. Find the laptop's IP on that new interface:
+     ip addr show usb0
+   (name may differ — run `ip a` before/after enabling tethering to see what appeared)
+
+5. In Android-GPSd-Forwarder, set the destination to the laptop's usb0 IP and a port of
+   your choice (e.g. 29998), and start forwarding.
+
+6. Start gpsd in UDP-listen mode instead of pointing it at a serial device:
+     sudo gpsd -N -n udp://*:29998
+   (-N = foreground, so you can watch it work; -n = don't wait for a client before
+   polling the source)
+
+7. Confirm the fix is actually arriving before trusting flock-back with it:
+     cgps
+   Expect a live lat/lon once the phone has a GPS lock — can take a minute outdoors,
+   longer near buildings or inside a car.
+
+8. Run flock-back with GPS tagging on:
+     sudo venv/bin/python main.py -i wlan1 -g
+   Bare -g targets the default local gpsd (127.0.0.1:2947), which is what step 6 is
+   listening as — no extra argument needed. Only pass -g host:port if gpsd runs
+   somewhere other than localhost.
+
+Every WiFi and BLE hit written to flocks.json/packets.json now carries "lat"/"lon"
+fields — null until the phone has a fix, populated automatically once it does.

@@ -45,5 +45,7 @@ class Variables():
     kismet      = False
     inject_test = False
 
+    gps_fix = {"lat": None, "lon": None, "alt": None, "time": None}
+
     LOCK = threading.RLock()
     console = Console()
