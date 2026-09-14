@@ -64,6 +64,9 @@ sudo venv/bin/python main.py -i wlan1 -v
 
 # Packet mode (continuous logging of repeat Flock hits)
 sudo venv/bin/python main.py -i wlan1 -p
+
+# GPS mode (connect to default gpsd port)
+sudo venv/bin/python main.py -i wlan1 -g
 ```
 
 ---
@@ -79,7 +82,7 @@ sudo venv/bin/python main.py -i wlan1 -p
 | `-nb` | Disable BLE scanner | Off |
 | `-p` | Packet mode — keep printing/saving repeat Flock hits | Off |
 | `-v` | Verbose — show non-Flock devices | Off |
-| `-g` | GPS serial port — **not implemented yet, do not use** | None |
+| `-g` | local GPSD server port | `2947` |
 | `-bs` | BLE scan window in seconds | `5` |
 | `-delay` | Channel hop dwell time in seconds | `0.125` |
 | `-hops` | Custom channel list (e.g. `-hops 1 6 11`) | See below |

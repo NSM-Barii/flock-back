@@ -590,46 +590,59 @@ class Utilities():
         subprocess.run(f"sudo ip link set {iface} down; sudo iw dev {iface} set type {mode}; sudo ip link set {iface} up", shell=True)
         subprocess.run('iwconfig', shell=True); time.sleep(1.5)
 
-    
-    @classmethod
-    def _get_gps_cords(cls, timeout=10, verbose=False):
-        """This will be used to get live gps cords"""
-
-
-        gps_socket = gps3.GPSDSocket()
-        data_stream = gps3.DataStream()
-        gps_socket.connect()
-        gps_socket.watch()
-
-
-        for new_data in gps_socket:
-
-            try:
-
-                if new_data:
-                    data_stream.unpack(new_data)
-                    print('Altitude = ', data_stream.TPV['alt'])
-                    print('Latitude = ', data_stream.TPV['lat'])
-                        
-            except StopIteration: break
-
-            except Exception as e:
-                if verbose:
-                    console.print(f"[bold red]GPS Exception Error: {e}")
-                time.sleep(0.5)
-                continue
-                    
-
-
-        return None, None
-
-
 
 class Background_Threads():
     """This module will house background permanent running threads"""
+
+    gps_lon = 'n/a' 
+    gps_lat = 'n/a'
+    last_lon = 'n/a'
+    last_lat = 'n/a'
+
+    @classmethod
+    def get_coords(cls):
+        return cls.gps_lat, cls.gps_lon
+
+    @classmethod
+    def gps_client(cls, host='localhost', port=2947, verbose=True):
+        """This will be used to get live gps cords"""
+        
+        def update_position():    
+            gps_socket = gps3.GPSDSocket()
+            data_stream = gps3.DataStream()
+            gps_socket.connect(host, Variables.gps)
+            gps_socket.watch()
+
+            for new_data in gps_socket:
+
+                try:
+
+                    if new_data:
+                        data_stream.unpack(new_data)
+
+                        cls.gps_lat = data_stream.TPV['lat']
+                        cls.gps_lon = data_stream.TPV['lon']
+                       
+                        if cls.gps_lat != 'n/a':
+                            cls.last_lat = cls.gps_lat
+                        
+                        if cls.gps_lon != 'n/a':
+                            cls.last_lon = cls.gps_lon
+
+                        if verbose: 
+                            print('Latitude = ', cls.gps_lat)
+                            print('Longitude = ', cls.gps_lon)
+                             
+                except StopIteration: break
+
+                except Exception as e:
+                    if verbose:
+                        console.print(f"[bold red]GPS Exception Error: {e}")
+                    time.sleep(0.5)
+                    continue            
+
+        threading.Thread(target=update_position, args=(), daemon=True).start()
     
-
-
     hop = True
     channel = 0
 
@@ -637,7 +650,6 @@ class Background_Threads():
     @classmethod
     def channel_hopper(cls, iface, channels=None, set_channel=False, verbose=False):
         """This method will be responsible for automatically hopping channels"""
-
 
 
         def hopper():
@@ -678,7 +690,6 @@ class Background_Threads():
                         time.sleep(delay)
 
                     except Exception as e: console.print(f"[bold red]Exception Error:[bold yellow] {e}")
-
 
         cls.hop = True
         threading.Thread(target=hopper, args=(), daemon=True).start()

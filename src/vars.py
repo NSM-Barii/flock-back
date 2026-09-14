@@ -18,7 +18,7 @@ class Variables():
     gps     = False
     help    = False
     packet  = False
-    verbose = False
+    verbose = True
     delay   = 0.125
     hops    = [1, 6, 11, 36, 40, 44, 48, 149, 153, 157, 161]
     ble_scan_duration = 5
