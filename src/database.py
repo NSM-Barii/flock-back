@@ -595,7 +595,7 @@ class Background_Threads():
     """This module will house background permanent running threads"""
 
     @classmethod
-    def gps_client(cls, host='localhost', verbose=True):
+    def gps_client(cls, host='localhost', verbose=False):
         """This will be used to get live gps cords"""
         
         def update_position():    
