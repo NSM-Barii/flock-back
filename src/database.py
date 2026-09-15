@@ -594,17 +594,8 @@ class Utilities():
 class Background_Threads():
     """This module will house background permanent running threads"""
 
-    gps_lon = 'n/a' 
-    gps_lat = 'n/a'
-    last_lon = 'n/a'
-    last_lat = 'n/a'
-
     @classmethod
-    def get_coords(cls):
-        return cls.gps_lat, cls.gps_lon
-
-    @classmethod
-    def gps_client(cls, host='localhost', port=2947, verbose=True):
+    def gps_client(cls, host='localhost', verbose=True):
         """This will be used to get live gps cords"""
         
         def update_position():    
@@ -620,18 +611,18 @@ class Background_Threads():
                     if new_data:
                         data_stream.unpack(new_data)
 
-                        cls.gps_lat = data_stream.TPV['lat']
-                        cls.gps_lon = data_stream.TPV['lon']
+                        gps_lat = data_stream.TPV['lat']
+                        gps_lon = data_stream.TPV['lon']
                        
-                        if cls.gps_lat != 'n/a':
-                            cls.last_lat = cls.gps_lat
+                        if gps_lat != 'n/a':
+                            Variables.last_lat = gps_lat
                         
-                        if cls.gps_lon != 'n/a':
-                            cls.last_lon = cls.gps_lon
+                        if gps_lon != 'n/a':
+                            Variables.last_lon = gps_lon
 
                         if verbose: 
-                            print('Latitude = ', cls.gps_lat)
-                            print('Longitude = ', cls.gps_lon)
+                            print('Latitude = ', gps_lat)
+                            print('Longitude = ', gps_lon)
                              
                 except StopIteration: break
 

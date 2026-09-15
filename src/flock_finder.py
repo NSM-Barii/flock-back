@@ -250,12 +250,11 @@ class BLE_Sniffer():
                     manufacturer = BLE_Sniffer._get_manuf(manuf=adv.manufacturer_data)
                     a, valid_uuid = PDU_Inspector._check_uuid(uuid=uuid)
                     time_stamp = Utilities.get_timestamp()
-                    gps_lat, gps_lon = Background_Threads.get_coords()
 
                     data = {
                         "time_stamp": time_stamp,
-                        "lat": gps_lat,
-                        "lon": gps_lon,
+                        "lat": Variables.last_lat,
+                        "lon": Variables.last_lon,
                         "type": "ble",
                         "rssi": rssi,
                         "mac": mac,
@@ -359,12 +358,11 @@ class WiFi_Sniffer():
         vendor     = cls.DataBase.get_vendor_main(mac=src)
         encryption = "unknown"  # THIS WILL BE TO COMPLICATED TO GET WITH TSHARK
         time_stamp = Utilities.get_timestamp()
-        gps_lat, gps_lon = Background_Threads.get_coords()
 
         data = {
             "time_stamp": time_stamp,
-            "lat" : gps_lat,
-            "lon" : gps_lon,
+            "lat" : Variables.last_lat,
+            "lon" : Variables.last_lon,
             "type": "wifi",
             "rssi": rssi,
             "mac": src,
