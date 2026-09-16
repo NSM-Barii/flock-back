@@ -253,6 +253,8 @@ class BLE_Sniffer():
 
                     data = {
                         "time_stamp": time_stamp,
+                        "lat": Variables.last_lat,
+                        "lon": Variables.last_lon,
                         "type": "ble",
                         "rssi": rssi,
                         "mac": mac,
@@ -359,6 +361,8 @@ class WiFi_Sniffer():
 
         data = {
             "time_stamp": time_stamp,
+            "lat" : Variables.last_lat,
+            "lon" : Variables.last_lon,
             "type": "wifi",
             "rssi": rssi,
             "mac": src,
@@ -516,8 +520,8 @@ class Main_Thread():
         # BLE SNIFFER
         if Variables.ble: threading.Thread(target=BLE_Sniffer.main, args=(verbose,), daemon=True).start()
 
-
-     
+        # GPS INSTANCE
+        if Variables.gps: Background_Threads.gps_client()
 
 
         try:

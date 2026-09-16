@@ -15,13 +15,15 @@ class Variables():
 
     bface    = "hci0"
     iface   = False
-    gps     = False
     help    = False
     packet  = False
     verbose = False
     delay   = 0.125
     hops    = [1, 6, 11, 36, 40, 44, 48, 149, 153, 157, 161]
     ble_scan_duration = 5
+    gps     = False
+    last_lon = "n/a"
+    last_lat = "n/a"
 
     presets = {
         "2.4": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
